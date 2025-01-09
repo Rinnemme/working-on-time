@@ -8,7 +8,12 @@ exports.getProjectsForUser = async (req: Request, res: Response) => {
     try {
       const user = req.user as any;
       const projects = await db.getUserProjectsBulk(user.id);
-      res.status(200).json({ projects });
+      const projectsWithTasks: any[] = [];
+      for (let project of projects) {
+        let taskList = await db.getProjectTasks(project.id);
+        projectsWithTasks.push({ ...project, tasks: taskList });
+      }
+      res.status(200).json({ projects: projectsWithTasks });
     } catch (err) {
       res.status(500).json({ error: err });
     }
