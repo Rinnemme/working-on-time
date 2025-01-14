@@ -39,7 +39,6 @@ export default function Navbar() {
       })
       .catch((err) => {
         if (path !== "/" && path !== "/about") router.push("/");
-        console.log(err);
       });
   };
 
@@ -55,7 +54,7 @@ export default function Navbar() {
         }
       })
       .catch((err) => {
-        console.log(err);
+        return;
       });
   };
 
@@ -66,7 +65,7 @@ export default function Navbar() {
 
   const loginSuccess = () => {
     router.push("/projects");
-    console.log("success called");
+    getAndSetProjects();
     setModalOpen(false);
   };
 
