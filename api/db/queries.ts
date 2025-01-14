@@ -9,7 +9,7 @@ exports.getAllUsernames = async () => {
 
 exports.getUserProjectsBulk = async (userId: String) => {
   const { rows } = await pool.query(
-    'SELECT p.id, p.name, p.userid, p.priority, p.description, COUNT(t.id) as "total tasks", COUNT(CASE WHEN t.complete = true THEN t.id END) as "completed tasks" FROM projects as "p" LEFT JOIN tasks as "t" ON p.id = t.projectid WHERE p.userid = $1 GROUP BY p.id ORDER BY p.id',
+    'SELECT p.id, p.name, p.userid, p.priority, p.description, COUNT(t.id) as "totalTasks", COUNT(CASE WHEN t.complete = true THEN t.id END) as "completedTasks" FROM projects as "p" LEFT JOIN tasks as "t" ON p.id = t.projectid WHERE p.userid = $1 GROUP BY p.id ORDER BY p.id',
     [userId]
   );
   return rows;
@@ -17,7 +17,7 @@ exports.getUserProjectsBulk = async (userId: String) => {
 
 exports.getUserProject = async (projectId: Number) => {
   const { rows } = await pool.query(
-    'SELECT projects.id, projects.name, projects.description, projects.userid, COUNT(tasks.id) as "total tasks", COUNT(CASE WHEN tasks.complete = true THEN tasks.id END) as "completed tasks" FROM projects LEFT JOIN tasks ON projects.id = tasks.projectid WHERE projects.id = $1 GROUP BY projects.id',
+    'SELECT projects.id, projects.name, projects.description, projects.userid, COUNT(tasks.id) as "totalTasks", COUNT(CASE WHEN tasks.complete = true THEN tasks.id END) as "completedTasks" FROM projects LEFT JOIN tasks ON projects.id = tasks.projectid WHERE projects.id = $1 GROUP BY projects.id',
     [projectId]
   );
   return rows;
