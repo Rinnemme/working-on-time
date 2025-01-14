@@ -2,6 +2,7 @@ import { Application, Request, Response } from "express";
 const express = require("express");
 const session = require("express-session");
 const passport = require("passport");
+const cors = require("cors");
 const LocalStrategy = require("passport-local");
 const bcrypt = require("bcryptjs");
 const taskRoutes = require("./routes/tasks");
@@ -21,6 +22,7 @@ app.use(
 app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(cors({ origin: ["http://localhost:3001"], credentials: true }));
 
 app.use("/tasks", taskRoutes);
 app.use("/my-projects", projectRoutes);
