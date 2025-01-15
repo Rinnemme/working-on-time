@@ -16,6 +16,8 @@ export type Project = {
   totalTasks: String; // make number
   completedTasks: String; // make number
   tasks: Task[];
+  dateCreated: String;
+  due: String;
 };
 
 export type User = {
