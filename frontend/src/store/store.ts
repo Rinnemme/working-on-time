@@ -3,11 +3,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import projectReducer from "./projectSlice";
 import userReducer from "./userSlice";
+import loadingReducer from "./loadingSlice";
 
 export const store = configureStore({
   reducer: {
     user: userReducer,
     projects: projectReducer,
+    isLoading: loadingReducer,
   },
 });
 

@@ -16,6 +16,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../../src/store/userSlice";
 import { setProjects } from "@/src/store/projectSlice";
+import { setIsLoading } from "@/src/store/loadingSlice";
 import { useRouter } from "next/navigation";
 
 import { useSelector } from "react-redux";
@@ -26,6 +27,7 @@ export default function Navbar() {
   const path = usePathname();
   const [modalOpen, setModalOpen] = useState<Boolean>(false);
   const username = useSelector((state: AppState) => state.user.username);
+  const isLoading = useSelector((state: AppState) => state.isLoading);
   const dispatch = useDispatch();
 
   const getAndSetUser = () => {
@@ -36,6 +38,7 @@ export default function Navbar() {
     })
       .then((res) => {
         dispatch(setUser(res.data));
+        dispatch(setIsLoading(false));
       })
       .catch((err) => {
         if (path !== "/" && path !== "/about") router.push("/");
@@ -109,12 +112,8 @@ export default function Navbar() {
                     </Link>
                   </div>
 
-                  <div className="flex flex-shrink-0 items-center hover:cursor-pointer">
-                    <Link href="/"></Link>
-                  </div>
-
-                  {!username && (
-                    <div className="hidden md:ml-6 md:flex md:items-center md:space-x-4">
+                  {!username && !isLoading && (
+                    <div className="hidden md:ml-6 md:flex md:items-center md:space-x-4 fade-in">
                       <Link
                         href="/"
                         className={
@@ -140,8 +139,8 @@ export default function Navbar() {
                     </div>
                   )}
 
-                  {username && (
-                    <div className="hidden md:ml-6 md:flex md:items-center md:space-x-4">
+                  {username && !isLoading && (
+                    <div className="hidden md:ml-6 md:flex md:items-center md:space-x-4 fade-in">
                       <Link
                         href="/projects"
                         className={
@@ -168,18 +167,20 @@ export default function Navbar() {
                   )}
                 </div>
 
-                <div className="flex items-center hover:cursor-pointer">
-                  <div className="flex-shrink-0">
-                    <button
-                      type="button"
-                      className="rounded-md px-3 py-2 text-sm hover:cursor-pointer transition-all duration-200 hover:bg-slate-100 hover:text-wot-rose"
-                      onClick={() => setModalOpen(true)}
-                    >
-                      {!username && "Log In"}
-                      {username && `Welcome, ${username}`}
-                    </button>
+                {!isLoading && (
+                  <div className="flex items-center hover:cursor-pointer">
+                    <div className="flex-shrink-0">
+                      <button
+                        type="button"
+                        className="rounded-md px-3 py-2 text-sm hover:cursor-pointer transition-all duration-200 hover:bg-slate-100 hover:text-wot-rose"
+                        onClick={() => setModalOpen(true)}
+                      >
+                        {!username && "Log In"}
+                        {username && `Welcome, ${username}`}
+                      </button>
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
             </div>
 
