@@ -1,8 +1,9 @@
 "use client";
 import type { Project } from "@/src/store/types";
+import { useParams } from "next/navigation";
 
 export default function ProjectItem({ project }: { project: Project }) {
-  console.log(project);
+  const params = useParams();
   const priority =
     project.priority === 1
       ? { textColor: "text-wot-blue", string: "Low" }
@@ -10,11 +11,13 @@ export default function ProjectItem({ project }: { project: Project }) {
       ? { textColor: "text-wot-green", string: "Medium" }
       : { textColor: "text-wot-yellow", string: "High" };
   return (
-    <div className="w-full flex flex-col items-start justify-start border border-wot-light-gray rounded p-3">
+    <div className="w-full flex flex-col items-start justify-start border border-wot-light-gray rounded p-3 fade-in">
       <div>
-        <div className={`text-left w-fit font-bold ${priority.textColor}`}>
-          {project.name}
-        </div>
+        {!params.id && (
+          <div className={`text-left w-fit font-bold ${priority.textColor}`}>
+            {project.name}
+          </div>
+        )}
         <div className="text-left w-fit">{project.description}</div>
       </div>
       <div className="w-full flex justify-start flex-wrap gap-x-6 gap-y-4 mt-4">
