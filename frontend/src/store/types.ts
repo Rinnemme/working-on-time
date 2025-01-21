@@ -1,27 +1,28 @@
 export type Task = {
-  id: Number;
-  name: String;
-  description: String;
-  complete: Boolean;
-  projectid: Number;
-  userid: Number;
+  id: number;
+  name: string;
+  description: string;
+  complete: boolean;
+  projectid: number;
+  userid: number;
+  position: number;
 };
 
 export type Project = {
-  id: Number;
-  name: String;
-  userid: Number;
-  priority: Number;
-  description: String;
-  totalTasks: String; // make number
-  completedTasks: String; // make number
+  id: number;
+  name: string;
+  userid: number;
+  priority: number;
+  description: string;
+  totalTasks: string; // make number
+  completedTasks: string; // make number
   tasks: Task[];
-  dateCreated: String;
-  due: String;
+  dateCreated: string;
+  due: string;
 };
 
 export type User = {
-  id: Number | null;
-  username: String | null;
-  nickname: String | null;
+  id: number | null;
+  username: string | null;
+  nickname: string | null;
 };
