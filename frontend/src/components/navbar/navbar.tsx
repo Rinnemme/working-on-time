@@ -38,7 +38,6 @@ export default function Navbar() {
     })
       .then((res) => {
         dispatch(setUser(res.data));
-        dispatch(setIsLoading(false));
       })
       .catch((err) => {
         if (path !== "/" && path !== "/about") router.push("/");
@@ -58,7 +57,8 @@ export default function Navbar() {
       })
       .catch((err) => {
         return;
-      });
+      })
+      .finally(() => dispatch(setIsLoading(false)));
   };
 
   useEffect(() => {
