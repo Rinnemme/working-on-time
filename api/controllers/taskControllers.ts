@@ -3,14 +3,22 @@ import { Request, Response } from "express";
 
 exports.addNewTask = async (req: Request, res: Response) => {
   if (!req.user) {
-    res.status(400).json({ message: "Please log in before editing a task." });
+    res.status(400).json({ message: "Please log in before adding a task." });
   } else
     try {
-      const { name, description, projectId } = req.body;
+      const { name, description, projectid } = req.body;
       const user = req.user as any;
-      const userOwnsProject = db.verifyProjectOwnership(projectId, user.id);
+      const userOwnsProject = db.verifyProjectOwnership(projectid, user.id);
       if (userOwnsProject) {
-        await db.addNewTask(name, description, false, projectId, user.id);
+        const position = await db.getAdditionPosition(projectid);
+        await db.addNewTask(
+          name,
+          description,
+          false,
+          projectid,
+          user.id,
+          position
+        );
         res.status(200).json({ addition: "success" });
       } else {
         res.status(400).json({
@@ -71,12 +79,43 @@ exports.deleteTask = async (req: Request, res: Response) => {
       const user = req.user as any;
       const userOwnsTask = db.verifyTaskOwnership(req.params.id, user.id);
       if (userOwnsTask) {
-        await db.deleteTask(req.params.id);
+        const task = await db.getTask(req.params.id);
+        console.log(task);
+        await db.deleteTask(task.id);
+        await db.accountForRemovedTask(task.position, task.projectid);
         res.status(200).json({ deletion: "success" });
       } else {
         res
           .status(400)
           .json({ message: "You do not have permission to delete this task" });
+      }
+    } catch (err) {
+      res.status(500).json({ error: err });
+    }
+};
+
+exports.moveTask = async (req: Request, res: Response) => {
+  const { swapToId }: { swapToId: number } = req.body;
+  if (!req.user) {
+    res.status(400).json({ message: "Please log in before moving a task." });
+  } else
+    try {
+      const user = req.user as any;
+      const userOwnsTask = db.verifyTaskOwnership(req.params.id, user.id);
+      if (userOwnsTask) {
+        const swapFrom = await db.getTask(req.params.id);
+        const swapTo = await db.getTask(swapToId);
+        await db.accountForReorderedTasks(
+          swapFrom.position,
+          swapTo.position,
+          swapFrom.projectid
+        );
+        await db.repositionTask(swapTo.position, req.params.id);
+        res.status(200).json({ move: "success" });
+      } else {
+        res
+          .status(400)
+          .json({ message: "You do not have permission to move this task" });
       }
     } catch (err) {
       res.status(500).json({ error: err });

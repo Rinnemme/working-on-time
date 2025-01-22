@@ -6,5 +6,6 @@ router.post("/add", taskController.addNewTask);
 router.post("/:id/edit", taskController.editTask);
 router.post("/:id/toggle", taskController.toggleTaskComplete);
 router.delete("/:id/delete", taskController.deleteTask);
+router.post("/:id/move", taskController.moveTask);
 
 module.exports = router;
