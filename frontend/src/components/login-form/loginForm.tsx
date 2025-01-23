@@ -4,9 +4,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { ReactNode } from "react";
 import { useDispatch } from "react-redux";
-import { setUser } from "../../../src/store/userSlice";
-import { useRouter } from "next/router";
-import { error } from "console";
+import { setUser } from "../../store/userSlice";
 
 export default function LoginForm({
   successFunc,
