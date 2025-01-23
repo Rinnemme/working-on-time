@@ -11,7 +11,7 @@ export default function ProjectItem({ project }: { project: Project }) {
       ? { textColor: "text-wot-green", string: "Medium" }
       : { textColor: "text-wot-yellow", string: "High" };
   return (
-    <div className="w-full flex flex-col items-start justify-start border border-wot-light-gray rounded p-3 fade-in">
+    <div className="w-full flex flex-col items-start justify-start border border-wot-light-gray rounded p-3 fade-in relative">
       <div>
         {!params.id && (
           <div className={`text-left w-fit font-bold ${priority.textColor}`}>
@@ -53,14 +53,3 @@ export default function ProjectItem({ project }: { project: Project }) {
     </div>
   );
 }
-
-// export type Project = {
-//     id: Number;
-//     name: String;
-//     userid: Number;
-//     priority: Number;
-//     description: String;
-//     totalTasks: String; // make number
-//     completedTasks: String; // make number
-//     tasks: Task[];
-//   };

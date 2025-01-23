@@ -1,17 +1,13 @@
 "use client";
 
-import { Project, Task } from "./types";
+import { Project } from "./types";
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState: Project[] = [];
 
-// const indexOfProject = (num: Number, state: Project[]) => {
-//   return state.findIndex((project) => project.id === num);
-// };
-
-// const indexOfTask = (num: Number, taskList: Task[]) => {
-//   return taskList.findIndex((task) => task.id === num)
-// }
+const indexOfProject = (num: Number, state: Project[]) => {
+  return state.findIndex((project) => project.id === num);
+};
 
 export const projectSlice = createSlice({
   name: "Projects",
@@ -21,8 +17,13 @@ export const projectSlice = createSlice({
       state = action.payload;
       return state;
     },
+    setProjectTasks: (state, action) => {
+      const index = indexOfProject(action.payload[0].projectid, state);
+      state[index].tasks = action.payload;
+      return state;
+    },
   },
 });
 
-export const { setProjects } = projectSlice.actions;
+export const { setProjects, setProjectTasks } = projectSlice.actions;
 export default projectSlice.reducer;
