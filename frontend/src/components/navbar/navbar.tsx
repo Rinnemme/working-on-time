@@ -10,7 +10,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import Logo from "../../../public/Logo.svg";
 import Modal from "../modal/modal";
-import LoginForm from "../loginForm/loginForm";
+import LoginForm from "../login-form/loginForm";
 
 import axios from "axios";
 import { useDispatch } from "react-redux";
