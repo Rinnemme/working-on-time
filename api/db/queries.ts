@@ -72,7 +72,7 @@ exports.addNewTask = async (
   position: number
 ) => {
   const { rows } = await pool.query(
-    "INSERT INTO tasks (name, description, complete, projectid, userid, position) VALUES ($1, $2, $3, $4, $5, $6)",
+    "INSERT INTO tasks (name, description, complete, projectid, userid, position) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
     [name, description, complete, projectid, userid, position]
   );
   return rows;
@@ -97,7 +97,7 @@ exports.addNewProject = async (
 
 exports.updateTask = async (name: string, description: string, id: number) => {
   const { rows } = await pool.query(
-    "UPDATE tasks SET name = $1, description = $2, WHERE id = $4",
+    "UPDATE tasks SET name = $1, description = $2 WHERE id = $3",
     [name, description, id]
   );
   return rows;
