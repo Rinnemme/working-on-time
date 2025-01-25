@@ -11,7 +11,7 @@ exports.addNewTask = async (req: Request, res: Response) => {
       const userOwnsProject = db.verifyProjectOwnership(projectid, user.id);
       if (userOwnsProject) {
         const position = await db.getAdditionPosition(projectid);
-        await db.addNewTask(
+        const newTask = await db.addNewTask(
           name,
           description,
           false,
@@ -19,7 +19,7 @@ exports.addNewTask = async (req: Request, res: Response) => {
           user.id,
           position
         );
-        res.status(200).json({ addition: "success" });
+        res.status(200).json(newTask);
       } else {
         res.status(400).json({
           message: "You do not have permission to add a task to this project",
