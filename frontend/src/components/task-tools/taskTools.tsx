@@ -5,6 +5,9 @@ import { useState } from "react";
 import Tools from "../../../public/tools.svg";
 import Image from "next/image";
 import Modal from "../modal/modal";
+import EditTaskForm from "./edit-task-form/editTaskForm";
+import Confirmation from "./confirmation/confirmation";
+import TaskDetails from "./task-details/taskDetails";
 
 type ModalType = "Edit" | "Delete" | "Details" | null;
 
@@ -26,25 +29,39 @@ export default function TaskTools({ task }: { task: Task }) {
           onMouseLeave={() => setDropdown(false)}
         >
           <div
-            className="text-nowrap hover:cursor-pointer hover:text-wot-rose"
+            className="text-nowrap text-end hover:cursor-pointer hover:text-wot-rose"
+            onClick={() => setModal("Details")}
+          >
+            View Details
+          </div>
+          <div
+            className="text-nowrap text-end hover:cursor-pointer hover:text-wot-rose"
             onClick={() => setModal("Edit")}
           >
             Edit Task
           </div>
-          <div className="text-nowrap hover:cursor-pointer hover:text-wot-rose">
+          <div
+            className="text-nowrap text-end hover:cursor-pointer hover:text-wot-rose"
+            onClick={() => setModal("Delete")}
+          >
             Delete Task
-          </div>
-          <div className="text-nowrap hover:cursor-pointer hover:text-wot-rose">
-            View Details
           </div>
         </div>
       )}
-      {modal === "Edit" && <Modal closeFunc={() => setModal(null)}>okok</Modal>}
+      {modal === "Edit" && (
+        <Modal closeFunc={() => setModal(null)}>
+          <EditTaskForm closeFunc={() => setModal(null)} task={task} />
+        </Modal>
+      )}
       {modal === "Delete" && (
-        <Modal closeFunc={() => setModal(null)}>okok</Modal>
+        <Modal closeFunc={() => setModal(null)}>
+          <Confirmation closeFunc={() => setModal(null)} task={task} />
+        </Modal>
       )}
       {modal === "Details" && (
-        <Modal closeFunc={() => setModal(null)}>okok</Modal>
+        <Modal closeFunc={() => setModal(null)}>
+          <TaskDetails task={task} />
+        </Modal>
       )}
     </div>
   );
