@@ -5,13 +5,13 @@ import { useState } from "react";
 import { useParams } from "next/navigation";
 import type { AppState } from "@../../../src/store/store";
 import type { Project } from "@../../../src/store/types";
-import ProjectItem from "@../../../src/components/project-item/project-item";
 import Throbber from "@../../../src/components/throbber/throbber";
 import TaskList from "@../../../src/components/task-list/taskList";
 import Modal from "@/src/components/modal/modal";
 import AddTaskForm from "@/src/components/add-task/addTask";
 import Add from "../../../public/add.svg";
 import Image from "next/image";
+import ProjectDescription from "@/src/components/project-description/projectDescsription";
 
 type AddModal = "Task" | "Project" | null;
 
@@ -38,11 +38,11 @@ export default function Project() {
                 {project.name}
               </h1>
               <div className="mt-10 flex flex-col gap-4 w-full max-w-lg px-3">
-                <ProjectItem key={`project-${project.id}`} project={project} />
+                <ProjectDescription project={project} />
                 <h1 className="text-wot-rose text-2xl mt-5 mb-5 font-bold sm:text-3xl fade flex items-center gap-2 justify-center">
                   Tasks
                   <Image
-                    className="bg-wot-gray hover:bg-wot-green hover:scale-105 transition hover:cursor-pointer rounded-full h-5 w-5 flex items-center justify-center"
+                    className="bg-wot-gray hover:bg-wot-green hover:scale-105 transition hover:cursor-pointer rounded-full h-[18px] w-[18px] flex items-center justify-center"
                     onClick={() => setModal("Task")}
                     src={Add}
                     alt="Add a task"

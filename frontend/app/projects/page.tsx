@@ -1,7 +1,7 @@
 "use client";
 import { useSelector } from "react-redux";
 import type { AppState } from "@/src/store/store";
-import ProjectItem from "@/src/components/project-item/project-item";
+import ProjectItem from "@/src/components/project-item/projectItem";
 import Throbber from "@/src/components/throbber/throbber";
 
 export default function Projects() {

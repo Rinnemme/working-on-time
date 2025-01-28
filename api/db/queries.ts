@@ -83,12 +83,11 @@ exports.addNewProject = async (
   userid: number,
   priority: number,
   description: string,
-  due: string,
-  position: number
+  due: string
 ) => {
   const { rows } = await pool.query(
-    "INSERT INTO projects (name, userid, priority, description, due, position) VALUES ($1, $2, $3, $4, $5, $6)",
-    [name, userid, priority, description, due, position]
+    "INSERT INTO projects (name, userid, priority, description, due) VALUES ($1, $2, $3, $4, $5)",
+    [name, userid, priority, description, due]
   );
   return rows;
 };
@@ -123,11 +122,12 @@ exports.updateProject = async (
   name: string,
   priority: number,
   description: string,
+  due: string,
   id: number
 ) => {
   const { rows } = await pool.query(
-    "UPDATE projects SET name = $1, priority = $2, description = $3 WHERE id = $4",
-    [name, priority, description, id]
+    "UPDATE projects SET name = $1, priority = $2, description = $3, due = $4 WHERE id = $5",
+    [name, priority, description, due, id]
   );
   return rows;
 };

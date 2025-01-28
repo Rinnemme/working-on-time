@@ -44,10 +44,10 @@ exports.addNewProject = async (req: Request, res: Response) => {
     res.status(400).json({ message: "Please log in before adding a project." });
   } else
     try {
-      const { name, priority, description } = req.body;
+      const { name, priority, description, due } = req.body;
       const user = req.user as any;
       const userid = user.id;
-      await db.addNewProject(name, userid, priority, description);
+      await db.addNewProject(name, userid, priority, description, due);
       res.status(200).json({ addition: "success" });
     } catch (err) {
       res.status(500).json({ error: err });
@@ -61,11 +61,11 @@ exports.editProject = async (req: Request, res: Response) => {
       .json({ message: "Please log in before editing a project." });
   } else
     try {
-      const { name, priority, description } = req.body;
+      const { name, priority, description, due } = req.body;
       const user = req.user as any;
       const userOwnsProject = db.verifyProjectOwnership(req.params.id, user.id);
       if (userOwnsProject) {
-        await db.updateProject(name, priority, description, req.params.id);
+        await db.updateProject(name, priority, description, due, req.params.id);
         res.status(200).json({ edit: "success" });
       } else {
         res

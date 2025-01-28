@@ -1,0 +1,71 @@
+"use client";
+
+import type { Project } from "@/src/store/types";
+import { useState } from "react";
+import Tools from "../../../public/tools.svg";
+import Image from "next/image";
+import Modal from "../modal/modal";
+import ProjectEditForm from "./project-edit-form/projectEditForm";
+import ProjectDeleteConfirmation from "./project-delete-confirmation/projectDeleteConfirmation";
+
+type ModalType = "Edit" | "Delete" | null;
+
+export default function ProjectTools({ project }: { project: Project }) {
+  const [dropdown, setDropdown] = useState<boolean>(false);
+  const [modal, setModal] = useState<ModalType>(null);
+
+  return (
+    <div className="h-5 w-5 ms-auto relative">
+      <Image
+        src={Tools}
+        alt={"project tools"}
+        className="w-5 bg-wot-light-gray rounded-full hover:cursor-pointer hover:bg-wot-gray transition-all"
+        onClick={() => setDropdown(!dropdown)}
+      ></Image>
+      {dropdown && (
+        <div
+          className="absolute top-6 right-0 bg-wot-off-white border border-wot-light-gray shadow z-10 w-fit py-2 px-3"
+          onMouseLeave={() => setDropdown(false)}
+        >
+          <div
+            className="text-nowrap text-end hover:cursor-pointer hover:text-wot-rose"
+            // onClick={() => setModal("Details")}
+          >
+            Go To Project
+          </div>
+          <div
+            className="text-nowrap text-end hover:cursor-pointer hover:text-wot-rose"
+            // onClick={() => setModal("Details")}
+          >
+            Start a Working Session
+          </div>
+          <div
+            className="text-nowrap text-end hover:cursor-pointer hover:text-wot-rose"
+            onClick={() => setModal("Edit")}
+          >
+            Edit Project
+          </div>
+          <div
+            className="text-nowrap text-end hover:cursor-pointer hover:text-wot-rose"
+            onClick={() => setModal("Delete")}
+          >
+            Delete project
+          </div>
+        </div>
+      )}
+      {modal === "Edit" && (
+        <Modal closeFunc={() => setModal(null)}>
+          <ProjectEditForm closeFunc={() => setModal(null)} project={project} />
+        </Modal>
+      )}
+      {modal === "Delete" && (
+        <Modal closeFunc={() => setModal(null)}>
+          <ProjectDeleteConfirmation
+            closeFunc={() => setModal(null)}
+            project={project}
+          />
+        </Modal>
+      )}
+    </div>
+  );
+}

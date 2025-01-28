@@ -47,9 +47,26 @@ export const projectSlice = createSlice({
       state[index].tasks = [...state[index].tasks, action.payload];
       return state;
     },
+    updateProject: (state, action) => {
+      const projectIndex = indexOfProject(action.payload.id, state);
+      state[projectIndex] = action.payload;
+      console.log(action.payload);
+      return state;
+    },
+    deleteProject: (state, action) => {
+      state = state.filter((project) => project.id !== action.payload.id);
+      return state;
+    },
   },
 });
 
-export const { setProjects, setProjectTasks, updateTask, deleteTask, addTask } =
-  projectSlice.actions;
+export const {
+  setProjects,
+  setProjectTasks,
+  updateTask,
+  deleteTask,
+  addTask,
+  updateProject,
+  deleteProject,
+} = projectSlice.actions;
 export default projectSlice.reducer;
