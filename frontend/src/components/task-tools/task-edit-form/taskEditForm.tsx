@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import { updateTask } from "../../../store/projectSlice";
 import { Task } from "@/src/store/types";
 
-export default function EditTaskForm({
+export default function TaskEditForm({
   task,
   closeFunc,
 }: Readonly<{ task: Task; closeFunc: () => void }>) {

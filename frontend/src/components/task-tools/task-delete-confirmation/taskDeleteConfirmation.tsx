@@ -1,12 +1,11 @@
 "use client";
 
 import axios from "axios";
-import { ReactNode } from "react";
 import { useDispatch } from "react-redux";
 import { deleteTask } from "../../../store/projectSlice";
 import { Task } from "@/src/store/types";
 
-export default function Confirmation({
+export default function TaskDeleteConfirmation({
   task,
   closeFunc,
 }: Readonly<{ task: Task; closeFunc: () => void }>) {
@@ -34,8 +33,8 @@ export default function Confirmation({
 
   return (
     <div className="text-center flex flex-col items-center">
-      <div className="w-56 mt-8 px-2.5 py-1.5 text-gray-900">
-        Are you sure? This action cannot be undone.
+      <div className="w-56 mt-8 px-2.5 py-1.5 text-balance text-gray-900">
+        Are you sure you want to delete this task? This action cannot be undone.
       </div>
 
       <div className="w-full mb-2 flex justify-center">
