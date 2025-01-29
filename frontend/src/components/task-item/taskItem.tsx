@@ -6,8 +6,29 @@ import Draggable from "../../../public/draggable.svg";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import TaskTools from "../task-tools/taskTools";
+import { useDispatch } from "react-redux";
+import { toggleTaskCompletion } from "@/src/store/projectSlice";
+import axios from "axios";
 
 export default function TaskItem({ task }: { task: Task }) {
+  const dispatch = useDispatch();
+
+  const toggleComplete = () => {
+    axios({
+      method: "POST",
+      withCredentials: true,
+      url: `${process.env.baseURI}/tasks/${task.id}/toggle`,
+    })
+      .then(async (res) => {
+        if (res.status === 200) {
+          await dispatch(toggleTaskCompletion(task));
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   const {
     attributes,
     listeners,
@@ -27,7 +48,12 @@ export default function TaskItem({ task }: { task: Task }) {
       ref={setNodeRef}
       {...attributes}
       style={style}
-      className="border border-wot-light-gray rounded-sm bg-white relative flex py-4 px-2 gap-2 align-center items-center"
+      className={
+        "border border-wot-light-gray rounded-sm relative flex py-4 px-2 gap-2 align-center items-center " +
+        (task.complete
+          ? "bg-wot-lighter-gray text-wot-gray line-through"
+          : " bg-white")
+      }
     >
       <Image
         src={Draggable}
@@ -38,8 +64,8 @@ export default function TaskItem({ task }: { task: Task }) {
       />
       <input
         type="checkbox"
-        className="hover:cursor-pointer"
-        onChange={() => console.log("cool")}
+        className="hover:cursor-pointer accent-wot-gray"
+        onChange={() => toggleComplete()}
         checked={task.complete}
       ></input>
       <div className="ml-3 text-nowrap overflow-ellipsis">{task.name}</div>

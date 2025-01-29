@@ -36,6 +36,13 @@ export const projectSlice = createSlice({
       state[projectIndex].tasks[taskIndex] = action.payload;
       return state;
     },
+    toggleTaskCompletion: (state, action) => {
+      const projectIndex = indexOfProject(action.payload.projectid, state);
+      const taskIndex = indexOfTask(action.payload.id, state, projectIndex);
+      state[projectIndex].tasks[taskIndex].complete =
+        !state[projectIndex].tasks[taskIndex].complete;
+      return state;
+    },
     deleteTask: (state, action) => {
       const projectIndex = indexOfProject(action.payload.projectid, state);
       state[projectIndex].tasks = state[projectIndex].tasks.filter(
@@ -64,6 +71,7 @@ export const {
   setProjects,
   setProjectTasks,
   updateTask,
+  toggleTaskCompletion,
   deleteTask,
   addTask,
   updateProject,
