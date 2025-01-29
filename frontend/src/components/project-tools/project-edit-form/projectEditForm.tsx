@@ -64,7 +64,7 @@ export default function ProjectEditForm({
           Edit project
         </h3>
 
-        <div className="w-80 mt-6">
+        <div className="w-96 mt-6">
           <label
             htmlFor="projectName"
             className="block font-normal leading-6 text-gray-900"
@@ -75,10 +75,10 @@ export default function ProjectEditForm({
             <input
               type="text"
               id="projectName"
-              className="block w-64 bg-wot-off-white rounded-md border-0 px-2.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-inset focus:ring-wot-light-rose sm:text-sm sm:leading-6"
+              className="block w-72 bg-wot-off-white rounded-md border-0 px-2.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-inset focus:ring-wot-light-rose sm:text-sm sm:leading-6"
               defaultValue={project.name}
               {...register("projectName", {
-                required: "project name is required",
+                required: "Project name is required",
               })}
             />
           </div>
@@ -98,7 +98,7 @@ export default function ProjectEditForm({
             <select
               id="priority"
               defaultValue={project.priority}
-              className="block w-64 bg-wot-off-white rounded-md border-0 px-2.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-inset focus:ring-wot-light-rose sm:text-sm sm:leading-6"
+              className="block w-72 bg-wot-off-white rounded-md border-0 px-2.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-inset focus:ring-wot-light-rose sm:text-sm sm:leading-6"
               {...register("priority")}
             >
               <option value={1}>Low</option>
@@ -120,7 +120,7 @@ export default function ProjectEditForm({
               type="date"
               id="due"
               defaultValue={project.due.slice(0, 10)}
-              className="block w-64 bg-wot-off-white rounded-md border-0 px-2.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-inset focus:ring-wot-light-rose sm:text-sm sm:leading-6"
+              className="block w-72 bg-wot-off-white rounded-md border-0 px-2.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-inset focus:ring-wot-light-rose sm:text-sm sm:leading-6"
               {...register("due")}
             />
           </div>
@@ -136,7 +136,7 @@ export default function ProjectEditForm({
           <div className="mt-2 flex justify-center">
             <textarea
               id="description"
-              className="block w-64 h-32 bg-wot-off-white rounded-md border-0 px-2.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-inset focus:ring-wot-light-rose sm:text-sm sm:leading-6"
+              className="block w-72 h-36 bg-wot-off-white rounded-md border-0 px-2.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-inset focus:ring-wot-light-rose sm:text-sm sm:leading-6"
               defaultValue={project.description}
               {...register("description", {
                 required: "A description is required",
@@ -148,7 +148,7 @@ export default function ProjectEditForm({
           </p>
         </div>
       </div>
-      <div className="mt-5 sm:mt-6 w-full mb-6 flex justify-center">
+      <div className="mt-5 sm:mt-6 w-full mb-4 flex justify-center">
         <button
           type="submit"
           className="inline-flex w-auto justify-center rounded-3xl bg-wot-rose px-5 py-2 my-4 font-light text-white shadow-sm hover:bg-sky-600 hover:scale-105 transition-all duration-300"
