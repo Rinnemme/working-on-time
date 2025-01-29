@@ -22,7 +22,7 @@ export default {
         "wot-gray": "#a8a8a8",
         "wot-light-gray": "#d4d4d4",
         "wot-off-white": "#fbfbfb",
-        "wot-black": "212121",
+        "wot-black": "#212121",
       },
     },
   },
