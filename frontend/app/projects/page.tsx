@@ -9,7 +9,7 @@ export default function Projects() {
   const isLoading = useSelector((state: AppState) => state.isLoading);
   return (
     <div className="bg-white top-0 w-full h-full z-0 fade-in">
-      <div className="relative flex items-start pt-12 mb-20 sm:pt-14 justify-center w-full bg-white">
+      <div className="relative flex items-start pt-12 pb-20 sm:pt-14 justify-center w-full bg-wot-off-white">
         <div className="text-center flex items-center w-full flex-col px-2">
           <h1 className="text-2xl font-bold text-wot-rose sm:text-3xl">
             Your Projects

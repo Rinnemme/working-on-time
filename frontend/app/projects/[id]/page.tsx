@@ -29,7 +29,7 @@ export default function Project() {
 
   return (
     <div className="top-0 w-full h-full z-0 fade-in">
-      <div className="relative flex items-start pt-12 mb-20 sm:pt-14 justify-center w-full">
+      <div className="relative flex items-start pt-12 pb-20 sm:pt-14 justify-center w-full">
         {isLoading && <Throbber />}
         {!isLoading && project && (
           <>

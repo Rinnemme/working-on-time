@@ -10,9 +10,9 @@ export default function WorkingSession({ project }: { project: Project }) {
   const isLoading = useSelector((state: AppState) => state.isLoading);
   const [working, setWorking] = useState<boolean>(true);
   return (
-    <div className="bg-wot-off-white fixed pt-12 top-0 w-full h-screen z-0 fade-in">
+    <div className="bg-wot-off-white fixed pt-12 top-0 w-full h-full z-0 fade-in">
       {isLoading && <Throbber />}
-      <div className="relative flex flex-col items-center pt-12 mb-20 sm:pt-14 justify-center w-full">
+      <div className="relative flex flex-col items-center pt-12 pb-20 sm:pt-14 justify-center w-full">
         <div className="text-center flex items-center w-full flex-col px-2">
           <h1
             className={
