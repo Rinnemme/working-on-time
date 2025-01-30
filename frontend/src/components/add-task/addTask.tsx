@@ -5,17 +5,6 @@ import axios from "axios";
 import { ReactNode } from "react";
 import { useDispatch } from "react-redux";
 import { addTask } from "../../store/projectSlice";
-import { Task } from "@/src/store/types";
-
-// export type Task = {
-//     id: number;
-//     name: string;
-//     description: string;
-//     complete: boolean;
-//     projectid: number;
-//     userid: number;
-//     position: number;
-//   };
 
 export default function AddTaskForm({
   projectid,

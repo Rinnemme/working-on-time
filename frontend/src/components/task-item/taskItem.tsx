@@ -68,7 +68,9 @@ export default function TaskItem({ task }: { task: Task }) {
         onChange={() => toggleComplete()}
         checked={task.complete}
       ></input>
-      <div className="ml-3 text-nowrap overflow-ellipsis">{task.name}</div>
+      <div className="ml-3 text-nowrap font-semibold overflow-ellipsis">
+        {task.name}
+      </div>
       <TaskTools task={task} />
     </div>
   );
