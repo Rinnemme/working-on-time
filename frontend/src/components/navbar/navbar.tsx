@@ -153,10 +153,10 @@ export default function Navbar() {
                         Projects
                       </Link>
                       <Link
-                        href="/about"
+                        href="/working-session"
                         className={
                           "rounded-md px-3 py-2 text-sm hover:cursor-pointer " +
-                          (path === "/about"
+                          (path === "/working-session"
                             ? "text-wot-rose"
                             : "text-wot-black hover:text-wot-yellow transition-all duration-200  hover:bg-slate-100")
                         }
