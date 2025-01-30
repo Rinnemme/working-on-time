@@ -64,7 +64,7 @@ export default function Timer({
   };
 
   return (
-    <div className="w-[300px] h-fit flex flex-col gap-6 p-6 pb-28 border border-wot-light-gray justify-center relative">
+    <div className="w-[300px] bg-white h-fit flex flex-col gap-6 p-6 pb-28 border border-wot-light-gray justify-center relative">
       <div className="w-fit h-fit flex justify-center relative fade-in">
         <CountdownCircleTimer
           isPlaying={!paused}
