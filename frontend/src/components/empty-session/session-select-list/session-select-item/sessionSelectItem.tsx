@@ -1,7 +1,9 @@
 import { Project } from "@/src/store/types";
-import FormattedDate from "@/src/components/formatted-date/formattedDate";
+import { useDispatch } from "react-redux";
+import { setWorkingProject } from "@/src/store/workingSessionSlice";
 
 export default function SessionSelectItem({ project }: { project: Project }) {
+  const dispatch = useDispatch();
   const priority =
     project.priority === 1
       ? { textColor: "text-wot-blue", string: "Low" }
@@ -14,7 +16,10 @@ export default function SessionSelectItem({ project }: { project: Project }) {
     10
   )}/${project.due.slice(0, 4)}`;
   return (
-    <div className="w-full flex flex-col border gap-2 border-wot-light-gray rounded p-4 fade-in hover:cursor-pointer hover:ring-1 hover:ring-wot-light-gray hover:scale-105 transition-all">
+    <div
+      onClick={() => dispatch(setWorkingProject(project))}
+      className="w-full flex flex-col border gap-2 bg-white border-wot-light-gray rounded p-4 fade-in hover:cursor-pointer hover:ring-wot-light-gray hover:shadow-sm hover:scale-105 transition-all"
+    >
       <div
         className={`text-center hover:cursor-pointer font-semibold ${priority.textColor} overflow-ellipsis`}
       >
@@ -23,7 +28,7 @@ export default function SessionSelectItem({ project }: { project: Project }) {
       <div className="w-full flex justify-center gap-4">
         <div className="hover:cursor-pointer">{`Due ${dueDate}`}</div>
         <div className="hover:cursor-pointer">
-          {+project.completedTasks / +project.totalTasks + "% Complete"}
+          {(+project.completedTasks / +project.totalTasks) * 100 + "% Complete"}
         </div>
         <div className="hover:cursor-pointer">
           {priority.string + " Priority"}
