@@ -42,7 +42,7 @@ export default function Timer({
             onClick={() => {
               setRepetition((repetition) => repetition + 1);
             }}
-            className="h-8 hover:cursor-pointer active:scale-95"
+            className="h-7 hover:cursor-pointer active:scale-95"
             src={working ? WorkingReplay : RestingReplay}
           />
           <div
@@ -58,7 +58,7 @@ export default function Timer({
           <Image
             alt="Restart Timer"
             onClick={toggleWorking}
-            className="h-8 hover:cursor-pointer active:scale-95"
+            className="h-8 ml-1 hover:cursor-pointer active:scale-95"
             src={working ? WorkingSkip : RestingSkip}
           />
         </div>
