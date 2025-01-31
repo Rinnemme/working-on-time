@@ -1,5 +1,3 @@
-"use client";
-
 import { Task } from "../../../src/store/types";
 import Image from "next/image";
 import Draggable from "../../../public/draggable.svg";
@@ -49,7 +47,7 @@ export default function TaskItem({ task }: { task: Task }) {
       {...attributes}
       style={style}
       className={
-        "border border-wot-light-gray rounded-sm relative flex py-4 px-2 gap-2 align-center items-center " +
+        "border border-wot-light-gray w-full rounded-sm relative flex py-4 px-2 gap-2 items-center " +
         (task.complete
           ? "bg-wot-lighter-gray text-wot-gray line-through"
           : " bg-white")
