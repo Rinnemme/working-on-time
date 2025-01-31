@@ -1,10 +1,14 @@
 "use client";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { setWorkingProject } from "@/src/store/workingSessionSlice";
 import type { AppState } from "@/src/store/store";
 import Throbber from "@/src/components/throbber/throbber";
 import SessionSelectList from "./session-select-list/sessionSelectList";
+import type { Project } from "@/src/store/types";
 
 export default function EmptySession() {
+  const dispatch = useDispatch();
   const projects = useSelector((state: AppState) => state.projects);
   const isLoading = useSelector((state: AppState) => state.isLoading);
   return (
@@ -19,7 +23,12 @@ export default function EmptySession() {
           </h2>
           {isLoading && <Throbber />}
           {!isLoading && projects.length > 0 && (
-            <SessionSelectList projects={projects} />
+            <SessionSelectList
+              projects={projects}
+              selectFunction={(project: Project) =>
+                dispatch(setWorkingProject(project))
+              }
+            />
           )}
         </div>
       </div>

@@ -1,9 +1,12 @@
 import { Project } from "@/src/store/types";
-import { useDispatch } from "react-redux";
-import { setWorkingProject } from "@/src/store/workingSessionSlice";
 
-export default function SessionSelectItem({ project }: { project: Project }) {
-  const dispatch = useDispatch();
+export default function SessionSelectItem({
+  project,
+  selectFunction,
+}: {
+  project: Project;
+  selectFunction: (project: Project) => void;
+}) {
   const priority =
     project.priority === 1
       ? { textColor: "text-wot-blue", string: "Low" }
@@ -17,7 +20,7 @@ export default function SessionSelectItem({ project }: { project: Project }) {
   )}/${project.due.slice(0, 4)}`;
   return (
     <div
-      onClick={() => dispatch(setWorkingProject(project))}
+      onClick={() => selectFunction(project)}
       className="w-full flex flex-col border gap-2 bg-white border-wot-light-gray rounded p-4 fade-in hover:cursor-pointer hover:ring-wot-light-gray hover:shadow-sm hover:scale-105 transition-all"
     >
       <div

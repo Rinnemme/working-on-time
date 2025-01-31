@@ -4,6 +4,8 @@ import { AppState } from "@/src/store/store";
 import { useSelector } from "react-redux";
 import Timer from "./timer/timer";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { setWorkingProject } from "@/src/store/workingSessionSlice";
 import TaskList from "../task-list/taskList";
 import AddTaskButton from "../add-task-button/addTaskButton";
 import Modal from "../modal/modal";
@@ -15,6 +17,15 @@ export default function WorkingSession({ project }: { project: Project }) {
   const [working, setWorking] = useState<boolean>(true);
   const [paused, setPaused] = useState<boolean>(true);
   const [modal, setModal] = useState<boolean>(false);
+  const [resets, setResets] = useState<number>(0);
+  const dispatch = useDispatch();
+
+  const changeProject = (project: Project) => {
+    dispatch(setWorkingProject(project));
+    setWorking(true);
+    setResets((resets) => resets + 1);
+    setModal(false);
+  };
 
   return (
     <div className="bg-wot-off-white top-0 w-full z-0 fade-in">
@@ -26,7 +37,10 @@ export default function WorkingSession({ project }: { project: Project }) {
               <h2 className="font-bold text-3xl mt-2 mb-[-10px] text-wot-rose">
                 Select Another Project
               </h2>
-              <SessionSelectList projects={allProjects} />
+              <SessionSelectList
+                projects={allProjects}
+                selectFunction={changeProject}
+              />
             </Modal>
           )}
           <h1
@@ -59,6 +73,8 @@ export default function WorkingSession({ project }: { project: Project }) {
             <Timer
               toggleWorking={() => setWorking(!working)}
               togglePaused={() => setPaused(!paused)}
+              keyParam={resets}
+              resetTimer={() => setResets((resets) => resets + 1)}
               duration={10}
               working={working}
               paused={paused}
@@ -68,6 +84,8 @@ export default function WorkingSession({ project }: { project: Project }) {
             <Timer
               toggleWorking={() => setWorking(!working)}
               togglePaused={() => setPaused(!paused)}
+              keyParam={resets}
+              resetTimer={() => setResets((resets) => resets + 1)}
               duration={5}
               working={working}
               paused={paused}

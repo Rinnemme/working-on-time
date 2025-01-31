@@ -1,5 +1,4 @@
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
-import { useState } from "react";
 import Image from "next/image";
 import WorkingPause from "../../../../public/pause-rose.svg";
 import WorkingPlay from "../../../../public/play-rose.svg";
@@ -13,12 +12,16 @@ import RestingSkip from "../../../../public/skip-blue.svg";
 export default function Timer({
   toggleWorking,
   togglePaused,
+  keyParam,
+  resetTimer,
   duration,
   working,
   paused,
 }: {
   toggleWorking: () => void;
   togglePaused: () => void;
+  keyParam: number;
+  resetTimer: () => void;
   duration: number;
   working: boolean;
   paused: boolean;
@@ -30,7 +33,6 @@ export default function Timer({
     const sec = seconds < 10 ? `0${seconds}` : seconds;
     return `${min}:${sec}`;
   }
-  const [repetition, setRepetition] = useState<number>(0);
 
   const renderTime = ({ remainingTime }: { remainingTime: number }) => {
     return (
@@ -39,9 +41,7 @@ export default function Timer({
         <div className="flex items-center gap-2 justify-center">
           <Image
             alt="Restart Timer"
-            onClick={() => {
-              setRepetition((repetition) => repetition + 1);
-            }}
+            onClick={resetTimer}
             className="h-7 hover:cursor-pointer active:scale-95"
             src={working ? WorkingReplay : RestingReplay}
           />
@@ -73,7 +73,7 @@ export default function Timer({
           isPlaying={!paused}
           duration={duration}
           size={250}
-          key={repetition}
+          key={keyParam}
           colors={working ? ["#820263", "#820263"] : ["#3066be", "#3066be"]}
           colorsTime={[duration, 0]}
           onComplete={toggleWorking}

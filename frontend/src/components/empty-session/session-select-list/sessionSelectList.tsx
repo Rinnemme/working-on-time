@@ -4,8 +4,10 @@ import SessionSelectItem from "./session-select-item/sessionSelectItem";
 
 export default function SessionSelectList({
   projects,
+  selectFunction,
 }: {
   projects: Project[];
+  selectFunction: (project: Project) => void;
 }) {
   return (
     <div className="mt-10 flex flex-col gap-4 max-w-lg px-3">
@@ -14,7 +16,13 @@ export default function SessionSelectList({
           +project.totalTasks &&
           +project.totalTasks - +project.completedTasks > 0
         )
-          return <SessionSelectItem key={project.id} project={project} />;
+          return (
+            <SessionSelectItem
+              key={project.id}
+              project={project}
+              selectFunction={selectFunction}
+            />
+          );
       })}
     </div>
   );
