@@ -3,20 +3,36 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { Project } from "./types";
 
-type WorkingSession = Project | null;
+type WorkingSession = {
+  project: Project | null;
+  timer: {
+    workingDuration: number | null;
+    restingDuration: number | null;
+  };
+};
 
-const initialState: WorkingSession = null;
+const initialState: WorkingSession = {
+  project: null,
+  timer: {
+    workingDuration: null,
+    restingDuration: null,
+  },
+};
 
 export const workingSessionSlice = createSlice({
   name: "workingSession",
   initialState: initialState,
   reducers: {
-    setWorkingSession: (state, action) => {
-      state = action.payload;
+    setWorkingProject: (state, action) => {
+      state.project = action.payload;
+      return state;
+    },
+    setSessionTimer: (state, action) => {
+      state.timer = action.payload;
       return state;
     },
   },
 });
 
-export const { setWorkingSession } = workingSessionSlice.actions;
+export const { setWorkingProject } = workingSessionSlice.actions;
 export default workingSessionSlice.reducer;
