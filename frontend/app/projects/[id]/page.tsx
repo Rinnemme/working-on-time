@@ -8,9 +8,8 @@ import type { Project } from "@../../../src/store/types";
 import Throbber from "@../../../src/components/throbber/throbber";
 import TaskList from "@../../../src/components/task-list/taskList";
 import Modal from "@/src/components/modal/modal";
-import AddTaskForm from "@/src/components/add-task/addTask";
-import Add from "../../../public/add.svg";
-import Image from "next/image";
+import AddTaskForm from "@/src/components/add-task-form/addTaskForm";
+import AddTaskButton from "@/src/components/add-task-button/addTaskButton";
 import ProjectDescription from "@/src/components/project-description/projectDescsription";
 import NoTasks from "@/src/components/no-tasks/noTasks";
 
@@ -42,12 +41,7 @@ export default function Project() {
                 <ProjectDescription project={project} />
                 <h1 className="text-wot-rose text-2xl mt-5 font-bold sm:text-3xl fade flex items-center gap-2 justify-center">
                   Tasks
-                  <Image
-                    className="bg-wot-gray hover:bg-wot-green hover:scale-105 transition hover:cursor-pointer rounded-full h-[18px] w-[18px] flex items-center justify-center"
-                    onClick={() => setModal("Task")}
-                    src={Add}
-                    alt="Add a task"
-                  />{" "}
+                  <AddTaskButton projectid={project.id} />
                 </h1>
                 {!project.tasks.length && (
                   <NoTasks addTask={() => setModal("Task")} />
