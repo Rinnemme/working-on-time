@@ -39,7 +39,7 @@ export default function Project() {
               </h1>
               <div className="mt-10 flex flex-col gap-4 w-full max-w-lg px-3">
                 <ProjectDescription project={project} />
-                <h1 className="text-wot-rose text-2xl mt-5 mb-5 font-bold sm:text-3xl fade flex items-center gap-2 justify-center">
+                <h1 className="text-wot-rose text-2xl mt-5 font-bold sm:text-3xl fade flex items-center gap-2 justify-center">
                   Tasks
                   <Image
                     className="bg-wot-gray hover:bg-wot-green hover:scale-105 transition hover:cursor-pointer rounded-full h-[18px] w-[18px] flex items-center justify-center"
