@@ -6,7 +6,7 @@ export default function ProjectDescription({ project }: { project: Project }) {
   const priority =
     project.priority === 1 ? "Low" : project.priority === 2 ? "Medium" : "High";
   return (
-    <div className="w-full flex flex-col border border-wot-light-gray rounded p-4 fade-in relative">
+    <div className="w-full flex flex-col border border-wot-light-gray bg-white rounded p-4 fade-in relative">
       <div className="text-center text-balance w-fit mt-1">
         {project.description}
       </div>
