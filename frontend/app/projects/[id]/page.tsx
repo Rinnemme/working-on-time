@@ -12,6 +12,7 @@ import AddTaskForm from "@/src/components/add-task/addTask";
 import Add from "../../../public/add.svg";
 import Image from "next/image";
 import ProjectDescription from "@/src/components/project-description/projectDescsription";
+import NoTasks from "@/src/components/no-tasks/noTasks";
 
 type AddModal = "Task" | "Project" | null;
 
@@ -37,7 +38,7 @@ export default function Project() {
               <h1 className="text-wot-rose text-2xl font-bold sm:text-3xl fade">
                 {project.name}
               </h1>
-              <div className="mt-10 flex flex-col gap-4 w-full max-w-lg px-3">
+              <div className="mt-10 flex flex-col gap-4 w-full items-center max-w-lg px-3">
                 <ProjectDescription project={project} />
                 <h1 className="text-wot-rose text-2xl mt-5 font-bold sm:text-3xl fade flex items-center gap-2 justify-center">
                   Tasks
@@ -48,7 +49,10 @@ export default function Project() {
                     alt="Add a task"
                   />{" "}
                 </h1>
-                <TaskList tasks={project.tasks} />
+                {!project.tasks.length && (
+                  <NoTasks addTask={() => setModal("Task")} />
+                )}
+                {project.tasks.length > 0 && <TaskList tasks={project.tasks} />}
               </div>
             </div>
           </>

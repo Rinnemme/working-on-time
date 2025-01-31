@@ -8,6 +8,7 @@ import { setProjectTasks } from "@/src/store/projectSlice";
 import { DndContext, DragEndEvent } from "@dnd-kit/core";
 import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 import TaskItem from "../task-item/taskItem";
+import NoTasks from "../no-tasks/noTasks";
 
 export default function TaskList({ tasks }: { tasks: Task[] }) {
   const [showComplete, setShowComplete] = useState<boolean>(false);
@@ -32,24 +33,22 @@ export default function TaskList({ tasks }: { tasks: Task[] }) {
   };
 
   return (
-    <div className="w-full flex flex-col gap-6 max-w-xl">
+    <div className="w-full flex flex-col gap-6 items-center max-w-xl">
       <div
-        className="italic hover:text-wot-rose hover:cursor-pointer"
+        className="italic hover:text-wot-rose text-center hover:cursor-pointer"
         onClick={() => setShowComplete(!showComplete)}
       >
         {showComplete ? "Hide completed tasks" : "Show completed tasks"}
       </div>
       <DndContext onDragEnd={handleDragEnd}>
         <SortableContext items={tasks}>
-          {tasks.length &&
-            !showComplete &&
+          {!showComplete &&
             tasks
               .filter((task) => !task.complete)
               .map((task) => {
                 return <TaskItem task={task} key={task.id} />;
               })}
-          {tasks.length &&
-            showComplete &&
+          {showComplete &&
             tasks.map((task) => {
               return <TaskItem task={task} key={task.id} />;
             })}
