@@ -48,10 +48,19 @@ export const projectSlice = createSlice({
       state[projectIndex].tasks = state[projectIndex].tasks.filter(
         (task) => task.id !== action.payload.id
       );
+      state[projectIndex].totalTasks = (
+        +state[projectIndex].totalTasks - 1
+      ).toString();
+      if (action.payload.complete)
+        state[projectIndex].completedTasks = (
+          +state[projectIndex].completedTasks - 1
+        ).toString();
+      return state;
     },
     addTask: (state, action) => {
       const index = indexOfProject(action.payload.projectid, state);
       state[index].tasks = [...state[index].tasks, action.payload];
+      state[index].totalTasks = (+state[index].totalTasks + 1).toString();
       return state;
     },
     updateProject: (state, action) => {
