@@ -11,13 +11,17 @@ import RestingReplay from "../../../../public/replay-blue.svg";
 import RestingSkip from "../../../../public/skip-blue.svg";
 
 export default function Timer({
-  stateSetter,
+  toggleWorking,
+  togglePaused,
   duration,
   working,
+  paused,
 }: {
-  stateSetter: () => void;
+  toggleWorking: () => void;
+  togglePaused: () => void;
   duration: number;
   working: boolean;
+  paused: boolean;
 }) {
   function timeString(num: number) {
     const minutes = Math.floor(num / 60);
@@ -26,7 +30,6 @@ export default function Timer({
     const sec = seconds < 10 ? `0${seconds}` : seconds;
     return `${min}:${sec}`;
   }
-  const [paused, setPaused] = useState<boolean>(false);
   const [repetition, setRepetition] = useState<number>(0);
 
   const renderTime = ({ remainingTime }: { remainingTime: number }) => {
@@ -54,7 +57,7 @@ export default function Timer({
           </div>
           <Image
             alt="Restart Timer"
-            onClick={stateSetter}
+            onClick={toggleWorking}
             className="h-8 hover:cursor-pointer active:scale-95"
             src={working ? WorkingSkip : RestingSkip}
           />
@@ -73,17 +76,14 @@ export default function Timer({
           key={repetition}
           colors={working ? ["#820263", "#820263"] : ["#3066be", "#3066be"]}
           colorsTime={[duration, 0]}
-          onComplete={stateSetter}
+          onComplete={toggleWorking}
           strokeWidth={28}
           strokeLinecap={"butt"}
           trailColor={working ? "#fa9f42" : "#1da67b"}
         >
           {renderTime}
         </CountdownCircleTimer>
-        <div
-          className="absolute self-center w-fit"
-          onClick={() => setPaused(!paused)}
-        >
+        <div className="absolute self-center w-fit" onClick={togglePaused}>
           <Image
             className={"hover:cursor-pointer w-36 active:scale-95"}
             alt={paused ? "Resume" : "Pause"}
