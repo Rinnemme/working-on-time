@@ -11,7 +11,7 @@ export default function ProjectItem({ project }: { project: Project }) {
       ? { textColor: "text-wot-green", string: "Medium" }
       : { textColor: "text-wot-yellow", string: "High" };
   return (
-    <div className="w-full flex flex-col border border-wot-light-gray rounded p-4 fade-in">
+    <div className="w-full flex flex-col border border-wot-light-gray bg-white rounded p-4 fade-in">
       <div>
         <div
           className={`text-start w-full flex justify-between font-semibold ${priority.textColor}`}
@@ -46,7 +46,7 @@ export default function ProjectItem({ project }: { project: Project }) {
             {+project.totalTasks > 0 ? (
               <div>
                 {`${project.completedTasks} of ${project.totalTasks} (` +
-                  +project.completedTasks / +project.totalTasks +
+                  (+project.completedTasks / +project.totalTasks) * 100 +
                   "%)"}
               </div>
             ) : (
