@@ -1,4 +1,3 @@
-"use client";
 import type { Project } from "@/src/store/types";
 import FormattedDate from "../formatted-date/formattedDate";
 import ProjectTools from "../project-tools/projectTools";

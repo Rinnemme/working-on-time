@@ -1,5 +1,3 @@
-"use client";
-
 import { Task } from "@/src/store/types";
 import axios from "axios";
 import { useDispatch } from "react-redux";
@@ -8,7 +6,6 @@ import { setProjectTasks } from "@/src/store/projectSlice";
 import { DndContext, DragEndEvent } from "@dnd-kit/core";
 import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 import TaskItem from "../task-item/taskItem";
-import NoTasks from "../no-tasks/noTasks";
 
 export default function TaskList({ tasks }: { tasks: Task[] }) {
   const [showComplete, setShowComplete] = useState<boolean>(false);

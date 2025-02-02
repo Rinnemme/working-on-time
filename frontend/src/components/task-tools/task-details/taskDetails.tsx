@@ -1,5 +1,3 @@
-"use client";
-
 import { Task } from "@/src/store/types";
 
 export default function TaskDetails({ task }: Readonly<{ task: Task }>) {

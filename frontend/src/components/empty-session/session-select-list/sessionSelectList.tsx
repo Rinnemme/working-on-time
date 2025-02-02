@@ -1,5 +1,4 @@
 import type { Project } from "@/src/store/types";
-import FormattedDate from "../../formatted-date/formattedDate";
 import SessionSelectItem from "./session-select-item/sessionSelectItem";
 
 export default function SessionSelectList({

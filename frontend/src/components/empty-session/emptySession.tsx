@@ -1,4 +1,3 @@
-"use client";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { setWorkingProject } from "@/src/store/workingSessionSlice";

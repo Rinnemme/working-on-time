@@ -1,5 +1,3 @@
-"use client";
-
 import type { Project } from "@/src/store/types";
 import { useState } from "react";
 import Tools from "../../../public/tools.svg";
