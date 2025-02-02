@@ -21,14 +21,18 @@ import { useRouter } from "next/navigation";
 
 import { useSelector } from "react-redux";
 import type { AppState } from "@/src/store/store";
+import ProjectDropdown from "./project-dropdown/projectDropdown";
 
 export default function Navbar() {
   const router = useRouter();
   const path = usePathname();
   const [modalOpen, setModalOpen] = useState<Boolean>(false);
   const username = useSelector((state: AppState) => state.user.username);
+  const projects = useSelector((state: AppState) => state.projects);
   const isLoading = useSelector((state: AppState) => state.isLoading);
   const dispatch = useDispatch();
+
+  const [projectDropdown, setProjectDropdown] = useState<boolean>(false);
 
   const getAndSetUser = () => {
     axios({
@@ -75,157 +79,219 @@ export default function Navbar() {
   return (
     <>
       <Disclosure as="nav" className="bg-white z-10 shadow-md sticky top-0">
-        {({ open }) => (
-          <>
-            <div className="mx-auto  px-4">
-              <div className="flex h-14 justify-between">
-                <div className="flex">
-                  <div className="-ml-2 mr-2 flex items-center md:hidden">
-                    {/* Mobile menu button */}
-                    <DisclosureButton className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
-                      <span className="absolute -inset-0.5 hover:cursor-pointer" />
+        <>
+          <div className="mx-auto  px-4">
+            <div className="flex h-14 justify-between">
+              <div className="flex">
+                <div className="-ml-2 mr-2 flex items-center md:hidden">
+                  {/* Mobile menu button */}
+                  <DisclosureButton className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                    <span className="absolute -inset-0.5 hover:cursor-pointer" />
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="size-6 hover:cursor-pointer"
+                    >
+                      <path
+                        className="hover:cursor-pointer"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                      />
+                    </svg>
+                  </DisclosureButton>
+                </div>
+
+                <div className="flex flex-shrink-0 items-center hover:cursor-pointer">
+                  <Link href="/">
+                    <Image
+                      className="h-9 w-auto hover:cursor-pointer"
+                      src={Logo}
+                      alt="Nerdy Recs"
+                    ></Image>
+                  </Link>
+                </div>
+
+                {!username && !isLoading && (
+                  <div className="hidden md:ml-6 md:flex md:items-center md:space-x-4 fade-in">
+                    <Link
+                      href="/"
+                      className={
+                        "rounded-md px-3 py-2 text-sm hover:cursor-pointer " +
+                        (path === "/"
+                          ? "text-wot-rose"
+                          : "text-wot-black hover:text-wot-yellow hover:bg-slate-100")
+                      }
+                    >
+                      Home
+                    </Link>
+                    <Link
+                      href="/about"
+                      className={
+                        "rounded-md px-3 py-2 text-sm hover:cursor-pointer " +
+                        (path === "/movies"
+                          ? "text-wot-rose"
+                          : "text-wot-black hover:text-wot-yellow transition-all duration-200  hover:bg-slate-100")
+                      }
+                    >
+                      About
+                    </Link>
+                  </div>
+                )}
+
+                {username && !isLoading && (
+                  <div className="hidden md:ml-6 md:flex md:items-center md:space-x-4 fade-in">
+                    <button
+                      onClick={() => setProjectDropdown(!projectDropdown)}
+                      className={
+                        "rounded-md relative px-3 flex items-center gap-1 py-2 text-sm hover:cursor-pointer " +
+                        (path.includes("/projects")
+                          ? "text-wot-rose"
+                          : "text-wot-black hover:text-wot-yellow hover:bg-slate-100")
+                      }
+                    >
+                      Projects
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
-                        strokeWidth={1.5}
+                        stroke-width="1"
                         stroke="currentColor"
-                        className="size-6 hover:cursor-pointer"
+                        className="size-3 hover:cursor-pointer"
                       >
                         <path
-                          className="hover:cursor-pointer"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="m19.5 8.25-7.5 7.5-7.5-7.5"
                         />
                       </svg>
-                    </DisclosureButton>
-                  </div>
-
-                  <div className="flex flex-shrink-0 items-center hover:cursor-pointer">
-                    <Link href="/">
-                      <Image
-                        className="h-9 w-auto hover:cursor-pointer"
-                        src={Logo}
-                        alt="Nerdy Recs"
-                      ></Image>
+                      {projectDropdown && (
+                        <ProjectDropdown
+                          projects={projects}
+                          path={path}
+                          onLeave={() => setProjectDropdown(false)}
+                        />
+                      )}
+                    </button>
+                    <Link
+                      href="/working-session"
+                      className={
+                        "rounded-md px-3 py-2 text-sm hover:cursor-pointer " +
+                        (path === "/working-session"
+                          ? "text-wot-rose"
+                          : "text-wot-black hover:text-wot-yellow transition-all duration-200  hover:bg-slate-100")
+                      }
+                    >
+                      Working Session
                     </Link>
-                  </div>
-
-                  {!username && !isLoading && (
-                    <div className="hidden md:ml-6 md:flex md:items-center md:space-x-4 fade-in">
-                      <Link
-                        href="/"
-                        className={
-                          "rounded-md px-3 py-2 text-sm hover:cursor-pointer " +
-                          (path === "/"
-                            ? "text-wot-rose"
-                            : "text-wot-black hover:text-wot-yellow hover:bg-slate-100")
-                        }
-                      >
-                        Home
-                      </Link>
-                      <Link
-                        href="/about"
-                        className={
-                          "rounded-md px-3 py-2 text-sm hover:cursor-pointer " +
-                          (path === "/movies"
-                            ? "text-wot-rose"
-                            : "text-wot-black hover:text-wot-yellow transition-all duration-200  hover:bg-slate-100")
-                        }
-                      >
-                        About
-                      </Link>
-                    </div>
-                  )}
-
-                  {username && !isLoading && (
-                    <div className="hidden md:ml-6 md:flex md:items-center md:space-x-4 fade-in">
-                      <Link
-                        href="/projects"
-                        className={
-                          "rounded-md px-3 py-2 text-sm hover:cursor-pointer " +
-                          (path === "/projects"
-                            ? "text-wot-rose"
-                            : "text-wot-black hover:text-wot-yellow hover:bg-slate-100")
-                        }
-                      >
-                        Projects
-                      </Link>
-                      <Link
-                        href="/working-session"
-                        className={
-                          "rounded-md px-3 py-2 text-sm hover:cursor-pointer " +
-                          (path === "/working-session"
-                            ? "text-wot-rose"
-                            : "text-wot-black hover:text-wot-yellow transition-all duration-200  hover:bg-slate-100")
-                        }
-                      >
-                        Working Session
-                      </Link>
-                    </div>
-                  )}
-                </div>
-
-                {!isLoading && (
-                  <div className="flex items-center hover:cursor-pointer">
-                    <div className="flex-shrink-0">
-                      <button
-                        type="button"
-                        className="rounded-md px-3 py-2 text-sm hover:cursor-pointer transition-all duration-200 hover:bg-slate-100 hover:text-wot-rose"
-                        onClick={() => setModalOpen(true)}
-                      >
-                        {!username && "Log In"}
-                        {username && `Welcome, ${username}`}
-                      </button>
-                    </div>
                   </div>
                 )}
               </div>
-            </div>
 
-            {/* Mobile Menu */}
-            <DisclosurePanel className="md:hidden">
-              <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
-                <DisclosureButton>
-                  <Link
-                    href="/games"
-                    className={
-                      "block px-3 py-2 text-sm text-gray-800 font-medium border-l-4 hover:cursor-pointer " +
-                      (path === "/games"
-                        ? " border-cyan-600"
-                        : "border-white hover:bg-slate-100 hover:text-cyan-700")
-                    }
-                  >
-                    Games
-                  </Link>
-                  <Link
-                    href="/movies"
-                    className={
-                      "block px-3 py-2 text-sm text-gray-800 font-medium border-l-4 hover:cursor-pointer " +
-                      (path === "/movies"
-                        ? " border-cyan-600"
-                        : "border-white hover:bg-slate-100 hover:text-cyan-700")
-                    }
-                  >
-                    Movies
-                  </Link>
-                  <Link
-                    href="/shows"
-                    className={
-                      "block px-3 py-2 text-sm text-gray-800 font-medium border-l-4 hover:cursor-pointer " +
-                      (path === "/shows"
-                        ? " border-cyan-600"
-                        : "border-white hover:bg-slate-100 hover:text-cyan-700")
-                    }
-                  >
-                    Shows
-                  </Link>
-                </DisclosureButton>
-              </div>
-            </DisclosurePanel>
-          </>
-        )}
+              {!isLoading && (
+                <div className="flex items-center hover:cursor-pointer">
+                  <div className="flex-shrink-0">
+                    <button
+                      type="button"
+                      className="rounded-md px-3 py-2 text-sm hover:cursor-pointer transition-all duration-200 hover:bg-slate-100 hover:text-wot-rose"
+                      onClick={() => setModalOpen(true)}
+                    >
+                      {!username && "Log In"}
+                      {username && `Welcome, ${username}`}
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Mobile Menu */}
+          <DisclosurePanel className="md:hidden">
+            <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
+              <DisclosureButton>
+                {!username && !isLoading && (
+                  <div className="ms-6 flex items-center space-x-4 fade-in">
+                    <Link
+                      href="/"
+                      className={
+                        "rounded-md px-3 py-2 text-sm hover:cursor-pointer " +
+                        (path === "/"
+                          ? "text-wot-rose"
+                          : "text-wot-black hover:text-wot-yellow hover:bg-slate-100")
+                      }
+                    >
+                      Home
+                    </Link>
+                    <Link
+                      href="/about"
+                      className={
+                        "rounded-md px-3 py-2 text-sm hover:cursor-pointer " +
+                        (path === "/movies"
+                          ? "text-wot-rose"
+                          : "text-wot-black hover:text-wot-yellow transition-all duration-200  hover:bg-slate-100")
+                      }
+                    >
+                      About
+                    </Link>
+                  </div>
+                )}
+
+                {username && !isLoading && (
+                  <div className="flex flex-col items-start fade-in">
+                    <Link
+                      href="/working-session"
+                      className={
+                        "rounded-md px-3 py-2 text-sm hover:cursor-pointer " +
+                        (path === "/working-session"
+                          ? "text-wot-rose"
+                          : "text-wot-black hover:text-wot-yellow transition-all duration-200  hover:bg-slate-100")
+                      }
+                    >
+                      Working Session
+                    </Link>
+                    <Link
+                      href="/projects"
+                      className={
+                        "rounded-md relative px-3 py-2 text-sm hover:cursor-pointer " +
+                        (path === "/projects"
+                          ? "text-wot-rose"
+                          : "text-wot-black hover:text-wot-yellow hover:bg-slate-100")
+                      }
+                    >
+                      Projects
+                    </Link>
+                    <ul className="flex flex-col fade-in  border-wot-light-gray border-l-2 ms-3">
+                      {projects.map((project) => {
+                        return (
+                          <li key={project.id} className="text-start ps-3 mt-2">
+                            <Link
+                              className="rounded-md text-sm text-nowrap"
+                              href={`/projects/${project.id}`}
+                            >
+                              <div
+                                className={
+                                  "max-w-72 overflow-hidden text-ellipsis " +
+                                  (path === `/projects/${project.id}`
+                                    ? "text-wot-rose"
+                                    : "text-wot-black hover:text-wot-yellow hover:cursor-pointer transition-all duration-200")
+                                }
+                              >
+                                {project.name}
+                              </div>
+                            </Link>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
+                )}
+              </DisclosureButton>
+            </div>
+          </DisclosurePanel>
+        </>
       </Disclosure>
       {modalOpen && (
         <Modal closeFunc={() => setModalOpen(false)}>
