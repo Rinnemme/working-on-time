@@ -149,7 +149,7 @@ export default function ProjectEditForm({
       <div className="mt-5 sm:mt-6 w-full mb-4 flex justify-center">
         <button
           type="submit"
-          className="inline-flex w-auto justify-center rounded-3xl bg-wot-rose px-5 py-2 my-4 font-light text-white shadow-sm hover:bg-sky-600 hover:scale-105 transition-all duration-300"
+          className="inline-flex w-auto justify-center rounded-3xl bg-wot-rose px-5 py-2 my-4 font-light text-white shadow-sm hover:bg-wot-yellow hover:scale-105 transition-all duration-300"
         >
           Save
         </button>

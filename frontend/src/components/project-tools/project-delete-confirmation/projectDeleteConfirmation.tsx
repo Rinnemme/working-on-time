@@ -36,7 +36,7 @@ export default function ProjectDeleteConfirmation({
       <div className="w-full mb-2 flex justify-center">
         <button
           onClick={confirmFunc}
-          className="inline-flex w-auto justify-center rounded-3xl bg-wot-rose px-4 py-2 my-4 font-light text-white shadow-sm hover:bg-sky-600 hover:scale-105 transition-all duration-300"
+          className="inline-flex w-auto justify-center rounded-3xl bg-wot-rose px-4 py-2 my-4 font-light text-white shadow-sm hover:bg-wot-yellow hover:scale-105 transition-all duration-300"
         >
           Confirm
         </button>

@@ -21,7 +21,7 @@ export default function ProjectDescription({ project }: { project: Project }) {
           </div>
         </div>
         <div className="flex justify-start flex-wrap gap-x-6 gap-y-4">
-          <div className="min-w-fit text-center font-semibold">
+          <div className="min-w-fit text-center">
             <div className={" text-wot-rose font-semibold"}>
               Task Completion
             </div>
