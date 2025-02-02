@@ -34,5 +34,6 @@ export const workingSessionSlice = createSlice({
   },
 });
 
-export const { setWorkingProject } = workingSessionSlice.actions;
+export const { setWorkingProject, setSessionTimer } =
+  workingSessionSlice.actions;
 export default workingSessionSlice.reducer;

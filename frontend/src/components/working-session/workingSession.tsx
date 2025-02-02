@@ -10,10 +10,18 @@ import TaskList from "../task-list/taskList";
 import AddTaskButton from "../add-task-button/addTaskButton";
 import Modal from "../modal/modal";
 import SessionSelectList from "../empty-session/session-select-list/sessionSelectList";
+import TimerForm from "./timer-form/timerForm";
 
 export default function WorkingSession({ project }: { project: Project }) {
   const isLoading = useSelector((state: AppState) => state.isLoading);
   const allProjects = useSelector((state: AppState) => state.projects);
+  const workingDuration = useSelector(
+    (state: AppState) => state.workingSession.timer.workingDuration
+  );
+  const restingDuration = useSelector(
+    (state: AppState) => state.workingSession.timer.restingDuration
+  );
+  const [showTimerForm, setShowTimerForm] = useState<boolean>(false);
   const [working, setWorking] = useState<boolean>(true);
   const [paused, setPaused] = useState<boolean>(true);
   const [modal, setModal] = useState<boolean>(false);
@@ -59,7 +67,17 @@ export default function WorkingSession({ project }: { project: Project }) {
           >
             {working ? "Working" : "Break"}
           </h2>
-          <div onClick={() => setModal(true)}>Change Project</div>
+          <div
+            className={
+              "self-center mt-2 text-sm px-3 py-1 text-center bg-wot-white border rounded-full hover:cursor-pointer transition " +
+              (working
+                ? "text-wot-rose border-wot-rose hover:text-wot-yellow hover:border-wot-yellow"
+                : "text-wot-blue border-wot-blue hover:text-wot-light-green hover:border-wot-light-green")
+            }
+            onClick={() => setModal(true)}
+          >
+            Change Project
+          </div>
         </div>
         <div className="max-w-2xl w-full flex justify-center items-end gap-4 mt-10 flex-wrap-reverse">
           <div className="w-[300px] h-fit p-4 bg-white border-wot-light-gray border overflow-y-auto">
@@ -69,27 +87,56 @@ export default function WorkingSession({ project }: { project: Project }) {
             </div>
             <TaskList tasks={project.tasks} />
           </div>
-          {working && (
-            <Timer
-              toggleWorking={() => setWorking(!working)}
-              togglePaused={() => setPaused(!paused)}
-              keyParam={resets}
-              resetTimer={() => setResets((resets) => resets + 1)}
-              duration={10}
-              working={working}
-              paused={paused}
-            />
+          {(!workingDuration || !restingDuration || showTimerForm) && (
+            <TimerForm closeTimer={() => setShowTimerForm(false)} />
           )}
-          {!working && (
-            <Timer
-              toggleWorking={() => setWorking(!working)}
-              togglePaused={() => setPaused(!paused)}
-              keyParam={resets}
-              resetTimer={() => setResets((resets) => resets + 1)}
-              duration={5}
-              working={working}
-              paused={paused}
-            />
+          {working && workingDuration && !showTimerForm && (
+            <div className="w-fit flex flex-col gap-5">
+              <Timer
+                toggleWorking={() => setWorking(!working)}
+                togglePaused={() => setPaused(!paused)}
+                keyParam={resets}
+                resetTimer={() => setResets((resets) => resets + 1)}
+                duration={workingDuration}
+                working={working}
+                paused={paused}
+              />
+              <div
+                className={
+                  "self-center text-sm px-3 py-1 text-center bg-wot-white border rounded-full hover:cursor-pointer transition " +
+                  (working
+                    ? "text-wot-rose border-wot-rose hover:text-wot-yellow hover:border-wot-yellow"
+                    : "text-wot-blue border-wot-blue hover:text-wot-light-green hover:border-wot-light-green")
+                }
+                onClick={() => setShowTimerForm(true)}
+              >
+                Edit Timer
+              </div>
+            </div>
+          )}
+          {!working && restingDuration && !showTimerForm && (
+            <div className="w-fit flex flex-col gap-5">
+              <Timer
+                toggleWorking={() => setWorking(!working)}
+                togglePaused={() => setPaused(!paused)}
+                keyParam={resets}
+                resetTimer={() => setResets((resets) => resets + 1)}
+                duration={restingDuration}
+                working={working}
+                paused={paused}
+              />
+              <div
+                className={
+                  "self-center text-sm px-3 py-1 text-center bg-wot-white border rounded-full hover:cursor-pointer transition " +
+                  (working
+                    ? "text-wot-rose border-wot-rose hover:text-wot-yellow hover:border-wot-yellow"
+                    : "text-wot-blue border-wot-blue hover:text-wot-light-green hover:border-wot-light-green")
+                }
+                onClick={() => setShowTimerForm(true)}
+              >
+                Edit Timer
+              </div>
+            </div>
           )}
         </div>
       </div>
