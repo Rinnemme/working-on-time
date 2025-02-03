@@ -5,7 +5,7 @@ export default function SessionSelectItem({
   selectFunction,
 }: {
   project: Project;
-  selectFunction: (project: Project) => void;
+  selectFunction: (projectid: number) => void;
 }) {
   const priority =
     project.priority === 1
@@ -20,7 +20,7 @@ export default function SessionSelectItem({
   )}/${project.due.slice(0, 4)}`;
   return (
     <div
-      onClick={() => selectFunction(project)}
+      onClick={() => selectFunction(project.id)}
       className="w-full flex flex-col border gap-2 bg-white border-wot-light-gray rounded p-4 fade-in hover:cursor-pointer hover:ring-wot-light-gray hover:shadow-sm hover:scale-105 transition-all"
     >
       <div

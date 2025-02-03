@@ -6,7 +6,7 @@ export default function SessionSelectList({
   selectFunction,
 }: {
   projects: Project[];
-  selectFunction: (project: Project) => void;
+  selectFunction: (projectid: number) => void;
 }) {
   return (
     <div className="mt-10 flex flex-col gap-4 max-w-lg px-3">

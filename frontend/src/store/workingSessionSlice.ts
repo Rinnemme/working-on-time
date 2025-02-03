@@ -4,7 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { Project } from "./types";
 
 type WorkingSession = {
-  project: Project | null;
+  projectid: number | null;
   timer: {
     workingDuration: number | null;
     restingDuration: number | null;
@@ -13,7 +13,7 @@ type WorkingSession = {
 };
 
 const initialState: WorkingSession = {
-  project: null,
+  projectid: null,
   timer: {
     workingDuration: null,
     restingDuration: null,
@@ -26,7 +26,7 @@ export const workingSessionSlice = createSlice({
   initialState: initialState,
   reducers: {
     setWorkingProject: (state, action) => {
-      state.project = action.payload;
+      state.projectid = action.payload;
       return state;
     },
     setSessionTimer: (state, action) => {

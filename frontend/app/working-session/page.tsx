@@ -6,9 +6,11 @@ import { useSelector } from "react-redux";
 import type { AppState } from "@/src/store/store";
 
 export default function Page() {
-  const workingProject = useSelector(
-    (state: AppState) => state.workingSession.project
+  const projectid = useSelector(
+    (state: AppState) => state.workingSession.projectid
   );
+  const projects = useSelector((state: AppState) => state.projects);
+  const workingProject = projects.find((project) => project.id === projectid);
 
   return (
     <div className="top-0 w-full h-full z-0 fade-in">

@@ -4,7 +4,6 @@ import { setWorkingProject } from "@/src/store/workingSessionSlice";
 import type { AppState } from "@/src/store/store";
 import Throbber from "@/src/components/throbber/throbber";
 import SessionSelectList from "./session-select-list/sessionSelectList";
-import type { Project } from "@/src/store/types";
 
 export default function EmptySession() {
   const dispatch = useDispatch();
@@ -24,8 +23,8 @@ export default function EmptySession() {
           {!isLoading && projects.length > 0 && (
             <SessionSelectList
               projects={projects}
-              selectFunction={(project: Project) =>
-                dispatch(setWorkingProject(project))
+              selectFunction={(projectid: number) =>
+                dispatch(setWorkingProject(projectid))
               }
             />
           )}
