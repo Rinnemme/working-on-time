@@ -28,8 +28,8 @@ export default function WorkingSession({ project }: { project: Project }) {
   const [resets, setResets] = useState<number>(0);
   const dispatch = useDispatch();
 
-  const changeProject = (project: Project) => {
-    dispatch(setWorkingProject(project));
+  const changeProject = (projectid: number) => {
+    dispatch(setWorkingProject(projectid));
     setWorking(true);
     setResets((resets) => resets + 1);
     setModal(false);
