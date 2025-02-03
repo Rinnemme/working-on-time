@@ -1,7 +1,10 @@
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { AppState } from "@/src/store/store";
-import { setSessionTimer } from "@/src/store/workingSessionSlice";
+import {
+  setRemainingTime,
+  setSessionTimer,
+} from "@/src/store/workingSessionSlice";
 import { ReactNode } from "react";
 
 export default function TimerForm({ closeTimer }: { closeTimer: () => void }) {
@@ -28,6 +31,7 @@ export default function TimerForm({ closeTimer }: { closeTimer: () => void }) {
     } else {
       const workingDuration = +data.workingMinutes * 60 + +data.workingSeconds;
       const restingDuration = +data.restingMinutes * 60 + +data.restingSeconds;
+      await dispatch(setRemainingTime(null));
       await dispatch(
         setSessionTimer({
           workingDuration,

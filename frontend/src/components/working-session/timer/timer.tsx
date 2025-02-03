@@ -8,6 +8,9 @@ import RestingPause from "../../../../public/pause-blue.svg";
 import RestingPlay from "../../../../public/play-blue.svg";
 import RestingReplay from "../../../../public/replay-blue.svg";
 import RestingSkip from "../../../../public/skip-blue.svg";
+import { useSelector, useDispatch } from "react-redux";
+import { setRemainingTime } from "@/src/store/workingSessionSlice";
+import { AppState } from "@/src/store/store";
 
 export default function Timer({
   toggleWorking,
@@ -26,12 +29,27 @@ export default function Timer({
   working: boolean;
   paused: boolean;
 }) {
+  const dispatch = useDispatch();
+  const reduxRemainingTime = useSelector(
+    (state: AppState) => state.workingSession.timer.currentRemainingTime
+  );
+
   function timeString(num: number) {
     const minutes = Math.floor(num / 60);
     const seconds = num % 60;
     const min = minutes < 10 ? `0${minutes}` : minutes;
     const sec = seconds < 10 ? `0${seconds}` : seconds;
     return `${min}:${sec}`;
+  }
+
+  function reset() {
+    dispatch(setRemainingTime(duration));
+    resetTimer();
+  }
+
+  function skip() {
+    dispatch(setRemainingTime(null));
+    toggleWorking();
   }
 
   const renderTime = ({ remainingTime }: { remainingTime: number }) => {
@@ -41,7 +59,7 @@ export default function Timer({
         <div className="flex items-center gap-2 justify-center">
           <Image
             alt="Restart Timer"
-            onClick={resetTimer}
+            onClick={reset}
             className="h-7 hover:cursor-pointer active:scale-95"
             src={working ? WorkingReplay : RestingReplay}
           />
@@ -56,8 +74,8 @@ export default function Timer({
             {timeString(remainingTime)}
           </div>
           <Image
-            alt="Restart Timer"
-            onClick={toggleWorking}
+            alt="Skip"
+            onClick={skip}
             className="h-8 ml-1 hover:cursor-pointer active:scale-95"
             src={working ? WorkingSkip : RestingSkip}
           />
@@ -72,6 +90,7 @@ export default function Timer({
         <CountdownCircleTimer
           isPlaying={!paused}
           duration={duration}
+          initialRemainingTime={reduxRemainingTime || duration}
           size={250}
           key={keyParam}
           colors={working ? ["#820263", "#820263"] : ["#3066be", "#3066be"]}
@@ -79,6 +98,9 @@ export default function Timer({
           onComplete={toggleWorking}
           strokeWidth={28}
           strokeLinecap={"butt"}
+          onUpdate={(remainingTime) =>
+            dispatch(setRemainingTime(remainingTime))
+          }
           trailColor={working ? "#fa9f42" : "#1da67b"}
         >
           {renderTime}
