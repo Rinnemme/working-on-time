@@ -5,7 +5,11 @@ import { useSelector } from "react-redux";
 import Timer from "./timer/timer";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { setWorkingProject, setWorking } from "@/src/store/workingSessionSlice";
+import {
+  setWorkingProject,
+  setWorking,
+  setRemainingTime,
+} from "@/src/store/workingSessionSlice";
 import TaskList from "../task-list/taskList";
 import AddTaskButton from "../add-task-button/addTaskButton";
 import Modal from "../modal/modal";
@@ -33,7 +37,9 @@ export default function WorkingSession({ project }: { project: Project }) {
   const changeProject = (projectid: number) => {
     dispatch(setWorkingProject(projectid));
     dispatch(setWorking(true));
+    dispatch(setRemainingTime(0));
     localStorage.setItem("working", "1");
+    localStorage.removeItem("remainingTime");
     setResets((resets) => resets + 1);
     setModal(false);
   };
