@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import Timer from "./timer/timer";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { setWorkingProject } from "@/src/store/workingSessionSlice";
+import { setWorkingProject, setWorking } from "@/src/store/workingSessionSlice";
 import TaskList from "../task-list/taskList";
 import AddTaskButton from "../add-task-button/addTaskButton";
 import Modal from "../modal/modal";
@@ -21,8 +21,10 @@ export default function WorkingSession({ project }: { project: Project }) {
   const restingDuration = useSelector(
     (state: AppState) => state.workingSession.timer.restingDuration
   );
+  const working = useSelector(
+    (state: AppState) => state.workingSession.working
+  );
   const [showTimerForm, setShowTimerForm] = useState<boolean>(false);
-  const [working, setWorking] = useState<boolean>(true);
   const [paused, setPaused] = useState<boolean>(true);
   const [modal, setModal] = useState<boolean>(false);
   const [resets, setResets] = useState<number>(0);
@@ -30,7 +32,7 @@ export default function WorkingSession({ project }: { project: Project }) {
 
   const changeProject = (projectid: number) => {
     dispatch(setWorkingProject(projectid));
-    setWorking(true);
+    dispatch(setWorking(true));
     setResets((resets) => resets + 1);
     setModal(false);
   };
@@ -93,7 +95,7 @@ export default function WorkingSession({ project }: { project: Project }) {
           {working && workingDuration && !showTimerForm && (
             <div className="w-fit flex flex-col gap-5">
               <Timer
-                toggleWorking={() => setWorking(!working)}
+                toggleWorking={() => dispatch(setWorking(!working))}
                 togglePaused={() => setPaused(!paused)}
                 keyParam={resets}
                 resetTimer={() => setResets((resets) => resets + 1)}
@@ -117,7 +119,7 @@ export default function WorkingSession({ project }: { project: Project }) {
           {!working && restingDuration && !showTimerForm && (
             <div className="w-fit flex flex-col gap-5">
               <Timer
-                toggleWorking={() => setWorking(!working)}
+                toggleWorking={() => dispatch(setWorking(!working))}
                 togglePaused={() => setPaused(!paused)}
                 keyParam={resets}
                 resetTimer={() => setResets((resets) => resets + 1)}

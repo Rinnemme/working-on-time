@@ -10,6 +10,7 @@ type WorkingSession = {
     restingDuration: number | null;
     currentRemainingTime: number | null;
   };
+  working: boolean;
 };
 
 const initialState: WorkingSession = {
@@ -19,6 +20,7 @@ const initialState: WorkingSession = {
     restingDuration: null,
     currentRemainingTime: null,
   },
+  working: true,
 };
 
 export const workingSessionSlice = createSlice({
@@ -38,9 +40,17 @@ export const workingSessionSlice = createSlice({
       state.timer.currentRemainingTime = action.payload;
       return state;
     },
+    setWorking: (state, action) => {
+      state.working = action.payload;
+      return state;
+    },
   },
 });
 
-export const { setWorkingProject, setSessionTimer, setRemainingTime } =
-  workingSessionSlice.actions;
+export const {
+  setWorkingProject,
+  setSessionTimer,
+  setRemainingTime,
+  setWorking,
+} = workingSessionSlice.actions;
 export default workingSessionSlice.reducer;
