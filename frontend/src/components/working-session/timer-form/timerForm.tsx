@@ -17,7 +17,7 @@ export default function TimerForm({ closeTimer }: { closeTimer: () => void }) {
   );
   const { errors } = formState;
 
-  async function onSubmit(data: any) {
+  function onSubmit(data: any) {
     if (+data.workingSeconds === 0 && +data.workingMinutes === 0) {
       setError("workingSeconds", {
         message: "Working time must exceed 0 seconds.",
@@ -31,13 +31,16 @@ export default function TimerForm({ closeTimer }: { closeTimer: () => void }) {
     } else {
       const workingDuration = +data.workingMinutes * 60 + +data.workingSeconds;
       const restingDuration = +data.restingMinutes * 60 + +data.restingSeconds;
-      await dispatch(setRemainingTime(null));
-      await dispatch(
+      dispatch(setRemainingTime(null));
+      localStorage.removeItem("remainingTime");
+      dispatch(
         setSessionTimer({
           workingDuration,
           restingDuration,
         })
       );
+      localStorage.setItem("workingDuration", workingDuration.toString());
+      localStorage.setItem("restingDuration", restingDuration.toString());
       closeTimer();
     }
   }

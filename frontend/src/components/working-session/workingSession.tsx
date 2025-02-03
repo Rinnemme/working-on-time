@@ -33,8 +33,15 @@ export default function WorkingSession({ project }: { project: Project }) {
   const changeProject = (projectid: number) => {
     dispatch(setWorkingProject(projectid));
     dispatch(setWorking(true));
+    localStorage.setItem("working", "1");
     setResets((resets) => resets + 1);
     setModal(false);
+  };
+
+  const toggleWorking = () => {
+    dispatch(setWorking(!working));
+    const localWorking = working ? "0" : "1";
+    localStorage.setItem("working", localWorking);
   };
 
   return (
@@ -95,7 +102,7 @@ export default function WorkingSession({ project }: { project: Project }) {
           {working && workingDuration && !showTimerForm && (
             <div className="w-fit flex flex-col gap-5">
               <Timer
-                toggleWorking={() => dispatch(setWorking(!working))}
+                toggleWorking={toggleWorking}
                 togglePaused={() => setPaused(!paused)}
                 keyParam={resets}
                 resetTimer={() => setResets((resets) => resets + 1)}
@@ -119,7 +126,7 @@ export default function WorkingSession({ project }: { project: Project }) {
           {!working && restingDuration && !showTimerForm && (
             <div className="w-fit flex flex-col gap-5">
               <Timer
-                toggleWorking={() => dispatch(setWorking(!working))}
+                toggleWorking={toggleWorking}
                 togglePaused={() => setPaused(!paused)}
                 keyParam={resets}
                 resetTimer={() => setResets((resets) => resets + 1)}

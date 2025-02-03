@@ -22,6 +22,12 @@ import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 import type { AppState } from "@/src/store/store";
 import ProjectDropdown from "./project-dropdown/projectDropdown";
+import {
+  setRemainingTime,
+  setSessionTimer,
+  setWorking,
+  setWorkingProject,
+} from "@/src/store/workingSessionSlice";
 
 export default function Navbar() {
   const router = useRouter();
@@ -65,7 +71,45 @@ export default function Navbar() {
       .finally(() => dispatch(setIsLoading(false)));
   };
 
+  const getAndSetWorkingProjectId = () => {
+    const storedId = localStorage.getItem("workingid");
+    if (typeof storedId === "string") {
+      dispatch(setWorkingProject(+storedId));
+    }
+  };
+
+  const getAndSetWorkingTimer = () => {
+    const workingDuration = localStorage.getItem("workingDuration");
+    const restingDuration = localStorage.getItem("restingDuration");
+    const timeRemaining = localStorage.getItem("remainingTime");
+    if (
+      typeof workingDuration === "string" &&
+      typeof restingDuration === "string"
+    ) {
+      dispatch(
+        setSessionTimer({
+          workingDuration: +workingDuration,
+          restingDuration: +restingDuration,
+        })
+      );
+    }
+    if (typeof timeRemaining === "string") {
+      dispatch(setRemainingTime(+timeRemaining));
+    }
+  };
+
+  const getAndSetWorkingState = () => {
+    const working = localStorage.getItem("working");
+    if (typeof working === "string") {
+      const workingBoolean = +working ? true : false;
+      dispatch(setWorking(workingBoolean));
+    }
+  };
+
   useEffect(() => {
+    getAndSetWorkingProjectId();
+    getAndSetWorkingTimer();
+    getAndSetWorkingState();
     getAndSetUser();
     getAndSetProjects();
   }, []);

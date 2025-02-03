@@ -44,11 +44,13 @@ export default function Timer({
 
   function reset() {
     dispatch(setRemainingTime(duration));
+    localStorage.setItem("remainingTime", duration.toString());
     resetTimer();
   }
 
   function skip() {
     dispatch(setRemainingTime(null));
+    localStorage.removeItem("remainingTime");
     toggleWorking();
   }
 
@@ -98,9 +100,10 @@ export default function Timer({
           onComplete={toggleWorking}
           strokeWidth={28}
           strokeLinecap={"butt"}
-          onUpdate={(remainingTime) =>
-            dispatch(setRemainingTime(remainingTime))
-          }
+          onUpdate={(remainingTime) => {
+            dispatch(setRemainingTime(remainingTime));
+            localStorage.setItem("remainingTime", remainingTime.toString());
+          }}
           trailColor={working ? "#fa9f42" : "#1da67b"}
         >
           {renderTime}

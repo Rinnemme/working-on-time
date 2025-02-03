@@ -1,7 +1,6 @@
 "use client";
 
 import { createSlice } from "@reduxjs/toolkit";
-import { Project } from "./types";
 
 type WorkingSession = {
   projectid: number | null;
