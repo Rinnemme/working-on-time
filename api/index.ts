@@ -49,13 +49,12 @@ app.post("/sign-up", async (req, res, next) => {
       async (err: Error, hashedPassword: String) => {
         try {
           await pool.query(
-            "INSERT INTO users (username, password) VALUES ($1, $2)",
-            [req.body.username, hashedPassword]
+            "INSERT INTO users (username, nickname, password) VALUES ($1, $2, $3)",
+            [req.body.username, req.body.nickname, hashedPassword]
           );
-          console.log("submitted");
-          res.redirect("/");
+          res.status(200).send({ message: "Success!" });
         } catch (err) {
-          return next(err);
+          res.send(err);
         }
       }
     );

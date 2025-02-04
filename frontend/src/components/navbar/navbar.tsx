@@ -28,14 +28,19 @@ import {
   setWorking,
   setWorkingProject,
 } from "@/src/store/workingSessionSlice";
+import SignupForm from "../signup-form/signupForm";
+import Toast from "../toast/toast";
+
+type ModalTypes = "Login" | "SignUp" | null;
 
 export default function Navbar() {
   const router = useRouter();
   const path = usePathname();
-  const [modalOpen, setModalOpen] = useState<Boolean>(false);
+  const [modal, setModal] = useState<ModalTypes>(null);
   const username = useSelector((state: AppState) => state.user.username);
   const projects = useSelector((state: AppState) => state.projects);
   const isLoading = useSelector((state: AppState) => state.isLoading);
+  const displayToast = useSelector((state: AppState) => state.toast.display);
   const dispatch = useDispatch();
 
   const [projectDropdown, setProjectDropdown] = useState<boolean>(false);
@@ -116,8 +121,15 @@ export default function Navbar() {
 
   const loginSuccess = () => {
     router.push("/projects");
+    getAndSetWorkingProjectId();
+    getAndSetWorkingTimer();
+    getAndSetWorkingState();
     getAndSetProjects();
-    setModalOpen(false);
+    setModal(null);
+  };
+
+  const signupSuccess = () => {
+    setModal("Login");
   };
 
   return (
@@ -241,7 +253,7 @@ export default function Navbar() {
                     <button
                       type="button"
                       className="rounded-md px-3 py-2 text-sm hover:cursor-pointer transition-all duration-200 hover:bg-slate-100 hover:text-wot-rose"
-                      onClick={() => setModalOpen(true)}
+                      onClick={() => setModal("Login")}
                     >
                       {!username && "Log In"}
                       {username && `Welcome, ${username}`}
@@ -337,11 +349,18 @@ export default function Navbar() {
           </DisclosurePanel>
         </>
       </Disclosure>
-      {modalOpen && (
-        <Modal closeFunc={() => setModalOpen(false)}>
-          <LoginForm successFunc={loginSuccess} />
+      {modal && (
+        <Modal closeFunc={() => setModal(null)}>
+          {modal === "Login" && (
+            <LoginForm
+              successFunc={loginSuccess}
+              signUpFunc={() => setModal("SignUp")}
+            />
+          )}
+          {modal === "SignUp" && <SignupForm successFunc={signupSuccess} />}
         </Modal>
       )}
+      {displayToast && <Toast />}
     </>
   );
 }

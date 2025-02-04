@@ -26,3 +26,18 @@ export type User = {
   username: string | null;
   nickname: string | null;
 };
+
+export type WorkingSession = {
+  projectid: number | null;
+  timer: {
+    workingDuration: number | null;
+    restingDuration: number | null;
+    currentRemainingTime: number | null;
+  };
+  working: boolean;
+};
+
+export type ToastState = {
+  display: boolean;
+  message: string | null;
+};

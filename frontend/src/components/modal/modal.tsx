@@ -5,11 +5,7 @@ export default function Modal({
   closeFunc,
 }: Readonly<{ children: React.ReactNode; closeFunc: () => void }>) {
   return (
-    <Dialog
-      className="relative z-10"
-      open={true}
-      onClose={() => console.log("closed")}
-    >
+    <Dialog className="relative z-10" open={true} onClose={closeFunc}>
       <DialogBackdrop
         transition
         className="fixed inset-0 bg-gray-500 bg-opacity-75"

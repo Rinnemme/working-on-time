@@ -5,6 +5,7 @@ import projectReducer from "./projectSlice";
 import userReducer from "./userSlice";
 import loadingReducer from "./loadingSlice";
 import workingSessionReducer from "./workingSessionSlice";
+import toastReducer from "./toastSlice";
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
     projects: projectReducer,
     isLoading: loadingReducer,
     workingSession: workingSessionReducer,
+    toast: toastReducer,
   },
 });
 

@@ -6,7 +6,8 @@ import { setUser } from "../../store/userSlice";
 
 export default function LoginForm({
   successFunc,
-}: Readonly<{ successFunc: () => void }>) {
+  signUpFunc,
+}: Readonly<{ successFunc: () => void; signUpFunc: () => void }>) {
   const dispatch = useDispatch();
   const { register, handleSubmit, formState } = useForm<any>({
     mode: "onTouched",
@@ -96,13 +97,19 @@ export default function LoginForm({
           </p>
         </div>
       </div>
-      <div className="mt-5 sm:mt-6 w-full mb-6 flex justify-center">
+      <div className="mt-5 sm:mt-6 w-full flex justify-center">
         <button
           type="submit"
           className="inline-flex w-auto justify-center rounded-3xl bg-wot-rose px-5 py-2 my-4 font-light text-white shadow-sm hover:bg-wot-yellow hover:scale-105 transition-all duration-300"
         >
           Log In
         </button>
+      </div>
+      <div
+        onClick={signUpFunc}
+        className="italic mt-2 mb-6 text-wot-rose hover:cursor-pointer hover:text-wot-yellow"
+      >
+        No account? Sign up!
       </div>
     </form>
   );

@@ -1,16 +1,7 @@
 "use client";
 
 import { createSlice } from "@reduxjs/toolkit";
-
-type WorkingSession = {
-  projectid: number | null;
-  timer: {
-    workingDuration: number | null;
-    restingDuration: number | null;
-    currentRemainingTime: number | null;
-  };
-  working: boolean;
-};
+import { WorkingSession } from "./types";
 
 const initialState: WorkingSession = {
   projectid: null,
