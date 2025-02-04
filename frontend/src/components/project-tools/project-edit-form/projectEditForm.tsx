@@ -4,6 +4,7 @@ import { ReactNode } from "react";
 import { useDispatch } from "react-redux";
 import { updateProject } from "../../../store/projectSlice";
 import { Project } from "@/src/store/types";
+import { setToast } from "@/src/store/toastSlice";
 
 export default function ProjectEditForm({
   project,
@@ -47,6 +48,7 @@ export default function ProjectEditForm({
               due: data.due,
             })
           );
+          dispatch(setToast("Changes saved!"));
           closeFunc();
         }
       })

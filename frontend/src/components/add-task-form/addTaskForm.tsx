@@ -3,6 +3,7 @@ import axios from "axios";
 import { ReactNode } from "react";
 import { useDispatch } from "react-redux";
 import { addTask } from "../../store/projectSlice";
+import { setToast } from "@/src/store/toastSlice";
 
 export default function AddTaskForm({
   projectid,
@@ -25,9 +26,10 @@ export default function AddTaskForm({
       withCredentials: true,
       url: `${process.env.baseURI}/tasks/add`,
     })
-      .then(async (res) => {
+      .then((res) => {
         if (res.status === 200) {
-          await dispatch(addTask(res.data[0]));
+          dispatch(addTask(res.data[0]));
+          dispatch(setToast("Task added!"));
           closeFunc();
         }
       })

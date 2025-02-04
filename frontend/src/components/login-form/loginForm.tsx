@@ -3,6 +3,7 @@ import axios from "axios";
 import { ReactNode } from "react";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../store/userSlice";
+import { setToast } from "@/src/store/toastSlice";
 
 export default function LoginForm({
   successFunc,
@@ -24,15 +25,16 @@ export default function LoginForm({
       withCredentials: true,
       url: `${process.env.baseURI}/log-in`,
     })
-      .then(async (res) => {
+      .then((res) => {
         if (res.status === 200) {
-          await dispatch(
+          dispatch(
             setUser({
               id: res.data.id,
               username: res.data.username,
               nickname: res.data.nickname,
             })
           );
+          dispatch(setToast("Login successful!"));
           successFunc();
         }
       })

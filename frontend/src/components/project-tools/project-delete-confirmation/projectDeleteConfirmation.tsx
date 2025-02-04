@@ -2,6 +2,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { deleteProject } from "../../../store/projectSlice";
 import { Project } from "@/src/store/types";
+import { setToast } from "@/src/store/toastSlice";
 
 export default function ProjectDeleteConfirmation({
   project,
@@ -15,9 +16,10 @@ export default function ProjectDeleteConfirmation({
       withCredentials: true,
       url: `${process.env.baseURI}/my-projects/${project.id}/delete`,
     })
-      .then(async (res) => {
+      .then((res) => {
         if (res.status === 200) {
-          await dispatch(deleteProject(project));
+          dispatch(deleteProject(project));
+          dispatch(setToast("Project deleted!"));
           closeFunc();
         }
       })

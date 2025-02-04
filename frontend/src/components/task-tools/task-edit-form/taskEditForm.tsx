@@ -4,6 +4,7 @@ import { ReactNode } from "react";
 import { useDispatch } from "react-redux";
 import { updateTask } from "../../../store/projectSlice";
 import { Task } from "@/src/store/types";
+import { setToast } from "@/src/store/toastSlice";
 
 export default function TaskEditForm({
   task,
@@ -29,15 +30,16 @@ export default function TaskEditForm({
       withCredentials: true,
       url: `${process.env.baseURI}/tasks/${task.id}/edit`,
     })
-      .then(async (res) => {
+      .then((res) => {
         if (res.status === 200) {
-          await dispatch(
+          dispatch(
             updateTask({
               ...task,
               name: data.taskName,
               description: data.description,
             })
           );
+          dispatch(setToast("Changes saved!"));
           closeFunc();
         }
       })

@@ -38,6 +38,7 @@ export default function Navbar() {
   const path = usePathname();
   const [modal, setModal] = useState<ModalTypes>(null);
   const username = useSelector((state: AppState) => state.user.username);
+  const nickname = useSelector((state: AppState) => state.user.nickname);
   const projects = useSelector((state: AppState) => state.projects);
   const isLoading = useSelector((state: AppState) => state.isLoading);
   const displayToast = useSelector((state: AppState) => state.toast.display);
@@ -256,7 +257,7 @@ export default function Navbar() {
                       onClick={() => setModal("Login")}
                     >
                       {!username && "Log In"}
-                      {username && `Welcome, ${username}`}
+                      {username && `Welcome, ${nickname}!`}
                     </button>
                   </div>
                 </div>

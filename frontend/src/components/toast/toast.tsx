@@ -2,6 +2,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { unsetToast } from "@/src/store/toastSlice";
 import { useEffect } from "react";
 import type { AppState } from "@/src/store/store";
+import Image from "next/image";
+import Success from "@/public/success.svg";
 
 export default function Toast() {
   const dispatch = useDispatch();
@@ -12,7 +14,8 @@ export default function Toast() {
   }, []);
 
   return (
-    <div className="fixed z-50 top-6 right-6 shadow-xl border-wot-gray border px-5 py-3 bg-white rounded-md slide opacity-0">
+    <div className="fixed flex gap-2 z-50 top-[4.5rem] right-4 shadow-lg text-sm px-4 py-2 border border-wot-light-gray bg-white rounded-md slide opacity-0">
+      <Image alt="success" src={Success} height={18} />
       {message}
     </div>
   );
