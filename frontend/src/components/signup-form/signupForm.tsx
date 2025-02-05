@@ -29,19 +29,26 @@ export default function SignupForm({
         nickname: data.nickname,
         password: data.password,
       },
-      withCredentials: true,
       url: `${process.env.baseURI}/sign-up`,
     })
-      .then(async (res) => {
+      .then((res) => {
         if (res.status === 200) {
           dispatch(setToast("Signed up successfully!"));
           successFunc();
         }
       })
       .catch((err) => {
-        if (err.status === 400) {
-          console.log(err);
-          // set a username or pw incorrect error
+        if (
+          err.response.data.detail ===
+          `Key (username)=(${data.username}) already exists.`
+        ) {
+          setError(
+            "username",
+            {
+              message: `The username ${data.username} is taken.`,
+            },
+            { shouldFocus: true }
+          );
         } else console.log(err);
       });
   }

@@ -10,7 +10,7 @@ export default function LoginForm({
   signUpFunc,
 }: Readonly<{ successFunc: () => void; signUpFunc: () => void }>) {
   const dispatch = useDispatch();
-  const { register, handleSubmit, formState } = useForm<any>({
+  const { register, handleSubmit, formState, setError } = useForm<any>({
     mode: "onTouched",
   });
   const { errors } = formState;
@@ -39,9 +39,8 @@ export default function LoginForm({
         }
       })
       .catch((err) => {
-        if (err.status === 400) {
-          console.log("ruh roh, 400");
-          // set a username or pw incorrect error
+        if (err.status === 401) {
+          setError("password", { message: err.response.data.message });
         } else console.log(err);
       });
   }

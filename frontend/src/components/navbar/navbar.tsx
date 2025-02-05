@@ -54,9 +54,11 @@ export default function Navbar() {
     })
       .then((res) => {
         dispatch(setUser(res.data));
+        getAndSetProjects();
       })
       .catch((err) => {
         if (path !== "/" && path !== "/about") router.push("/");
+        dispatch(setIsLoading(false));
       });
   };
 
@@ -117,7 +119,6 @@ export default function Navbar() {
     getAndSetWorkingTimer();
     getAndSetWorkingState();
     getAndSetUser();
-    getAndSetProjects();
   }, []);
 
   const loginSuccess = () => {

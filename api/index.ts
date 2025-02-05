@@ -33,11 +33,16 @@ app.get("/", (req: Request, res: Response) => {
   } else res.status(400).send({ message: "Log in first!" });
 });
 
+app.get("/authentication-failed", (req: Request, res: Response) => {
+  res.status(401).send({ message: "Username or password is incorrect." });
+});
+
 app.post(
   "/log-in",
   passport.authenticate("local", {
     successRedirect: "/",
-    failureRedirect: "/",
+    failureRedirect: "/authentication-failed",
+    failureMessage: true,
   })
 );
 
@@ -54,7 +59,7 @@ app.post("/sign-up", async (req, res, next) => {
           );
           res.status(200).send({ message: "Success!" });
         } catch (err) {
-          res.send(err);
+          res.status(400).send(err);
         }
       }
     );
@@ -81,7 +86,6 @@ passport.use(
       if (!match) {
         return done(null, false, { message: "Incorrect password" });
       }
-      console.log("credentials acknowledged");
       return done(null, user);
     } catch (err) {
       return done(err);
