@@ -66,7 +66,6 @@ export const projectSlice = createSlice({
     updateProject: (state, action) => {
       const projectIndex = indexOfProject(action.payload.id, state);
       state[projectIndex] = action.payload;
-      console.log(action.payload);
       return state;
     },
     deleteProject: (state, action) => {
