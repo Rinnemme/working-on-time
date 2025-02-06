@@ -86,7 +86,7 @@ exports.addNewProject = async (
   due: string
 ) => {
   const { rows } = await pool.query(
-    "INSERT INTO projects (name, userid, priority, description, due) VALUES ($1, $2, $3, $4, $5)",
+    'INSERT INTO projects (name, userid, priority, description, due) VALUES ($1, $2, $3, $4, $5) RETURNING id, name, userid, priority, description, datecreated as "dateCreated", due',
     [name, userid, priority, description, due]
   );
   return rows;

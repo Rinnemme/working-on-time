@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { ReactNode } from "react";
 import { useDispatch } from "react-redux";
-import { addTask } from "../../store/projectSlice";
+import { addTask } from "../../../store/projectSlice";
 import { setToast } from "@/src/store/toastSlice";
 
 export default function AddTaskForm({
@@ -41,7 +41,7 @@ export default function AddTaskForm({
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate>
       <div className="mt-3 text-center flex flex-col items-center sm:mt-5">
-        <h3 className="text-3xl font-bold leading-6 mb-5 mt-4 text-wot-rose">
+        <h3 className="text-3xl font-bold leading-6 mb-5 mt-4 text-wot-yellow">
           Add Task
         </h3>
 
@@ -56,13 +56,13 @@ export default function AddTaskForm({
             <input
               type="text"
               id="taskName"
-              className="block w-64 bg-wot-off-white rounded-md border-0 px-2.5 py-1.5 text-wot-black shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-wot-gray focus:outline-none focus:ring-1 focus:ring-inset focus:ring-wot-light-rose sm:text-sm sm:leading-6"
+              className="block w-64 bg-wot-off-white rounded-md border-0 px-2.5 py-1.5 text-wot-black shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-wot-gray focus:outline-none focus:ring-1 focus:ring-inset focus:ring-wot-yellow sm:text-sm sm:leading-6"
               {...register("taskName", {
                 required: "Task name is required",
               })}
             />
           </div>
-          <p className="mt-1 text-sm h-2 text-wot-rose">
+          <p className="mt-1 text-sm h-2 text-wot-yellow">
             {errors.taskName?.message as ReactNode}
           </p>
         </div>
@@ -77,13 +77,13 @@ export default function AddTaskForm({
           <div className="mt-2 flex justify-center">
             <textarea
               id="description"
-              className="block w-64 h-32 bg-wot-off-white rounded-md border-0 px-2.5 py-1.5 text-wot-black shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-wot-gray focus:outline-none focus:ring-1 focus:ring-inset focus:ring-wot-light-rose sm:text-sm sm:leading-6"
+              className="block w-64 h-32 bg-wot-off-white rounded-md border-0 px-2.5 py-1.5 text-wot-black shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-wot-gray focus:outline-none focus:ring-1 focus:ring-inset focus:ring-wot-yellow sm:text-sm sm:leading-6"
               {...register("description", {
                 required: "A description is required",
               })}
             />
           </div>
-          <p className="mt-1 text-sm h-2 text-wot-rose">
+          <p className="mt-1 text-sm h-2 text-wot-yellow">
             {errors.description?.message as ReactNode}
           </p>
         </div>
@@ -91,7 +91,7 @@ export default function AddTaskForm({
       <div className="mt-5 sm:mt-6 w-full mb-6 flex justify-center">
         <button
           type="submit"
-          className="inline-flex w-auto justify-center rounded-3xl bg-wot-rose px-5 py-2 my-4 font-light text-white shadow-sm hover:bg-wot-yellow hover:scale-105 transition-all duration-300"
+          className="inline-flex w-auto justify-center rounded-3xl bg-wot-yellow px-5 py-2 my-4 font-light text-white shadow-sm hover:bg-wot-yellow hover:scale-105 transition-all duration-300"
         >
           Add
         </button>

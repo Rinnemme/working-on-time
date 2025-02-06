@@ -47,8 +47,14 @@ exports.addNewProject = async (req: Request, res: Response) => {
       const { name, priority, description, due } = req.body;
       const user = req.user as any;
       const userid = user.id;
-      await db.addNewProject(name, userid, priority, description, due);
-      res.status(200).json({ addition: "success" });
+      const newProject = await db.addNewProject(
+        name,
+        userid,
+        priority,
+        description,
+        due
+      );
+      res.status(200).json(newProject);
     } catch (err) {
       res.status(500).json({ error: err });
     }

@@ -72,6 +72,10 @@ export const projectSlice = createSlice({
       state = state.filter((project) => project.id !== action.payload.id);
       return state;
     },
+    addProject: (state, action) => {
+      state = [...state, action.payload];
+      return state;
+    },
     resetProjects: (state) => {
       state = initialState;
       return state;
@@ -88,6 +92,7 @@ export const {
   addTask,
   updateProject,
   deleteProject,
+  addProject,
   resetProjects,
 } = projectSlice.actions;
 export default projectSlice.reducer;

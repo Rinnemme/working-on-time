@@ -6,15 +6,17 @@ import Modal from "../modal/modal";
 import ProjectEditForm from "./project-edit-form/projectEditForm";
 import ProjectDeleteConfirmation from "./project-delete-confirmation/projectDeleteConfirmation";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 type ModalType = "Edit" | "Delete" | null;
 
 export default function ProjectTools({ project }: { project: Project }) {
   const [dropdown, setDropdown] = useState<boolean>(false);
   const [modal, setModal] = useState<ModalType>(null);
+  const path = usePathname();
 
   return (
-    <div className="h-5 w-5 ms-auto relative">
+    <div className="h-5 w-5 ms-auto relative text-base">
       <Image
         src={Tools}
         alt={"project tools"}
@@ -26,11 +28,13 @@ export default function ProjectTools({ project }: { project: Project }) {
           className="absolute font-normal top-6 right-0 bg-wot-off-white border border-wot-light-gray shadow z-10 w-fit py-2 px-3"
           onMouseLeave={() => setDropdown(false)}
         >
-          <Link href={`/projects/${project.id}`}>
-            <div className="text-nowrap text-end text-wot-black hover:cursor-pointer hover:text-wot-rose">
-              Go To Project
-            </div>
-          </Link>
+          {path !== `/projects/${project.id}` && (
+            <Link href={`/projects/${project.id}`}>
+              <div className="text-nowrap text-end text-wot-black hover:cursor-pointer hover:text-wot-rose">
+                Go To Project
+              </div>
+            </Link>
+          )}
           <div
             className="text-nowrap text-end text-wot-black hover:cursor-pointer hover:text-wot-rose"
             onClick={() => setModal("Edit")}
@@ -43,9 +47,11 @@ export default function ProjectTools({ project }: { project: Project }) {
           >
             Delete project
           </div>
-          <div className="text-nowrap text-end text-wot-black hover:cursor-pointer hover:text-wot-rose">
-            Working Session
-          </div>
+          {path !== `/projects/${project.id}` && (
+            <div className="text-nowrap text-end text-wot-black hover:cursor-pointer hover:text-wot-rose">
+              Working Session
+            </div>
+          )}
         </div>
       )}
       {modal === "Edit" && (

@@ -2,14 +2,12 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { ReactNode } from "react";
 import { useDispatch } from "react-redux";
-import { updateProject } from "../../../store/projectSlice";
-import { Project } from "@/src/store/types";
+import { addProject, updateProject } from "../../../store/projectSlice";
 import { setToast } from "@/src/store/toastSlice";
 
-export default function ProjectEditForm({
-  project,
+export default function AddProjectForm({
   closeFunc,
-}: Readonly<{ project: Project; closeFunc: () => void }>) {
+}: Readonly<{ closeFunc: () => void }>) {
   const dispatch = useDispatch();
   const { register, handleSubmit, formState } = useForm<any>({
     mode: "onTouched",
@@ -17,14 +15,6 @@ export default function ProjectEditForm({
   const { errors } = formState;
 
   async function onSubmit(data: any) {
-    if (
-      data.projectName === project.name &&
-      data.priority === project.priority &&
-      data.description === project.description
-    ) {
-      closeFunc();
-      return;
-    }
     axios({
       method: "POST",
       data: {
@@ -34,20 +24,19 @@ export default function ProjectEditForm({
         due: data.due,
       },
       withCredentials: true,
-      url: `${process.env.baseURI}/my-projects/${project.id}/edit`,
+      url: `${process.env.baseURI}/my-projects/add`,
     })
       .then(async (res) => {
         if (res.status === 200) {
           await dispatch(
-            updateProject({
-              ...project,
-              name: data.projectName,
-              priority: +data.priority,
-              description: data.description,
-              due: data.due,
+            addProject({
+              ...res.data[0],
+              totalTasks: "0",
+              completedTasks: "0",
+              tasks: [],
             })
           );
-          dispatch(setToast("Changes saved!"));
+          dispatch(setToast("Project added!"));
           closeFunc();
         }
       })
@@ -59,8 +48,8 @@ export default function ProjectEditForm({
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate>
       <div className="mt-3 text-center flex flex-col items-center sm:mt-5">
-        <h3 className="text-3xl font-bold leading-6 mb-5 mt-4 text-wot-blue">
-          Edit project
+        <h3 className="text-3xl font-bold leading-6 mb-5 mt-4 text-wot-yellow">
+          New project
         </h3>
 
         <div className="w-96 mt-6">
@@ -74,14 +63,13 @@ export default function ProjectEditForm({
             <input
               type="text"
               id="projectName"
-              className="block w-72 bg-wot-off-white rounded-md border-0 px-2.5 py-1.5 text-wot-black shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-wot-gray focus:outline-none focus:ring-1 focus:ring-inset focus:ring-wot-light-rose sm:text-sm sm:leading-6"
-              defaultValue={project.name}
+              className="block w-72 bg-wot-off-white rounded-md border-0 px-2.5 py-1.5 text-wot-black shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-wot-gray focus:outline-none focus:ring-1 focus:ring-inset focus:ring-wot-yellow sm:text-sm sm:leading-6"
               {...register("projectName", {
                 required: "Project name is required",
               })}
             />
           </div>
-          <p className="mt-1 text-sm h-2 text-wot-blue">
+          <p className="mt-1 text-sm h-2 text-wot-yellow">
             {errors.projectName?.message as ReactNode}
           </p>
         </div>
@@ -96,8 +84,7 @@ export default function ProjectEditForm({
           <div className="mt-2 flex justify-center">
             <select
               id="priority"
-              defaultValue={project.priority}
-              className="block w-72 bg-wot-off-white rounded-md border-0 px-2.5 py-1.5 text-wot-black shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-wot-gray focus:outline-none focus:ring-1 focus:ring-inset focus:ring-wot-light-rose sm:text-sm sm:leading-6"
+              className="block w-72 bg-wot-off-white rounded-md border-0 px-2.5 py-1.5 text-wot-black shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-wot-gray focus:outline-none focus:ring-1 focus:ring-inset focus:ring-wot-yellow sm:text-sm sm:leading-6"
               {...register("priority")}
             >
               <option value={1}>Low</option>
@@ -118,8 +105,7 @@ export default function ProjectEditForm({
             <input
               type="date"
               id="due"
-              defaultValue={project.due.slice(0, 10)}
-              className="block w-72 bg-wot-off-white rounded-md border-0 px-2.5 py-1.5 text-wot-black shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-wot-gray focus:outline-none focus:ring-1 focus:ring-inset focus:ring-wot-light-rose sm:text-sm sm:leading-6"
+              className="block w-72 bg-wot-off-white rounded-md border-0 px-2.5 py-1.5 text-wot-black shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-wot-gray focus:outline-none focus:ring-1 focus:ring-inset focus:ring-wot-yellow sm:text-sm sm:leading-6"
               {...register("due")}
             />
           </div>
@@ -135,14 +121,13 @@ export default function ProjectEditForm({
           <div className="mt-2 flex justify-center">
             <textarea
               id="description"
-              className="block w-72 h-36 bg-wot-off-white rounded-md border-0 px-2.5 py-1.5 text-wot-black shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-wot-gray focus:outline-none focus:ring-1 focus:ring-inset focus:ring-wot-light-rose sm:text-sm sm:leading-6"
-              defaultValue={project.description}
+              className="block w-72 h-36 bg-wot-off-white rounded-md border-0 px-2.5 py-1.5 text-wot-black shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-wot-gray focus:outline-none focus:ring-1 focus:ring-inset focus:ring-wot-yellow sm:text-sm sm:leading-6"
               {...register("description", {
                 required: "A description is required",
               })}
             />
           </div>
-          <p className="mt-1 text-sm h-2 text-wot-blue">
+          <p className="mt-1 text-sm h-2 text-wot-yellow">
             {errors.description?.message as ReactNode}
           </p>
         </div>
@@ -150,7 +135,7 @@ export default function ProjectEditForm({
       <div className="mt-5 sm:mt-6 w-full mb-4 flex justify-center">
         <button
           type="submit"
-          className="inline-flex w-auto justify-center rounded-3xl bg-wot-blue px-5 py-2 my-4 font-light text-white shadow-sm hover:bg-wot-yellow hover:scale-105 transition-all duration-300"
+          className="inline-flex w-auto justify-center rounded-3xl bg-wot-yellow px-5 py-2 my-4 font-light text-white shadow-sm hover:bg-wot-yellow hover:scale-105 transition-all duration-300"
         >
           Save
         </button>

@@ -1,10 +1,10 @@
 import Image from "next/image";
 import { useState } from "react";
 import Modal from "../modal/modal";
-import AddTaskForm from "./add-task-form/addTaskForm";
+import AddProjectForm from "./add-project-form/addProjectForm";
 import Add from "../../../public/add.svg";
 
-export default function AddTaskButton({ projectid }: { projectid: number }) {
+export default function AddProjectButton() {
   const [modal, setModal] = useState<boolean>(false);
   return (
     <>
@@ -19,10 +19,7 @@ export default function AddTaskButton({ projectid }: { projectid: number }) {
           closeFunc={() => setModal(false)}
           backgroundColor="wot-light-yellow"
         >
-          <AddTaskForm
-            projectid={projectid}
-            closeFunc={() => setModal(false)}
-          />
+          <AddProjectForm closeFunc={() => setModal(false)} />
         </Modal>
       )}
     </>

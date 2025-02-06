@@ -56,14 +56,19 @@ export default function WorkingSession({ project }: { project: Project }) {
       <div className="relative flex flex-col items-center pt-12 pb-20 sm:pt-14 justify-center w-full">
         <div className="text-center flex items-center w-full flex-col px-2">
           {modal && (
-            <Modal closeFunc={() => setModal(false)}>
-              <h2 className="font-bold text-3xl mt-2 mb-[-10px] text-wot-rose">
-                Select Another Project
-              </h2>
-              <SessionSelectList
-                projects={allProjects}
-                selectFunction={changeProject}
-              />
+            <Modal
+              closeFunc={() => setModal(false)}
+              backgroundColor="wot-light-gray"
+            >
+              <div className="mt-6 mb-6">
+                <h2 className="font-bold text-2xl mb-[-10px] text-wot-rose">
+                  Select Another Project
+                </h2>
+                <SessionSelectList
+                  projects={allProjects}
+                  selectFunction={changeProject}
+                />
+              </div>
             </Modal>
           )}
           <h1

@@ -1,22 +1,22 @@
 "use client";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import type { AppState } from "@../../../src/store/store";
 import type { Project } from "@../../../src/store/types";
 import Throbber from "@../../../src/components/throbber/throbber";
 import TaskList from "@../../../src/components/task-list/taskList";
 import Modal from "@/src/components/modal/modal";
-import AddTaskForm from "@/src/components/add-task-form/addTaskForm";
+import AddTaskForm from "@/src/components/add-task-button/add-task-form/addTaskForm";
 import AddTaskButton from "@/src/components/add-task-button/addTaskButton";
 import ProjectDescription from "@/src/components/project-description/projectDescsription";
 import NoTasks from "@/src/components/no-tasks/noTasks";
-
-type AddModal = "Task" | "Project" | null;
+import ProjectTools from "@/src/components/project-tools/projectTools";
+import { setWorkingProject } from "@/src/store/workingSessionSlice";
 
 export default function Project() {
-  const [modal, setModal] = useState<AddModal>(null);
+  const [modal, setModal] = useState<boolean>(false);
   // avoids quirky typing error despite checking for truthy params.id
   const getParam = (param: string | string[] | undefined) => {
     return param ? param : "";
@@ -26,6 +26,8 @@ export default function Project() {
   const params = useParams();
   const project =
     projects[projects.findIndex((p) => p.id === +getParam(params.id))];
+  const router = useRouter();
+  const dispatch = useDispatch();
 
   return (
     <div className="top-0 w-full h-full z-0 fade-in">
@@ -34,17 +36,26 @@ export default function Project() {
         {!isLoading && project && (
           <>
             <div className="text-center flex items-center w-full flex-col px-2">
-              <h1 className="text-wot-rose text-2xl font-bold sm:text-3xl fade">
-                {project.name}
+              <h1 className="text-wot-rose flex items-center gap-3 text-2xl font-bold sm:text-3xl fade">
+                {project.name} <ProjectTools project={project} />
               </h1>
               <div className="mt-10 flex flex-col gap-4 w-full items-center max-w-lg px-3">
                 <ProjectDescription project={project} />
+                <div
+                  className="self-center text-sm px-3 py-1 mb-2 mt-2 text-center bg-wot-white border rounded-full hover:cursor-pointer transition text-wot-rose border-wot-rose hover:text-wot-yellow hover:border-wot-yellow"
+                  onClick={() => {
+                    dispatch(setWorkingProject(project.id));
+                    router.push("/working-session");
+                  }}
+                >
+                  Start a Working Session
+                </div>
                 <h1 className="text-wot-rose text-2xl mt-5 font-bold sm:text-3xl fade flex items-center gap-2 justify-center">
                   Tasks
                   <AddTaskButton projectid={project.id} />
                 </h1>
                 {!project.tasks.length && (
-                  <NoTasks addTask={() => setModal("Task")} />
+                  <NoTasks addTask={() => setModal(true)} />
                 )}
                 {project.tasks.length > 0 && <TaskList tasks={project.tasks} />}
               </div>
@@ -62,10 +73,10 @@ export default function Project() {
           </div>
         )}
       </div>
-      {modal === "Task" && (
-        <Modal closeFunc={() => setModal(null)}>
+      {modal && (
+        <Modal closeFunc={() => setModal(false)}>
           <AddTaskForm
-            closeFunc={() => setModal(null)}
+            closeFunc={() => setModal(false)}
             projectid={project.id}
           />
         </Modal>
