@@ -94,14 +94,15 @@ export default function WorkingSession({ project }: { project: Project }) {
             Change Project
           </div>
         </div>
-        <div className="max-w-2xl w-full flex justify-center items-end gap-4 mt-10 flex-wrap-reverse">
-          <div className="w-[300px] h-fit p-4 bg-white border-wot-light-gray border overflow-y-auto">
-            <div className="w-full bg-white flex items-center justify-center gap-2 sticky mb-2 text-lg">
-              <div className="font-bold">Tasks To Do</div>{" "}
+        <div className="w-full flex justify-center items-end gap-4 px-4 mt-10 flex-wrap-reverse">
+          <div className="max-w-md w-full h-fit p-4 bg-white border-wot-light-gray border overflow-y-auto">
+            <div className="w-full bg-white flex items-center justify-center gap-2 sticky mb-2 mt-2 text-lg">
+              <div className="font-bold">Task List</div>{" "}
               <AddTaskButton projectid={project.id} />
             </div>
             <TaskList tasks={project.tasks} />
           </div>
+
           {(!workingDuration || !restingDuration || showTimerForm) && (
             <TimerForm closeTimer={() => setShowTimerForm(false)} />
           )}
@@ -118,7 +119,7 @@ export default function WorkingSession({ project }: { project: Project }) {
               />
               <div
                 className={
-                  "self-center text-sm px-3 py-1 text-center bg-wot-white border rounded-full hover:cursor-pointer transition " +
+                  "self-center text-sm px-3 py-1 mb-2 text-center bg-wot-white border rounded-full hover:cursor-pointer transition " +
                   (working
                     ? "text-wot-rose border-wot-rose hover:text-wot-yellow hover:border-wot-yellow"
                     : "text-wot-blue border-wot-blue hover:text-wot-light-green hover:border-wot-light-green")

@@ -4,8 +4,12 @@ import StockWorking from "../public/stock-working.avif";
 import FooterLogo from "../public/Footer-Logo.svg";
 import FooterGitHub from "../public/Footer-GitHub.svg";
 import FooterLinkedIn from "../public/Footer-LinkedIn.svg";
+import { useState } from "react";
+import Modal from "@/src/components/modal/modal";
+import SignupForm from "@/src/components/signup-form/signupForm";
 
 export default function Home() {
+  const [modal, setModal] = useState<boolean>(false);
   return (
     <div className="bg-white top-0 w-full h-full z-0 fade-in">
       <div className="relative flex items-center justify-center h-dvh w-full bg-wot-rose">
@@ -61,7 +65,10 @@ export default function Home() {
                 your working sessions today!
               </p>
 
-              <button className="rounded-3xl bg-wot-light-yellow px-8 mt-6 py-2 my-4 font-light text-white shadow-sm hover:bg-wot-blue hover:scale-105 transition-all duration-300">
+              <button
+                onClick={() => setModal(true)}
+                className="rounded-3xl bg-wot-light-yellow px-8 mt-6 py-2 my-4 font-light text-white shadow-sm hover:bg-wot-blue hover:scale-105 transition-all duration-300"
+              >
                 Get Started
               </button>
             </div>
@@ -123,6 +130,11 @@ export default function Home() {
           </div>
         </div>
       </div>
+      {modal && (
+        <Modal closeFunc={() => setModal(false)}>
+          <SignupForm successFunc={() => setModal(false)} />
+        </Modal>
+      )}
     </div>
   );
 }

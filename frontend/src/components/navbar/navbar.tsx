@@ -39,7 +39,6 @@ export default function Navbar() {
   const path = usePathname();
   const [modal, setModal] = useState<ModalTypes>(null);
   const username = useSelector((state: AppState) => state.user.username);
-  const nickname = useSelector((state: AppState) => state.user.nickname);
   const projects = useSelector((state: AppState) => state.projects);
   const isLoading = useSelector((state: AppState) => state.isLoading);
   const displayToast = useSelector((state: AppState) => state.toast.display);
@@ -179,7 +178,7 @@ export default function Navbar() {
                     <Link
                       href="/"
                       className={
-                        "rounded-md px-3 py-2 text-sm hover:cursor-pointer " +
+                        "rounded-md px-3 py-2 hover:cursor-pointer " +
                         (path === "/"
                           ? "text-wot-rose"
                           : "text-wot-black hover:text-wot-yellow hover:bg-slate-100")
@@ -190,7 +189,7 @@ export default function Navbar() {
                     <Link
                       href="/about"
                       className={
-                        "rounded-md px-3 py-2 text-sm hover:cursor-pointer " +
+                        "rounded-md px-3 py-2 hover:cursor-pointer " +
                         (path === "/movies"
                           ? "text-wot-rose"
                           : "text-wot-black hover:text-wot-yellow transition-all duration-200  hover:bg-slate-100")
@@ -206,7 +205,7 @@ export default function Navbar() {
                     <button
                       onClick={() => setProjectDropdown(!projectDropdown)}
                       className={
-                        "rounded-md relative px-3 flex items-center gap-1 py-2 text-sm hover:cursor-pointer " +
+                        "rounded-md relative px-3 flex items-center gap-1 py-2 hover:cursor-pointer " +
                         (path.includes("/projects")
                           ? "text-wot-rose"
                           : "text-wot-black hover:text-wot-yellow hover:bg-slate-100")
@@ -238,7 +237,7 @@ export default function Navbar() {
                     <Link
                       href="/working-session"
                       className={
-                        "rounded-md px-3 py-2 text-sm hover:cursor-pointer " +
+                        "rounded-md px-3 py-2 hover:cursor-pointer " +
                         (path === "/working-session"
                           ? "text-wot-rose"
                           : "text-wot-black hover:text-wot-yellow transition-all duration-200  hover:bg-slate-100")
@@ -255,7 +254,7 @@ export default function Navbar() {
                   <div className="flex-shrink-0">
                     <button
                       type="button"
-                      className="rounded-md px-3 py-2 text-sm hover:cursor-pointer transition-all duration-200 hover:bg-slate-100 hover:text-wot-rose"
+                      className="rounded-md px-3 py-2 hover:cursor-pointer transition-all duration-200 hover:bg-slate-100 hover:text-wot-rose"
                       onClick={() => setModal("Login")}
                     >
                       Log In
@@ -277,7 +276,7 @@ export default function Navbar() {
                     <Link
                       href="/"
                       className={
-                        "rounded-md px-3 py-2 text-sm hover:cursor-pointer " +
+                        "rounded-md px-3 py-2 hover:cursor-pointer " +
                         (path === "/"
                           ? "text-wot-rose"
                           : "text-wot-black hover:text-wot-yellow hover:bg-slate-100")
@@ -288,7 +287,7 @@ export default function Navbar() {
                     <Link
                       href="/about"
                       className={
-                        "rounded-md px-3 py-2 text-sm hover:cursor-pointer " +
+                        "rounded-md px-3 py-2 hover:cursor-pointer " +
                         (path === "/movies"
                           ? "text-wot-rose"
                           : "text-wot-black hover:text-wot-yellow transition-all duration-200  hover:bg-slate-100")
@@ -304,7 +303,7 @@ export default function Navbar() {
                     <Link
                       href="/working-session"
                       className={
-                        "rounded-md px-3 py-2 text-sm hover:cursor-pointer " +
+                        "rounded-md px-3 py-2 hover:cursor-pointer " +
                         (path === "/working-session"
                           ? "text-wot-rose"
                           : "text-wot-black hover:text-wot-yellow transition-all duration-200  hover:bg-slate-100")
@@ -315,7 +314,7 @@ export default function Navbar() {
                     <Link
                       href="/projects"
                       className={
-                        "rounded-md relative px-3 py-2 text-sm hover:cursor-pointer " +
+                        "rounded-md relative px-3 py-2 hover:cursor-pointer " +
                         (path === "/projects"
                           ? "text-wot-rose"
                           : "text-wot-black hover:text-wot-yellow hover:bg-slate-100")
@@ -328,7 +327,7 @@ export default function Navbar() {
                         return (
                           <li key={project.id} className="text-start ps-3 mt-2">
                             <Link
-                              className="rounded-md text-sm text-nowrap"
+                              className="rounded-md text-nowrap"
                               href={`/projects/${project.id}`}
                             >
                               <div

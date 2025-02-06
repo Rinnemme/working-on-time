@@ -14,16 +14,16 @@ export default function TaskTools({ task }: { task: Task }) {
   const [modal, setModal] = useState<ModalType>(null);
 
   return (
-    <div className="h-5 w-5 ms-auto mr-3 relative">
+    <div className="min-h-5 min-w-5 w-5 h-5 ms-auto mr-3 relative">
       <Image
         src={Tools}
         alt={"Task tools"}
-        className="w-5 bg-wot-light-gray rounded-full hover:cursor-pointer hover:bg-wot-gray transition-all"
+        className=" bg-wot-light-gray rounded-full hover:cursor-pointer hover:bg-wot-gray transition-all"
         onClick={() => setDropdown(!dropdown)}
       ></Image>
       {dropdown && (
         <div
-          className="absolute top-6 right-0 bg-wot-off-white border border-wot-light-gray shadow z-10 w-fit py-2 px-3"
+          className="absolute fade-in top-6 right-0 bg-wot-off-white border border-wot-light-gray shadow z-10 w-fit py-2 px-3"
           onMouseLeave={() => setDropdown(false)}
         >
           <div

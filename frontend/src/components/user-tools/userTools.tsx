@@ -17,7 +17,7 @@ export default function UserTools() {
         <div className="flex-shrink-0">
           <button
             type="button"
-            className="rounded-md px-3 py-2 text-sm hover:cursor-pointer transition-all duration-200 hover:bg-slate-100 hover:text-wot-rose"
+            className="rounded-md px-3 py-2 hover:cursor-pointer transition-all duration-200 hover:bg-slate-100 hover:text-wot-rose"
             onClick={() => setDropdown(true)}
           >
             {`Welcome, ${nickname}!`}
@@ -30,7 +30,7 @@ export default function UserTools() {
           onMouseLeave={() => setDropdown(false)}
         >
           <div
-            className="text-nowrap text-end text-sm text-wot-black hover:cursor-pointer hover:text-wot-rose"
+            className="text-nowrap text-end text-wot-black hover:cursor-pointer hover:text-wot-rose"
             onClick={() => setModal("Logout")}
           >
             Log out

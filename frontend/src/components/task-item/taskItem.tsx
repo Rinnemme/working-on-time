@@ -47,7 +47,7 @@ export default function TaskItem({ task }: { task: Task }) {
       {...attributes}
       style={style}
       className={
-        "border border-wot-light-gray w-full rounded-sm relative flex py-4 px-2 gap-2 items-center " +
+        "border border-wot-light-gray w-full rounded-sm relative flex py-4 px-1 items-center " +
         (task.complete
           ? "bg-wot-lighter-gray text-wot-gray line-through"
           : " bg-white")
@@ -58,7 +58,7 @@ export default function TaskItem({ task }: { task: Task }) {
         alt={"Draggable"}
         ref={setActivatorNodeRef}
         {...listeners}
-        className="h-6 hover:cursor-move"
+        className="min-h-6 min-w-6 w-6 h-6 ms-1 me-2 hover:cursor-move"
       />
       <input
         type="checkbox"
@@ -66,7 +66,7 @@ export default function TaskItem({ task }: { task: Task }) {
         onChange={() => toggleComplete()}
         checked={task.complete}
       ></input>
-      <div className="ml-3 text-nowrap font-semibold overflow-ellipsis">
+      <div className="ms-3 me-2 text-nowrap overflow-hidden overflow-ellipsis">
         {task.name}
       </div>
       <TaskTools task={task} />

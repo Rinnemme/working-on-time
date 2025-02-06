@@ -23,28 +23,28 @@ export default function ProjectTools({ project }: { project: Project }) {
       ></Image>
       {dropdown && (
         <div
-          className="absolute top-6 right-0 bg-wot-off-white border border-wot-light-gray shadow z-10 w-fit py-2 px-3"
+          className="absolute font-normal top-6 right-0 bg-wot-off-white border border-wot-light-gray shadow z-10 w-fit py-2 px-3"
           onMouseLeave={() => setDropdown(false)}
         >
-          <div className="text-nowrap text-end font-normal text-wot-black hover:cursor-pointer hover:text-wot-rose">
-            Start Working Session
-          </div>
           <Link href={`/projects/${project.id}`}>
-            <div className="text-nowrap text-end font-normal text-wot-black hover:cursor-pointer hover:text-wot-rose">
+            <div className="text-nowrap text-end text-wot-black hover:cursor-pointer hover:text-wot-rose">
               Go To Project
             </div>
           </Link>
           <div
-            className="text-nowrap text-end font-normal text-wot-black hover:cursor-pointer hover:text-wot-rose"
+            className="text-nowrap text-end text-wot-black hover:cursor-pointer hover:text-wot-rose"
             onClick={() => setModal("Edit")}
           >
             Edit Project
           </div>
           <div
-            className="text-nowrap text-end font-normal text-wot-black hover:cursor-pointer hover:text-wot-rose"
+            className="text-nowrap text-end text-wot-black hover:cursor-pointer hover:text-wot-rose"
             onClick={() => setModal("Delete")}
           >
             Delete project
+          </div>
+          <div className="text-nowrap text-end text-wot-black hover:cursor-pointer hover:text-wot-rose">
+            Working Session
           </div>
         </div>
       )}
