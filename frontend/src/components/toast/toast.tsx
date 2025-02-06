@@ -10,11 +10,11 @@ export default function Toast() {
   const message = useSelector((state: AppState) => state.toast.message);
 
   useEffect(() => {
-    setTimeout(() => dispatch(unsetToast()), 5000);
+    setTimeout(() => dispatch(unsetToast()), 2000);
   }, []);
 
   return (
-    <div className="fixed flex gap-2 z-50 top-[4.5rem] right-4 shadow-lg text-sm px-4 py-2 border border-wot-light-gray bg-white rounded-md slide opacity-0">
+    <div className="fixed flex gap-2 z-50 top-[4.5rem] right-4 shadow-lg text-sm pe-4 ps-3 py-2 border border-wot-light-gray bg-white rounded-md slide opacity-0">
       <Image alt="success" src={Success} height={18} />
       {message}
     </div>

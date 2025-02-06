@@ -30,11 +30,11 @@ a:hover {
     transform: translate(calc(100% + 1.5rem));
     opacity: 0;
   }
-  10% {
+  18% {
     transform: translate(0px);
     opacity: 1;
   }
-  90% {
+  82% {
     transform: translate(0px);
     opacity: 1;
   }
@@ -44,7 +44,7 @@ a:hover {
 }
 
 .slide {
-  animation: slideInAndOut 3s ease-in;
+  animation: slideInAndOut 2s ease-in;
 }
 
 .fade-in {

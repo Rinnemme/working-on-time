@@ -80,7 +80,6 @@ exports.deleteTask = async (req: Request, res: Response) => {
       const userOwnsTask = db.verifyTaskOwnership(req.params.id, user.id);
       if (userOwnsTask) {
         const task = await db.getTask(req.params.id);
-        console.log(task);
         await db.deleteTask(task.id);
         await db.accountForRemovedTask(task.position, task.projectid);
         res.status(200).json({ deletion: "success" });
