@@ -143,7 +143,7 @@ export default function Navbar() {
               <div className="flex">
                 <div className="-ml-2 mr-2 flex items-center md:hidden">
                   {/* Mobile menu button */}
-                  <DisclosureButton className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                  <DisclosureButton className="relative inline-flex items-center justify-center rounded-md p-2 text-wot-gray hover:bg-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                     <span className="absolute -inset-0.5 hover:cursor-pointer" />
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -353,7 +353,10 @@ export default function Navbar() {
         </>
       </Disclosure>
       {modal && (
-        <Modal closeFunc={() => setModal(null)}>
+        <Modal
+          closeFunc={() => setModal(null)}
+          backgroundColor={modal === "SignUp" ? "wot-blue" : "wot-rose"}
+        >
           {modal === "Login" && (
             <LoginForm
               successFunc={loginSuccess}

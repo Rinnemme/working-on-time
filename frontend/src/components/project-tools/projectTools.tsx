@@ -49,7 +49,7 @@ export default function ProjectTools({ project }: { project: Project }) {
         </div>
       )}
       {modal === "Edit" && (
-        <Modal closeFunc={() => setModal(null)}>
+        <Modal closeFunc={() => setModal(null)} backgroundColor="wot-blue">
           <ProjectEditForm closeFunc={() => setModal(null)} project={project} />
         </Modal>
       )}

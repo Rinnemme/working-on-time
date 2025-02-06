@@ -48,7 +48,7 @@ export default function AddTaskForm({
         <div className="w-80 mt-6">
           <label
             htmlFor="taskName"
-            className="block font-normal leading-6 text-gray-900"
+            className="block font-normal leading-6 text-wot-black"
           >
             Task Name
           </label>
@@ -56,7 +56,7 @@ export default function AddTaskForm({
             <input
               type="text"
               id="taskName"
-              className="block w-64 bg-wot-off-white rounded-md border-0 px-2.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-inset focus:ring-wot-light-rose sm:text-sm sm:leading-6"
+              className="block w-64 bg-wot-off-white rounded-md border-0 px-2.5 py-1.5 text-wot-black shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-wot-gray focus:outline-none focus:ring-1 focus:ring-inset focus:ring-wot-light-rose sm:text-sm sm:leading-6"
               {...register("taskName", {
                 required: "Task name is required",
               })}
@@ -70,14 +70,14 @@ export default function AddTaskForm({
         <div className="w-72 mt-6">
           <label
             htmlFor="description"
-            className="block font-normal leading-4 text-gray-900"
+            className="block font-normal leading-4 text-wot-black"
           >
             Description
           </label>
           <div className="mt-2 flex justify-center">
             <textarea
               id="description"
-              className="block w-64 h-32 bg-wot-off-white rounded-md border-0 px-2.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-inset focus:ring-wot-light-rose sm:text-sm sm:leading-6"
+              className="block w-64 h-32 bg-wot-off-white rounded-md border-0 px-2.5 py-1.5 text-wot-black shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-wot-gray focus:outline-none focus:ring-1 focus:ring-inset focus:ring-wot-light-rose sm:text-sm sm:leading-6"
               {...register("description", {
                 required: "A description is required",
               })}

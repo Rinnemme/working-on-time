@@ -48,7 +48,7 @@ export default function LogoutConfirmation({
 
   return (
     <div className="text-center flex flex-col items-center">
-      <div className="w-56 mt-8 px-2.5 py-1.5 text-balance text-gray-900">
+      <div className="w-56 mt-8 px-2.5 py-1.5 text-balance text-wot-black">
         Are you sure you wish to log out?
       </div>
 

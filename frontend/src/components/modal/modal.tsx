@@ -1,14 +1,22 @@
 import { Dialog, DialogBackdrop, DialogPanel } from "@headlessui/react";
+import React from "react";
+
+type ModalProps = {
+  children: React.ReactNode;
+  backgroundColor?: string;
+  closeFunc: () => void;
+};
 
 export default function Modal({
   children,
+  backgroundColor = "wot-rose",
   closeFunc,
-}: Readonly<{ children: React.ReactNode; closeFunc: () => void }>) {
+}: ModalProps) {
   return (
     <Dialog className="relative z-10" open={true} onClose={closeFunc}>
       <DialogBackdrop
         transition
-        className="fixed inset-0 bg-gray-500 bg-opacity-75"
+        className={`fixed inset-0 bg-opacity-75 bg-${backgroundColor}`}
       />
       <div className="fixed inset-0 z-10 w-screen max-h-dvh flex justify-center">
         <div className="flex min-h-full min-w-96 content-center justify-center p-4 text-center items-center sm:p-0">
