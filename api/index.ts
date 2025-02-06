@@ -46,6 +46,15 @@ app.post(
   })
 );
 
+app.post("/logout", function (req, res, next) {
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
+    }
+    res.status(200).send({ message: "Successfully logged out" });
+  });
+});
+
 app.post("/sign-up", async (req, res, next) => {
   try {
     bcrypt.hash(

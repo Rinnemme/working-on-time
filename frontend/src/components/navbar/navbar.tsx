@@ -30,6 +30,7 @@ import {
 } from "@/src/store/workingSessionSlice";
 import SignupForm from "../signup-form/signupForm";
 import Toast from "../toast/toast";
+import UserTools from "../user-tools/userTools";
 
 type ModalTypes = "Login" | "SignUp" | null;
 
@@ -249,7 +250,7 @@ export default function Navbar() {
                 )}
               </div>
 
-              {!isLoading && (
+              {!isLoading && !username && (
                 <div className="flex items-center hover:cursor-pointer">
                   <div className="flex-shrink-0">
                     <button
@@ -257,12 +258,13 @@ export default function Navbar() {
                       className="rounded-md px-3 py-2 text-sm hover:cursor-pointer transition-all duration-200 hover:bg-slate-100 hover:text-wot-rose"
                       onClick={() => setModal("Login")}
                     >
-                      {!username && "Log In"}
-                      {username && `Welcome, ${nickname}!`}
+                      Log In
                     </button>
                   </div>
                 </div>
               )}
+
+              {!isLoading && username && <UserTools />}
             </div>
           </div>
 

@@ -34,6 +34,10 @@ export const workingSessionSlice = createSlice({
       state.working = action.payload;
       return state;
     },
+    resetWorkingSession: (state) => {
+      state = initialState;
+      return state;
+    },
   },
 });
 
@@ -42,5 +46,6 @@ export const {
   setSessionTimer,
   setRemainingTime,
   setWorking,
+  resetWorkingSession,
 } = workingSessionSlice.actions;
 export default workingSessionSlice.reducer;
