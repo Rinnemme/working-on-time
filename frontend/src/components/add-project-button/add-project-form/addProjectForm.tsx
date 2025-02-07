@@ -66,6 +66,10 @@ export default function AddProjectForm({
               className="block w-72 bg-wot-off-white rounded-md border-0 px-2.5 py-1.5 text-wot-black shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-wot-gray focus:outline-none focus:ring-1 focus:ring-inset focus:ring-wot-yellow sm:text-sm sm:leading-6"
               {...register("projectName", {
                 required: "Project name is required",
+                maxLength: {
+                  value: 50,
+                  message: "Must be no longer than 50 characters.",
+                },
               })}
             />
           </div>
@@ -124,6 +128,10 @@ export default function AddProjectForm({
               className="block w-72 h-36 bg-wot-off-white rounded-md border-0 px-2.5 py-1.5 text-wot-black shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-wot-gray focus:outline-none focus:ring-1 focus:ring-inset focus:ring-wot-yellow sm:text-sm sm:leading-6"
               {...register("description", {
                 required: "A description is required",
+                maxLength: {
+                  value: 500,
+                  message: "Must be no longer than 500 characters.",
+                },
               })}
             />
           </div>

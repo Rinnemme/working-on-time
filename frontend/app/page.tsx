@@ -131,7 +131,7 @@ export default function Home() {
         </div>
       </div>
       {modal && (
-        <Modal closeFunc={() => setModal(false)}>
+        <Modal closeFunc={() => setModal(false)} backgroundColor="wot-blue">
           <SignupForm successFunc={() => setModal(false)} />
         </Modal>
       )}

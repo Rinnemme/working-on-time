@@ -58,8 +58,12 @@ export default function Navbar() {
         getAndSetProjects();
       })
       .catch((err) => {
-        if (path !== "/" && path !== "/about") router.push("/");
-        dispatch(setToast({ error: true, message: "You are not logged in." }));
+        if (path !== "/" && path !== "/about") {
+          router.push("/");
+          dispatch(
+            setToast({ error: true, message: "You are not logged in." })
+          );
+        }
         dispatch(setIsLoading(false));
       });
   };
@@ -127,6 +131,7 @@ export default function Navbar() {
   }, []);
 
   const loginSuccess = () => {
+    dispatch(setIsLoading(true));
     router.push("/projects");
     getAndSetWorkingProjectId();
     getAndSetWorkingTimer();
@@ -293,7 +298,7 @@ export default function Navbar() {
                       href="/about"
                       className={
                         "rounded-md px-3 py-2 hover:cursor-pointer " +
-                        (path === "/movies"
+                        (path === "/about"
                           ? "text-wot-rose"
                           : "text-wot-black hover:text-wot-yellow transition-all duration-200  hover:bg-slate-100")
                       }

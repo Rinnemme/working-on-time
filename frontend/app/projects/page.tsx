@@ -20,13 +20,13 @@ export default function Projects() {
       <div className="relative flex items-start pt-12 pb-20 sm:pt-14 justify-center w-full bg-wot-off-white">
         <div className="text-center flex items-center w-full flex-col px-2">
           {isLoading && <Throbber />}
-          {!isLoading && projects.length > 0 && (
+          {!isLoading && (
             <>
               <h1 className="text-2xl flex items-center gap-2 font-bold text-wot-rose sm:text-3xl">
                 Your Projects
                 <AddProjectButton />
               </h1>
-              <div className="mt-10 flex flex-col gap-4 w-full max-w-lg px-3">
+              <div className="mt-10 flex flex-col items-center gap-4 w-full max-w-lg px-3">
                 {projects.length === 0 && (
                   <NoProjects addProject={() => setModal(true)} />
                 )}

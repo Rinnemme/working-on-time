@@ -34,11 +34,11 @@ export default function LogoutConfirmation({
     })
       .then((res) => {
         if (res.status === 200) {
-          resetLocalStorage();
-          resetStore();
           router.push("/");
+          resetLocalStorage();
           dispatch(setToast({ error: false, message: "You have logged out" }));
           closeFunc();
+          resetStore();
         }
       })
       .catch((err) => {

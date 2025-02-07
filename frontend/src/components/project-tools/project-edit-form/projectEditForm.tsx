@@ -78,6 +78,10 @@ export default function ProjectEditForm({
               defaultValue={project.name}
               {...register("projectName", {
                 required: "Project name is required",
+                maxLength: {
+                  value: 50,
+                  message: "Must be no longer than 50 characters.",
+                },
               })}
             />
           </div>
@@ -139,6 +143,10 @@ export default function ProjectEditForm({
               defaultValue={project.description}
               {...register("description", {
                 required: "A description is required",
+                maxLength: {
+                  value: 500,
+                  message: "Must be no longer than 500 characters.",
+                },
               })}
             />
           </div>

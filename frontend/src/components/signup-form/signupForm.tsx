@@ -9,7 +9,7 @@ export default function SignupForm({
 }: Readonly<{ successFunc: () => void }>) {
   const dispatch = useDispatch();
   const { register, handleSubmit, formState, setError } = useForm<any>({
-    mode: "onTouched",
+    mode: "onChange",
   });
   const { errors } = formState;
 
@@ -78,6 +78,14 @@ export default function SignupForm({
               placeholder=""
               {...register("username", {
                 required: "Username is required",
+                maxLength: {
+                  value: 20,
+                  message: "Must be no longer than 20 characters.",
+                },
+                minLength: {
+                  value: 4,
+                  message: "Must be at least 4 characters.",
+                },
               })}
             />
           </div>
@@ -101,6 +109,10 @@ export default function SignupForm({
               placeholder=""
               {...register("nickname", {
                 required: "Nickname is required",
+                maxLength: {
+                  value: 20,
+                  message: "Must be no longer than 20 characters.",
+                },
               })}
             />
           </div>
@@ -124,6 +136,14 @@ export default function SignupForm({
               placeholder=""
               {...register("password", {
                 required: "Password is required",
+                maxLength: {
+                  value: 30,
+                  message: "Must be no longer than 30 characters.",
+                },
+                minLength: {
+                  value: 12,
+                  message: "Must be at least 12 characters.",
+                },
               })}
             />
           </div>

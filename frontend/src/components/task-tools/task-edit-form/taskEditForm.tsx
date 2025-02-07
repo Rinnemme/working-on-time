@@ -70,6 +70,10 @@ export default function TaskEditForm({
               defaultValue={task.name}
               {...register("taskName", {
                 required: "Task name is required",
+                maxLength: {
+                  value: 50,
+                  message: "Must be no longer than 50 characters.",
+                },
               })}
             />
           </div>
@@ -92,6 +96,10 @@ export default function TaskEditForm({
               defaultValue={task.description}
               {...register("description", {
                 required: "A description is required",
+                maxLength: {
+                  value: 500,
+                  message: "Must be no longer than 500 characters.",
+                },
               })}
             />
           </div>

@@ -47,7 +47,11 @@ export default function LoginForm({
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} noValidate>
+    <form
+      className="flex flex-col items-center"
+      onSubmit={handleSubmit(onSubmit)}
+      noValidate
+    >
       <div className="mt-3 text-center flex flex-col items-center sm:mt-5">
         <h3 className="text-3xl font-bold leading-6 mb-5 mt-4 text-wot-rose">
           Log In
@@ -109,7 +113,7 @@ export default function LoginForm({
       </div>
       <div
         onClick={signUpFunc}
-        className="italic mt-2 mb-6 text-wot-rose hover:cursor-pointer hover:text-wot-yellow"
+        className="w-fit text-sm px-3 py-1 mb-6 mt-2 text-center bg-wot-white border rounded-full hover:cursor-pointer transition text-wot-rose border-wot-rose hover:text-wot-yellow hover:border-wot-yellow"
       >
         No account? Sign up!
       </div>
