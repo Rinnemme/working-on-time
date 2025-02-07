@@ -24,11 +24,7 @@ export default function TaskDeleteConfirmation({
         }
       })
       .catch((err) => {
-        if (err.status === 400) {
-          console.log("ruh roh, 400");
-          // set an error
-        } else
-          dispatch(setToast({ error: true, message: "Something went wrong." }));
+        dispatch(setToast({ error: true, message: "Something went wrong." }));
       });
   }
 
