@@ -179,7 +179,7 @@ export default function TimerForm({ closeTimer }: { closeTimer: () => void }) {
               >
                 {timer.restingDuration && timer.workingDuration
                   ? "Save"
-                  : "Start Session"}
+                  : "Set Timer"}
               </button>
             </div>
           </div>
