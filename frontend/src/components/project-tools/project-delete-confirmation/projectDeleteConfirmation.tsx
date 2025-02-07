@@ -19,12 +19,12 @@ export default function ProjectDeleteConfirmation({
       .then((res) => {
         if (res.status === 200) {
           dispatch(deleteProject(project));
-          dispatch(setToast("Project deleted!"));
+          dispatch(setToast({ error: false, message: "Project deleted!" }));
           closeFunc();
         }
       })
       .catch((err) => {
-        console.log(err);
+        dispatch(setToast({ error: true, message: "Something went wrong." }));
       });
   }
 

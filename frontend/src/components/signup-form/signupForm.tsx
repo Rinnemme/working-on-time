@@ -33,7 +33,9 @@ export default function SignupForm({
     })
       .then((res) => {
         if (res.status === 200) {
-          dispatch(setToast("Signed up successfully!"));
+          dispatch(
+            setToast({ error: false, message: "Signed up successfully!" })
+          );
           successFunc();
         }
       })
@@ -49,7 +51,8 @@ export default function SignupForm({
             },
             { shouldFocus: true }
           );
-        } else console.log(err);
+        } else
+          dispatch(setToast({ error: true, message: "Something went wrong." }));
       });
   }
 

@@ -36,12 +36,12 @@ export default function AddProjectForm({
               tasks: [],
             })
           );
-          dispatch(setToast("Project added!"));
+          dispatch(setToast({ error: false, message: "Project added!" }));
           closeFunc();
         }
       })
       .catch((err) => {
-        console.log(err);
+        dispatch(setToast({ error: true, message: "Something went wrong." }));
       });
   }
 

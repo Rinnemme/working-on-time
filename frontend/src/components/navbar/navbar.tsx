@@ -31,6 +31,7 @@ import {
 import SignupForm from "../signup-form/signupForm";
 import Toast from "../toast/toast";
 import UserTools from "../user-tools/userTools";
+import { setToast } from "@/src/store/toastSlice";
 
 type ModalTypes = "Login" | "SignUp" | null;
 
@@ -58,6 +59,7 @@ export default function Navbar() {
       })
       .catch((err) => {
         if (path !== "/" && path !== "/about") router.push("/");
+        dispatch(setToast({ error: true, message: "You are not logged in." }));
         dispatch(setIsLoading(false));
       });
   };
@@ -74,6 +76,9 @@ export default function Navbar() {
         }
       })
       .catch((err) => {
+        dispatch(
+          setToast({ error: true, message: "Unable to find your projects." })
+        );
         return;
       })
       .finally(() => dispatch(setIsLoading(false)));

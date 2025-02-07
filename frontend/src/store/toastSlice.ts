@@ -5,6 +5,7 @@ import { ToastState } from "./types";
 
 const initialState: ToastState = {
   display: false,
+  error: false,
   message: null,
 };
 
@@ -15,13 +16,15 @@ export const toastSlice = createSlice({
     setToast: (state, action) => {
       state = {
         display: true,
-        message: action.payload,
+        error: action.payload.error,
+        message: action.payload.message,
       };
       return state;
     },
     unsetToast: (state) => {
       state = {
         display: false,
+        error: false,
         message: null,
       };
       return state;

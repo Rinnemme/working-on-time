@@ -34,14 +34,15 @@ export default function LoginForm({
               nickname: res.data.nickname,
             })
           );
-          dispatch(setToast("Login successful!"));
+          dispatch(setToast({ error: false, message: "Login successful!" }));
           successFunc();
         }
       })
       .catch((err) => {
         if (err.status === 401) {
           setError("password", { message: err.response.data.message });
-        } else console.log(err);
+        } else
+          dispatch(setToast({ error: true, message: "Something went wrong." }));
       });
   }
 

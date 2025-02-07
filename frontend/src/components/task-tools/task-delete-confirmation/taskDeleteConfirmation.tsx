@@ -19,7 +19,7 @@ export default function TaskDeleteConfirmation({
       .then((res) => {
         if (res.status === 200) {
           dispatch(deleteTask(task));
-          dispatch(setToast("Task deleted!"));
+          dispatch(setToast({ error: false, message: "Task deleted!" }));
           closeFunc();
         }
       })
@@ -27,7 +27,8 @@ export default function TaskDeleteConfirmation({
         if (err.status === 400) {
           console.log("ruh roh, 400");
           // set an error
-        } else console.log(err);
+        } else
+          dispatch(setToast({ error: true, message: "Something went wrong." }));
       });
   }
 

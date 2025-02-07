@@ -5,6 +5,7 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import TaskTools from "../task-tools/taskTools";
 import { useDispatch } from "react-redux";
+import { setToast } from "@/src/store/toastSlice";
 import { toggleTaskCompletion } from "@/src/store/projectSlice";
 import axios from "axios";
 
@@ -17,13 +18,16 @@ export default function TaskItem({ task }: { task: Task }) {
       withCredentials: true,
       url: `${process.env.baseURI}/tasks/${task.id}/toggle`,
     })
-      .then(async (res) => {
+      .then((res) => {
         if (res.status === 200) {
-          await dispatch(toggleTaskCompletion(task));
+          if (!task.complete) {
+            dispatch(setToast({ error: false, message: "Task completed!" }));
+          }
+          dispatch(toggleTaskCompletion(task));
         }
       })
       .catch((err) => {
-        console.log(err);
+        dispatch(setToast({ error: true, message: "Something went wrong." }));
       });
   };
 

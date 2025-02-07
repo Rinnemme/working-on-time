@@ -37,12 +37,12 @@ export default function LogoutConfirmation({
           resetLocalStorage();
           resetStore();
           router.push("/");
-          dispatch(setToast("You have logged out"));
+          dispatch(setToast({ error: false, message: "You have logged out" }));
           closeFunc();
         }
       })
       .catch((err) => {
-        console.log(err);
+        dispatch(setToast({ error: true, message: "Something went wrong." }));
       });
   }
 

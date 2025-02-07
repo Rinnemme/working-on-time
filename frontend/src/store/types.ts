@@ -39,5 +39,6 @@ export type WorkingSession = {
 
 export type ToastState = {
   display: boolean;
+  error: boolean;
   message: string | null;
 };

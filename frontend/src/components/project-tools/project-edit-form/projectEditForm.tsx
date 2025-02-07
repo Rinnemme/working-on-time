@@ -47,12 +47,12 @@ export default function ProjectEditForm({
               due: data.due,
             })
           );
-          dispatch(setToast("Changes saved!"));
+          dispatch(setToast({ error: false, message: "Changes saved!" }));
           closeFunc();
         }
       })
       .catch((err) => {
-        console.log(err);
+        dispatch(setToast({ error: true, message: "Something went wrong." }));
       });
   }
 

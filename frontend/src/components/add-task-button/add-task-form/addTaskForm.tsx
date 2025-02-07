@@ -29,12 +29,12 @@ export default function AddTaskForm({
       .then((res) => {
         if (res.status === 200) {
           dispatch(addTask(res.data[0]));
-          dispatch(setToast("Task added!"));
+          dispatch(setToast({ error: false, message: "Task added!" }));
           closeFunc();
         }
       })
       .catch((err) => {
-        console.log(err);
+        dispatch(setToast({ error: true, message: "Something went wrong." }));
       });
   }
 
