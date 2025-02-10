@@ -3,12 +3,15 @@ import { useDispatch } from "react-redux";
 import { deleteProject } from "../../../store/projectSlice";
 import { Project } from "@/src/store/types";
 import { setToast } from "@/src/store/toastSlice";
+import { usePathname, useRouter } from "next/navigation";
 
 export default function ProjectDeleteConfirmation({
   project,
   closeFunc,
 }: Readonly<{ project: Project; closeFunc: () => void }>) {
   const dispatch = useDispatch();
+  const path = usePathname();
+  const router = useRouter();
 
   async function confirmFunc() {
     axios({
@@ -20,6 +23,9 @@ export default function ProjectDeleteConfirmation({
         if (res.status === 200) {
           dispatch(deleteProject(project));
           dispatch(setToast({ error: false, message: "Project deleted!" }));
+          if (path.includes(`projects/${project.id}`)) {
+            router.push("/projects");
+          }
           closeFunc();
         }
       })

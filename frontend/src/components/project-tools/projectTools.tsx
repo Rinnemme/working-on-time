@@ -16,7 +16,7 @@ export default function ProjectTools({ project }: { project: Project }) {
   const path = usePathname();
 
   return (
-    <div className="h-5 w-5 ms-auto relative text-base">
+    <div className="h-5 w-5 min-w-5 min-h-5 ms-auto relative text-base">
       <Image
         src={Tools}
         alt={"project tools"}

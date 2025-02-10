@@ -22,7 +22,7 @@ export default function Modal({
         <div className="flex min-h-full min-w-96 content-center justify-center p-4 text-center items-center sm:p-0">
           <DialogPanel
             transition
-            className="flex flex-col relative content-center rounded-xl bg-white px-3 py-3 max-w-xl max-h-[90dvh] overflow-auto my-12"
+            className="flex flex-col relative content-center rounded-sm bg-white px-3 py-3 max-w-xl max-h-[90dvh] overflow-auto my-12"
           >
             <div className="sticky top-0">
               <svg

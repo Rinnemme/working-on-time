@@ -17,7 +17,7 @@ export default function Projects() {
 
   return (
     <div className="bg-white top-0 w-full h-full z-0 fade-in">
-      <div className="relative flex items-start pt-12 pb-20 sm:pt-14 justify-center w-full bg-wot-off-white">
+      <div className="relative flex items-start pt-10 pb-20 justify-center w-full bg-wot-off-white">
         <div className="text-center flex items-center w-full flex-col px-2">
           {isLoading && <Throbber />}
           {!isLoading && (

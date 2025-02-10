@@ -31,12 +31,12 @@ export default function Project() {
 
   return (
     <div className="top-0 w-full h-full z-0 fade-in">
-      <div className="relative flex items-start pt-12 pb-20 sm:pt-14 justify-center w-full">
+      <div className="relative flex items-start pt-10 pb-20 justify-center w-full">
         {isLoading && <Throbber />}
         {!isLoading && project && (
           <>
             <div className="text-center flex items-center w-full flex-col px-2">
-              <h1 className="text-wot-rose flex items-center gap-3 text-2xl font-bold sm:text-3xl fade">
+              <h1 className="text-wot-rose flex items-center gap-3 max-w-lg text-2xl font-bold sm:text-3xl fade">
                 {project.name} <ProjectTools project={project} />
               </h1>
               <div className="mt-10 flex flex-col gap-4 w-full items-center max-w-lg px-3">

@@ -25,24 +25,22 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="relative flex items-center justify-center h-2/5 min-h-96 w-full min-w-80 bg-wot-blue">
-        <div className="w-full px-5 md:px-10 lg:px-20">
-          <div className="flex flex-col sm:flex-row gap-6 sm:gap-28 items-center sm:justify-between px-2 w-full">
-            <div className="text-center flex flex-col items-center sm:items-start sm:text-left flex-1 max-w-xl">
-              <h1 className="text-3xl font-extrabold text-white sm:text-5xl">
-                <span>It's Your Time</span>
-              </h1>
-              <p className="mt-6 text-base sm:text-lg w-10/12 sm:w-full text-white">
-                Working On Time offers a simple set up of projects, tasks, and
-                timers, that allow you to do your best work leveraging
-                customizable iterations of the widely recognized Pomodoro
-                Technique.
-              </p>
-            </div>
-            <button className="rounded-3xl bg-wot-light-blue px-8 md:mr-10 lg:mr-14 py-2 my-4 font-light text-white shadow-sm hover:bg-wot-light-green hover:scale-105 transition-all duration-300">
-              Learn More
-            </button>
+      <div className="relative flex items-center justify-center py-28 w-full min-w-80 bg-wot-blue">
+        <div className="w-full px-5 md:px-10 lg:px-20 max-w-7xl flex-col sm:flex-rowgap-6 sm:gap-28 items-center sm:justify-between">
+          <div className="text-center flex flex-col items-center sm:items-start sm:text-left flex-1 max-w-xl">
+            <h1 className="text-3xl font-extrabold text-white sm:text-5xl">
+              <span>It's Your Time</span>
+            </h1>
+            <p className="mt-6 text-base sm:text-lg w-10/12 sm:w-full text-white">
+              Working On Time offers a simple set up of projects, tasks, and
+              timers, that allow you to do your best work leveraging
+              customizable iterations of the widely recognized Pomodoro
+              Technique.
+            </p>
           </div>
+          <button className="rounded-3xl bg-wot-light-blue px-8 md:mr-10 lg:mr-14 py-2 my-4 font-light text-white shadow-sm hover:bg-wot-light-green hover:scale-105 transition-all duration-300">
+            Learn More
+          </button>
         </div>
       </div>
 
@@ -52,8 +50,8 @@ export default function Home() {
         alt="A person working at a computer"
       ></Image>
 
-      <div className="relative flex items-center justify-center h-2/5 min-h-96 w-full min-w-80 bg-wot-yellow">
-        <div className="w-full px-5 md:px-10 lg:px-20">
+      <div className="relative flex items-center justify-center py-28 w-full min-w-80 bg-wot-yellow">
+        <div className="w-full max-w-7xl px-5 md:px-10 lg:px-20">
           <div className="flex flex-col sm:flex-row gap-6 sm:gap-28 items-center sm:justify-between px-2 w-full">
             <div className="text-center flex flex-col items-center sm:items-start sm:text-left flex-1 max-w-xl">
               <h1 className="text-3xl font-extrabold text-white sm:text-5xl">
@@ -76,8 +74,8 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="relative flex items-center justify-center h-fit py-8 min-h-72 w-full min-w-80 bg-wot-green">
-        <div className="w-full px-5 md:px-10 lg:px-20">
+      <div className="relative flex items-center justify-center h-fit py-28 min-h-72 w-full min-w-80 bg-wot-green">
+        <div className="w-full max-w-7xl px-5 md:px-10 lg:px-20">
           <div className="flex flex-col sm:flex-row gap-10 items-center sm:items-start sm:justify-between px-2 w-full">
             <div className="text-center flex flex-col justify-center items-center flex-1 max-w-56">
               <Image

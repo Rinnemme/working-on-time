@@ -4,6 +4,7 @@ import { ReactNode } from "react";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../store/userSlice";
 import { setToast } from "@/src/store/toastSlice";
+import { setIsLoading } from "@/src/store/loadingSlice";
 
 export default function LoginForm({
   successFunc,
@@ -16,6 +17,7 @@ export default function LoginForm({
   const { errors } = formState;
 
   async function onSubmit(data: any) {
+    dispatch(setIsLoading(true));
     axios({
       method: "POST",
       data: {
@@ -43,6 +45,9 @@ export default function LoginForm({
           setError("password", { message: err.response.data.message });
         } else
           dispatch(setToast({ error: true, message: "Something went wrong." }));
+      })
+      .finally(() => {
+        setTimeout(() => dispatch(setIsLoading(false)), 500);
       });
   }
 

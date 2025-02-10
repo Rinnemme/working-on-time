@@ -36,7 +36,8 @@ export default function SessionSelectItem({
       <div className="w-full flex justify-center gap-4">
         <div className="hover:cursor-pointer">{`Due ${dueDate}`}</div>
         <div className="hover:cursor-pointer">
-          {(+project.completedTasks / +project.totalTasks) * 100 + "% Complete"}
+          {Math.round((+project.completedTasks / +project.totalTasks) * 100) +
+            "% Complete"}
         </div>
         <div className="hover:cursor-pointer">
           {priority.string + " Priority"}

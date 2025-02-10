@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { resetProjects } from "@/src/store/projectSlice";
 import { resetUser } from "@/src/store/userSlice";
 import { resetWorkingSession } from "@/src/store/workingSessionSlice";
+import { setIsLoading } from "@/src/store/loadingSlice";
 
 export default function LogoutConfirmation({
   closeFunc,
@@ -27,6 +28,7 @@ export default function LogoutConfirmation({
   }
 
   async function confirmFunc() {
+    dispatch(setIsLoading(true));
     axios({
       method: "POST",
       withCredentials: true,
@@ -43,6 +45,9 @@ export default function LogoutConfirmation({
       })
       .catch((err) => {
         dispatch(setToast({ error: true, message: "Something went wrong." }));
+      })
+      .finally(() => {
+        setTimeout(() => dispatch(setIsLoading(false)), 500);
       });
   }
 

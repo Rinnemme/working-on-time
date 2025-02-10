@@ -280,84 +280,89 @@ export default function Navbar() {
           {/* Mobile Menu */}
           <DisclosurePanel className="md:hidden">
             <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
-              <DisclosureButton>
-                {!username && !isLoading && (
-                  <div className="ms-6 flex items-center space-x-4 fade-in">
-                    <Link
-                      href="/"
-                      className={
-                        "rounded-md px-3 py-2 hover:cursor-pointer " +
-                        (path === "/"
-                          ? "text-wot-rose"
-                          : "text-wot-black hover:text-wot-yellow hover:bg-slate-100")
-                      }
-                    >
-                      Home
-                    </Link>
-                    <Link
-                      href="/about"
-                      className={
-                        "rounded-md px-3 py-2 hover:cursor-pointer " +
-                        (path === "/about"
-                          ? "text-wot-rose"
-                          : "text-wot-black hover:text-wot-yellow transition-all duration-200  hover:bg-slate-100")
-                      }
-                    >
-                      About
-                    </Link>
-                  </div>
-                )}
+              {!username && !isLoading && (
+                <div className="ms-6 flex items-center space-x-4 fade-in">
+                  <Link
+                    href="/"
+                    className={
+                      "rounded-md px-3 py-2 hover:cursor-pointer " +
+                      (path === "/"
+                        ? "text-wot-rose"
+                        : "text-wot-black hover:text-wot-yellow hover:bg-slate-100")
+                    }
+                  >
+                    <DisclosureButton>Home</DisclosureButton>
+                  </Link>
+                  <Link
+                    href="/about"
+                    className={
+                      "rounded-md px-3 py-2 hover:cursor-pointer " +
+                      (path === "/about"
+                        ? "text-wot-rose"
+                        : "text-wot-black hover:text-wot-yellow transition-all duration-200  hover:bg-slate-100")
+                    }
+                  >
+                    <DisclosureButton>About</DisclosureButton>
+                  </Link>
+                </div>
+              )}
 
-                {username && !isLoading && (
-                  <div className="flex flex-col items-start fade-in">
-                    <Link
-                      href="/working-session"
-                      className={
-                        "rounded-md px-3 py-2 hover:cursor-pointer " +
-                        (path === "/working-session"
-                          ? "text-wot-rose"
-                          : "text-wot-black hover:text-wot-yellow transition-all duration-200  hover:bg-slate-100")
-                      }
-                    >
-                      Working Session
-                    </Link>
-                    <Link
-                      href="/projects"
-                      className={
-                        "rounded-md relative px-3 py-2 hover:cursor-pointer " +
-                        (path === "/projects"
-                          ? "text-wot-rose"
-                          : "text-wot-black hover:text-wot-yellow hover:bg-slate-100")
-                      }
-                    >
-                      Projects
-                    </Link>
-                    <ul className="flex flex-col fade-in  border-wot-light-gray border-l-2 ms-3">
-                      {projects.map((project) => {
-                        return (
-                          <li key={project.id} className="text-start ps-3 mt-2">
-                            <Link
-                              className="rounded-md text-nowrap"
-                              href={`/projects/${project.id}`}
-                            >
+              {username && !isLoading && (
+                <div className="flex flex-col items-start fade-in">
+                  <Link
+                    href="/working-session"
+                    className={
+                      "rounded-md px-3 py-2 hover:cursor-pointer " +
+                      (path === "/working-session"
+                        ? "text-wot-rose"
+                        : "text-wot-black hover:text-wot-yellow transition-all duration-200  hover:bg-slate-100")
+                    }
+                  >
+                    <DisclosureButton>Working Session</DisclosureButton>
+                  </Link>
+
+                  <Link
+                    href="/projects"
+                    className={
+                      "rounded-md relative px-3 py-2 hover:cursor-pointer " +
+                      (path === "/projects"
+                        ? "text-wot-rose"
+                        : "text-wot-black hover:text-wot-yellow hover:bg-slate-100")
+                    }
+                  >
+                    <DisclosureButton>Projects</DisclosureButton>
+                  </Link>
+
+                  <ul className="flex flex-col fade-in border-wot-light-gray border-s ms-3">
+                    {projects.map((project) => {
+                      return (
+                        <li
+                          key={project.id}
+                          className="text-start ps-3 leading-none"
+                        >
+                          <Link
+                            className="text-nowrap"
+                            href={`/projects/${project.id}`}
+                          >
+                            <DisclosureButton>
                               <div
                                 className={
-                                  "max-w-72 overflow-hidden text-ellipsis " +
+                                  "max-w-72 overflow-hidden text-ellipsis px-3 py-2 rounded-md hover:cursor-pointer " +
                                   (path === `/projects/${project.id}`
                                     ? "text-wot-rose"
-                                    : "text-wot-black hover:text-wot-yellow hover:cursor-pointer transition-all duration-200")
+                                    : "text-wot-black hover:text-wot-yellow transition-all duration-200  hover:bg-slate-100")
                                 }
                               >
                                 {project.name}
                               </div>
-                            </Link>
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  </div>
-                )}
-              </DisclosureButton>
+                            </DisclosureButton>
+                          </Link>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              )}
             </div>
           </DisclosurePanel>
         </>

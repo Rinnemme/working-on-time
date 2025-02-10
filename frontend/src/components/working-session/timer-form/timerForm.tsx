@@ -6,6 +6,7 @@ import {
   setSessionTimer,
 } from "@/src/store/workingSessionSlice";
 import { ReactNode } from "react";
+import { setToast } from "@/src/store/toastSlice";
 
 export default function TimerForm({ closeTimer }: { closeTimer: () => void }) {
   const timer = useSelector((state: AppState) => state.workingSession.timer);
@@ -41,6 +42,7 @@ export default function TimerForm({ closeTimer }: { closeTimer: () => void }) {
       );
       localStorage.setItem("workingDuration", workingDuration.toString());
       localStorage.setItem("restingDuration", restingDuration.toString());
+      dispatch(setToast({ error: false, message: "Changes saved!" }));
       closeTimer();
     }
   }

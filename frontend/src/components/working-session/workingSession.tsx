@@ -53,24 +53,8 @@ export default function WorkingSession({ project }: { project: Project }) {
   return (
     <div className="bg-wot-off-white top-0 w-full z-0 fade-in">
       {isLoading && <Throbber />}
-      <div className="relative flex flex-col items-center pt-12 pb-20 sm:pt-14 justify-center w-full">
+      <div className="relative flex flex-col items-center pb-20 pt-10 justify-center w-full">
         <div className="text-center flex items-center w-full flex-col px-2">
-          {modal && (
-            <Modal
-              closeFunc={() => setModal(false)}
-              backgroundColor="wot-light-gray"
-            >
-              <div className="mt-6 mb-6">
-                <h2 className="font-bold text-2xl mb-[-10px] text-wot-rose">
-                  Select Another Project
-                </h2>
-                <SessionSelectList
-                  projects={allProjects}
-                  selectFunction={changeProject}
-                />
-              </div>
-            </Modal>
-          )}
           <h1
             className={
               "text-3xl font-bold " +
@@ -81,7 +65,7 @@ export default function WorkingSession({ project }: { project: Project }) {
           </h1>
           <h2
             className={
-              "font-bold text-3xl mt-2 mb-3 " +
+              "font-bold text-3xl mt-1 mb-2 " +
               (working ? "text-wot-yellow" : "text-wot-light-green")
             }
           >
@@ -99,8 +83,8 @@ export default function WorkingSession({ project }: { project: Project }) {
             Change Project
           </div>
         </div>
-        <div className="w-full flex justify-center items-end gap-4 px-4 mt-10 flex-wrap-reverse">
-          <div className="max-w-md w-full h-fit p-4 bg-white border-wot-light-gray border overflow-y-auto">
+        <div className="w-full flex justify-center items-end gap-4 px-4 mt-8 flex-wrap-reverse">
+          <div className="max-w-md w-full h-fit p-4 bg-white border-wot-light-gray border overflow-visible">
             <div className="w-full bg-white flex items-center justify-center gap-2 sticky mb-2 mt-2 text-lg">
               <div className="font-bold">Task List</div>{" "}
               <AddTaskButton projectid={project.id} />
@@ -161,6 +145,22 @@ export default function WorkingSession({ project }: { project: Project }) {
           )}
         </div>
       </div>
+      {modal && (
+        <Modal
+          closeFunc={() => setModal(false)}
+          backgroundColor="wot-light-gray"
+        >
+          <div className="mt-6 mb-6">
+            <h2 className="font-bold text-2xl mb-[-10px] text-wot-rose">
+              Select Another Project
+            </h2>
+            <SessionSelectList
+              projects={allProjects}
+              selectFunction={changeProject}
+            />
+          </div>
+        </Modal>
+      )}
     </div>
   );
 }
