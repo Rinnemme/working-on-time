@@ -11,7 +11,7 @@ export default function AddTaskForm({
 }: Readonly<{ projectid: number; closeFunc: () => void }>) {
   const dispatch = useDispatch();
   const { register, handleSubmit, formState } = useForm<any>({
-    mode: "onTouched",
+    mode: "onChange",
   });
   const { errors } = formState;
 

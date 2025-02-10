@@ -12,7 +12,7 @@ export default function TaskEditForm({
 }: Readonly<{ task: Task; closeFunc: () => void }>) {
   const dispatch = useDispatch();
   const { register, handleSubmit, formState } = useForm<any>({
-    mode: "onTouched",
+    mode: "onChange",
   });
   const { errors } = formState;
 
@@ -66,7 +66,7 @@ export default function TaskEditForm({
             <input
               type="text"
               id="taskName"
-              className="block w-64 bg-wot-off-white rounded-md border-0 px-2.5 py-1.5 text-wot-black shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-wot-gray focus:outline-none focus:ring-1 focus:ring-inset focus:ring-wot-light-rose sm:text-sm sm:leading-6"
+              className="block w-64 bg-wot-off-white rounded-md border-0 px-2.5 py-1.5 text-wot-black shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-wot-gray focus:outline-none focus:ring-1 focus:ring-inset focus:ring-wot-blue sm:text-sm sm:leading-6"
               defaultValue={task.name}
               {...register("taskName", {
                 required: "Task name is required",
@@ -92,7 +92,7 @@ export default function TaskEditForm({
           <div className="mt-2 flex justify-center">
             <textarea
               id="description"
-              className="block w-64 h-32 bg-wot-off-white rounded-md border-0 px-2.5 py-1.5 text-wot-black shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-wot-gray focus:outline-none focus:ring-1 focus:ring-inset focus:ring-wot-light-rose sm:text-sm sm:leading-6"
+              className="block w-64 h-32 bg-wot-off-white rounded-md border-0 px-2.5 py-1.5 text-wot-black shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-wot-gray focus:outline-none focus:ring-1 focus:ring-inset focus:ring-wot-blue sm:text-sm sm:leading-6"
               defaultValue={task.description}
               {...register("description", {
                 required: "A description is required",

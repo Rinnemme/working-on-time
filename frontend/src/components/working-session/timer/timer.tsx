@@ -86,6 +86,10 @@ export default function Timer({
     );
   };
 
+  const audio = new Audio(
+    "https://cdn.pixabay.com/download/audio/2023/03/18/audio_9b98a3c314.mp3?filename=game-level-complete-143022.mp3"
+  );
+
   return (
     <div className="w-[300px] bg-white h-fit flex flex-col gap-6 p-6 pb-28 border border-wot-light-gray justify-center relative">
       <div className="w-fit h-fit flex justify-center relative fade-in">
@@ -104,9 +108,6 @@ export default function Timer({
           onUpdate={(remainingTime) => {
             dispatch(setRemainingTime(remainingTime));
             if (remainingTime === 0) {
-              const audio = new Audio(
-                "https://cdn.pixabay.com/download/audio/2023/03/18/audio_9b98a3c314.mp3?filename=game-level-complete-143022.mp3"
-              );
               audio.play();
             }
             localStorage.setItem("remainingTime", remainingTime.toString());

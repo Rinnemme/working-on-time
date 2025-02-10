@@ -13,7 +13,7 @@ export default function TimerForm({ closeTimer }: { closeTimer: () => void }) {
   const dispatch = useDispatch();
   const { register, handleSubmit, formState, trigger, setError } = useForm<any>(
     {
-      mode: "onTouched",
+      mode: "onChange",
     }
   );
   const { errors } = formState;

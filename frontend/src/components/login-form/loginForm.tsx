@@ -12,7 +12,7 @@ export default function LoginForm({
 }: Readonly<{ successFunc: () => void; signUpFunc: () => void }>) {
   const dispatch = useDispatch();
   const { register, handleSubmit, formState, setError } = useForm<any>({
-    mode: "onTouched",
+    mode: "onChange",
   });
   const { errors } = formState;
 

@@ -10,7 +10,7 @@ export default function AddProjectForm({
 }: Readonly<{ closeFunc: () => void }>) {
   const dispatch = useDispatch();
   const { register, handleSubmit, formState } = useForm<any>({
-    mode: "onTouched",
+    mode: "onChange",
   });
   const { errors } = formState;
 
@@ -145,7 +145,7 @@ export default function AddProjectForm({
           type="submit"
           className="inline-flex w-auto justify-center rounded-3xl bg-wot-yellow px-5 py-2 my-4 font-light text-white shadow-sm hover:bg-wot-yellow hover:scale-105 transition-all duration-300"
         >
-          Save
+          Add
         </button>
       </div>
     </form>

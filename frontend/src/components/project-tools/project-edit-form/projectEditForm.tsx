@@ -12,7 +12,7 @@ export default function ProjectEditForm({
 }: Readonly<{ project: Project; closeFunc: () => void }>) {
   const dispatch = useDispatch();
   const { register, handleSubmit, formState } = useForm<any>({
-    mode: "onTouched",
+    mode: "onChange",
   });
   const { errors } = formState;
 
@@ -74,7 +74,7 @@ export default function ProjectEditForm({
             <input
               type="text"
               id="projectName"
-              className="block w-72 bg-wot-off-white rounded-md border-0 px-2.5 py-1.5 text-wot-black shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-wot-gray focus:outline-none focus:ring-1 focus:ring-inset focus:ring-wot-light-rose sm:text-sm sm:leading-6"
+              className="block w-72 bg-wot-off-white rounded-md border-0 px-2.5 py-1.5 text-wot-black shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-wot-gray focus:outline-none focus:ring-1 focus:ring-inset focus:ring-wot-blue sm:text-sm sm:leading-6"
               defaultValue={project.name}
               {...register("projectName", {
                 required: "Project name is required",
@@ -101,7 +101,7 @@ export default function ProjectEditForm({
             <select
               id="priority"
               defaultValue={project.priority}
-              className="block w-72 bg-wot-off-white rounded-md border-0 px-2.5 py-1.5 text-wot-black shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-wot-gray focus:outline-none focus:ring-1 focus:ring-inset focus:ring-wot-light-rose sm:text-sm sm:leading-6"
+              className="block w-72 bg-wot-off-white rounded-md border-0 px-2.5 py-1.5 text-wot-black shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-wot-gray focus:outline-none focus:ring-1 focus:ring-inset focus:ring-wot-blue sm:text-sm sm:leading-6"
               {...register("priority")}
             >
               <option value={1}>Low</option>
@@ -123,7 +123,7 @@ export default function ProjectEditForm({
               type="date"
               id="due"
               defaultValue={project.due.slice(0, 10)}
-              className="block w-72 bg-wot-off-white rounded-md border-0 px-2.5 py-1.5 text-wot-black shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-wot-gray focus:outline-none focus:ring-1 focus:ring-inset focus:ring-wot-light-rose sm:text-sm sm:leading-6"
+              className="block w-72 bg-wot-off-white rounded-md border-0 px-2.5 py-1.5 text-wot-black shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-wot-gray focus:outline-none focus:ring-1 focus:ring-inset focus:ring-wot-blue sm:text-sm sm:leading-6"
               {...register("due")}
             />
           </div>
@@ -139,7 +139,7 @@ export default function ProjectEditForm({
           <div className="mt-2 flex justify-center">
             <textarea
               id="description"
-              className="block w-72 h-36 bg-wot-off-white rounded-md border-0 px-2.5 py-1.5 text-wot-black shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-wot-gray focus:outline-none focus:ring-1 focus:ring-inset focus:ring-wot-light-rose sm:text-sm sm:leading-6"
+              className="block w-72 h-36 bg-wot-off-white rounded-md border-0 px-2.5 py-1.5 text-wot-black shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-wot-gray focus:outline-none focus:ring-1 focus:ring-inset focus:ring-wot-blue sm:text-sm sm:leading-6"
               defaultValue={project.description}
               {...register("description", {
                 required: "A description is required",

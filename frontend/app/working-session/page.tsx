@@ -15,14 +15,12 @@ export default function Page() {
   const workingProject = projects.find((project) => project.id === projectid);
 
   return (
-    <>
+    <div className="top-0 w-full h-full flex justify-center z-0 fade-in">
       {loading && <Throbber />}
-      {!loading && (
-        <div className="top-0 w-full h-full z-0 fade-in">
-          {!workingProject && <EmptySession />}
-          {workingProject && <WorkingSession project={workingProject} />}
-        </div>
+      {!loading && workingProject && (
+        <WorkingSession project={workingProject} />
       )}
-    </>
+      {!loading && !workingProject && <EmptySession />}
+    </div>
   );
 }
