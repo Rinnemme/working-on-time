@@ -24,7 +24,7 @@ export default function EmptySession() {
               </h2>
             </>
           )}
-          {!isLoading && projects.length > 0 && (
+          {!isLoading && (
             <SessionSelectList
               projects={projects}
               selectFunction={(projectid: number) =>

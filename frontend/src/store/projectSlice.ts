@@ -9,12 +9,8 @@ const indexOfProject = (projectid: number, state: Project[]) => {
   return state.findIndex((project) => project.id === projectid);
 };
 
-const indexOfTask = (
-  taskid: number,
-  state: Project[],
-  projectIndex: number
-) => {
-  return state[projectIndex].tasks.findIndex((task) => task.id === taskid);
+const indexOfTask = (taskid: number, project: Project) => {
+  return project.tasks.findIndex((task) => task.id === taskid);
 };
 
 export const projectSlice = createSlice({
@@ -32,13 +28,16 @@ export const projectSlice = createSlice({
     },
     updateTask: (state, action) => {
       const projectIndex = indexOfProject(action.payload.projectid, state);
-      const taskIndex = indexOfTask(action.payload.id, state, projectIndex);
+      const taskIndex = indexOfTask(action.payload.id, state[projectIndex]);
       state[projectIndex].tasks[taskIndex] = action.payload;
       return state;
     },
     toggleTaskCompletion: (state, action) => {
       const projectIndex = indexOfProject(action.payload.projectid, state);
-      const taskIndex = indexOfTask(action.payload.id, state, projectIndex);
+      const taskIndex = indexOfTask(action.payload.id, state[projectIndex]);
+      state[projectIndex].completedTasks = action.payload.complete
+        ? (+state[projectIndex].completedTasks - 1).toString()
+        : (+state[projectIndex].completedTasks + 1).toString();
       state[projectIndex].tasks[taskIndex].complete =
         !state[projectIndex].tasks[taskIndex].complete;
       return state;

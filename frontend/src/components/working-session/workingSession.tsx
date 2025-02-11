@@ -89,7 +89,7 @@ export default function WorkingSession({ project }: { project: Project }) {
               <div className="font-bold">Task List</div>{" "}
               <AddTaskButton projectid={project.id} />
             </div>
-            <TaskList tasks={project.tasks} />
+            <TaskList projectid={project.id} />
           </div>
 
           {(!workingDuration || !restingDuration || showTimerForm) && (

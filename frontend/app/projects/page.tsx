@@ -4,16 +4,11 @@ import type { AppState } from "@/src/store/store";
 import ProjectItem from "@/src/components/project-item/projectItem";
 import Throbber from "@/src/components/throbber/throbber";
 import AddProjectButton from "@/src/components/add-project-button/addProjectButton";
-import AddProjectForm from "@/src/components/add-project-button/add-project-form/addProjectForm";
 import NoProjects from "@/src/components/no-projects/noProjects";
-import { useState } from "react";
-import Modal from "@/src/components/modal/modal";
 
 export default function Projects() {
   const projects = useSelector((state: AppState) => state.projects);
   const isLoading = useSelector((state: AppState) => state.isLoading);
-
-  const [modal, setModal] = useState<boolean>(false);
 
   return (
     <div className="bg-white top-0 w-full h-full z-0 fade-in">
@@ -27,9 +22,7 @@ export default function Projects() {
                 <AddProjectButton />
               </h1>
               <div className="mt-10 flex flex-col items-center gap-4 w-full max-w-lg px-3">
-                {projects.length === 0 && (
-                  <NoProjects addProject={() => setModal(true)} />
-                )}
+                {projects.length === 0 && <NoProjects />}
                 {projects.length > 0 &&
                   projects.map((project) => {
                     return (
@@ -41,14 +34,6 @@ export default function Projects() {
                   })}
               </div>
             </>
-          )}
-          {modal && (
-            <Modal
-              closeFunc={() => setModal(false)}
-              backgroundColor="wot-light-yellow"
-            >
-              <AddProjectForm closeFunc={() => setModal(false)} />
-            </Modal>
           )}
         </div>
       </div>

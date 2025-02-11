@@ -1,8 +1,8 @@
+import Modal from "../../modal/modal";
+import AddTaskForm from "../../add-task-button/add-task-form/addTaskForm";
 import { useState } from "react";
-import Modal from "../modal/modal";
-import AddProjectForm from "../add-project-button/add-project-form/addProjectForm";
 
-export default function NoProjects() {
+export default function AllTasksDone({ projectid }: { projectid: number }) {
   const [modal, setModal] = useState<boolean>(false);
   return (
     <>
@@ -11,10 +11,10 @@ export default function NoProjects() {
         className="border w-64 border-wot-light-gray rounded-lg border-dashed relative flex flex-col py-4 px-2 justify-center items-center hover:cursor-pointer hover:scale-105 duration-300 active:scale-100 hover:bg-white hover:shadow-sm"
       >
         <div className="font-semibold text-wot-rose text-lg hover:cursor-pointer">
-          No Projects Yet
+          All tasks complete
         </div>
         <div className="font-regular hover:cursor-pointer">
-          Click to add a project
+          Click to add a task
         </div>
       </div>
       {modal && (
@@ -22,7 +22,10 @@ export default function NoProjects() {
           closeFunc={() => setModal(false)}
           backgroundColor="wot-light-yellow"
         >
-          <AddProjectForm closeFunc={() => setModal(false)} />
+          <AddTaskForm
+            projectid={projectid}
+            closeFunc={() => setModal(false)}
+          />
         </Modal>
       )}
     </>

@@ -11,7 +11,7 @@ import Modal from "@/src/components/modal/modal";
 import AddTaskForm from "@/src/components/add-task-button/add-task-form/addTaskForm";
 import AddTaskButton from "@/src/components/add-task-button/addTaskButton";
 import ProjectDescription from "@/src/components/project-description/projectDescsription";
-import NoTasks from "@/src/components/no-tasks/noTasks";
+import NoTasks from "@/src/components/task-list/no-tasks/noTasks";
 import ProjectTools from "@/src/components/project-tools/projectTools";
 import { setWorkingProject } from "@/src/store/workingSessionSlice";
 
@@ -54,10 +54,7 @@ export default function Project() {
                   Tasks
                   <AddTaskButton projectid={project.id} />
                 </h1>
-                {!project.tasks.length && (
-                  <NoTasks addTask={() => setModal(true)} />
-                )}
-                {project.tasks.length > 0 && <TaskList tasks={project.tasks} />}
+                <TaskList projectid={project.id} />
               </div>
             </div>
           </>
