@@ -28,7 +28,9 @@ export default function ProjectDescription({ project }: { project: Project }) {
             {+project.totalTasks > 0 ? (
               <div>
                 {`${project.completedTasks} of ${project.totalTasks} (` +
-                  Math.round(+project.completedTasks / +project.totalTasks) +
+                  Math.round(
+                    (+project.completedTasks / +project.totalTasks) * 100
+                  ) +
                   "%)"}
               </div>
             ) : (
