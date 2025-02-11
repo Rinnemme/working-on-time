@@ -63,7 +63,7 @@ export default function ProjectEditForm({
           Edit project
         </h3>
 
-        <div className="w-96 mt-6">
+        <div className="w-96 mt-3">
           <label
             htmlFor="projectName"
             className="block font-normal leading-6 text-wot-black"
@@ -90,7 +90,7 @@ export default function ProjectEditForm({
           </p>
         </div>
 
-        <div className="w-80 mt-6 mb-4">
+        <div className="w-80 mt-4 mb-4">
           <label
             htmlFor="priority"
             className="block font-normal leading-6 text-wot-black"
@@ -111,7 +111,7 @@ export default function ProjectEditForm({
           </div>
         </div>
 
-        <div className="w-80 mt-6 mb-4">
+        <div className="w-80 mt-4 mb-4">
           <label
             htmlFor="due"
             className="block font-normal leading-6 text-wot-black"
@@ -129,7 +129,7 @@ export default function ProjectEditForm({
           </div>
         </div>
 
-        <div className="w-72 mt-6">
+        <div className="w-72 mt-4">
           <label
             htmlFor="description"
             className="block font-normal leading-4 text-wot-black"
@@ -139,7 +139,7 @@ export default function ProjectEditForm({
           <div className="mt-2 flex justify-center">
             <textarea
               id="description"
-              className="block w-72 h-36 bg-wot-off-white rounded-md border-0 px-2.5 py-1.5 text-wot-black shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-wot-gray focus:outline-none focus:ring-1 focus:ring-inset focus:ring-wot-blue sm:text-sm sm:leading-6"
+              className="block w-72 h-24 bg-wot-off-white rounded-md border-0 px-2.5 py-1.5 text-wot-black shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-wot-gray focus:outline-none focus:ring-1 focus:ring-inset focus:ring-wot-blue sm:text-sm sm:leading-6"
               defaultValue={project.description}
               {...register("description", {
                 required: "A description is required",
@@ -155,7 +155,7 @@ export default function ProjectEditForm({
           </p>
         </div>
       </div>
-      <div className="mt-5 sm:mt-6 w-full mb-4 flex justify-center">
+      <div className="mt-3 w-full mb-4 flex justify-center">
         <button
           type="submit"
           className="inline-flex w-auto justify-center rounded-3xl bg-wot-blue px-5 py-2 my-4 font-light text-white shadow-sm hover:bg-wot-yellow hover:scale-105 transition-all duration-300"
