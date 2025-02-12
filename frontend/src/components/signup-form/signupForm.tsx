@@ -86,6 +86,10 @@ export default function SignupForm({
                   value: 4,
                   message: "Must be at least 4 characters.",
                 },
+                pattern: {
+                  value: /^[a-zA-Z0-9]*$/,
+                  message: "Must only contain alphanumeric characters",
+                },
               })}
             />
           </div>
@@ -112,6 +116,10 @@ export default function SignupForm({
                 maxLength: {
                   value: 20,
                   message: "Must be no longer than 20 characters.",
+                },
+                pattern: {
+                  value: /^[a-zA-Z0-9]*$/,
+                  message: "Must only contain alphanumeric characters",
                 },
               })}
             />
@@ -143,6 +151,10 @@ export default function SignupForm({
                 minLength: {
                   value: 12,
                   message: "Must be at least 12 characters.",
+                },
+                pattern: {
+                  value: /^[^<>{}>\s\/\\]*$/,
+                  message: "Must not contain spaces or: <, >, {, }, \\, /",
                 },
               })}
             />
