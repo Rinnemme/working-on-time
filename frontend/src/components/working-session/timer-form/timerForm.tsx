@@ -67,14 +67,14 @@ export default function TimerForm({ closeTimer }: { closeTimer: () => void }) {
                   defaultValue={
                     timer.workingDuration
                       ? Math.floor(timer.workingDuration / 60)
-                      : "00"
+                      : "25"
                   }
                   className="w-12 bg-wot-off-white rounded-sm text-xl text-wot-rose border-0 px-2.5 py-1.5 shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-wot-gray focus:outline-none focus:ring-1 focus:ring-inset focus:ring-wot-light-rose"
                   {...register("workingMinutes", {
                     required: "You must enter a working duration",
                     pattern: {
                       value: /^([0]?[0-9]|[1-5][0-9]|[6]?[0])$/,
-                      message: "Please enter a number of minutes from 0-60",
+                      message: "Please enter a # of minutes from 0-60",
                     },
                   })}
                 />
@@ -97,7 +97,7 @@ export default function TimerForm({ closeTimer }: { closeTimer: () => void }) {
                     required: "You must enter a working duration",
                     pattern: {
                       value: /^([0]?[0-9]|[1-5][0-9]|[6]?[0])$/,
-                      message: "Please enter a number of seconds from 0-60",
+                      message: "Please enter a # of seconds from 0-60",
                     },
                   })}
                 />
@@ -125,14 +125,14 @@ export default function TimerForm({ closeTimer }: { closeTimer: () => void }) {
                   defaultValue={
                     timer.restingDuration
                       ? Math.floor(timer.restingDuration / 60)
-                      : "00"
+                      : "05"
                   }
                   className="w-12 bg-wot-off-white rounded-sm text-xl text-wot-rose border-0 px-2.5 py-1.5 shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-wot-gray focus:outline-none focus:ring-1 focus:ring-inset focus:ring-wot-light-rose"
                   {...register("restingMinutes", {
                     required: "You must enter a working duration",
                     pattern: {
                       value: /^([0]?[0-9]|[1-5][0-9]|[6]?[0])$/,
-                      message: "Please enter a number of minutes from 0-60",
+                      message: "Please enter a # of minutes from 0-60",
                     },
                   })}
                 />
@@ -155,7 +155,7 @@ export default function TimerForm({ closeTimer }: { closeTimer: () => void }) {
                     required: "You must enter a working duration",
                     pattern: {
                       value: /^([0]?[0-9]|[1-5][0-9]|[6]?[0])$/,
-                      message: "Please enter a number of seconds from 0-60",
+                      message: "Please enter a # of seconds from 0-60",
                     },
                   })}
                 />

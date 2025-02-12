@@ -18,7 +18,7 @@ export default function UserTools() {
           <button
             type="button"
             className="rounded-md px-3 py-2 hover:cursor-pointer transition-all duration-200 hover:bg-slate-100 hover:text-wot-rose"
-            onClick={() => setDropdown(true)}
+            onClick={() => setDropdown(!dropdown)}
           >
             {`Welcome, ${nickname}!`}
           </button>
