@@ -45,10 +45,11 @@ app.get("/authentication-failed", (req: Request, res: Response) => {
 app.post(
   "/log-in",
   passport.authenticate("local", {
-    successRedirect: "/",
     failureRedirect: "/authentication-failed",
-    failureMessage: true,
-  })
+  }),
+  function (req, res) {
+    res.redirect("/");
+  }
 );
 
 app.post("/logout", function (req, res, next) {
