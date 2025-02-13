@@ -7,6 +7,7 @@ import {
 } from "@/src/store/workingSessionSlice";
 import { ReactNode } from "react";
 import { setToast } from "@/src/store/toastSlice";
+import VolumeControl from "../volume-control/volumeControl";
 
 export default function TimerForm({ closeTimer }: { closeTimer: () => void }) {
   const timer = useSelector((state: AppState) => state.workingSession.timer);
@@ -173,6 +174,13 @@ export default function TimerForm({ closeTimer }: { closeTimer: () => void }) {
                   errors.restingSeconds?.message) as ReactNode
               }
             </p>
+
+            <div className="mt-4 w-full flex flex-col justify-center">
+              <div className="mb-3 font-semibold text-lg">
+                Transition Cue Volume
+              </div>
+              <VolumeControl />
+            </div>
 
             <div className="mt-4 w-full flex justify-center">
               <button
