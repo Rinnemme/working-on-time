@@ -33,7 +33,7 @@ app.use("/tasks", taskRoutes);
 app.use("/my-projects", projectRoutes);
 
 app.get("/", (req: Request, res: Response) => {
-  if (req.user) {
+  if (req.isAuthenticated()) {
     res.status(200).json(req.user);
   } else res.status(400).send({ message: "Log in first!" });
 });
