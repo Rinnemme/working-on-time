@@ -7,6 +7,7 @@ const LocalStrategy = require("passport-local");
 const bcrypt = require("bcryptjs");
 const taskRoutes = require("./routes/tasks");
 const projectRoutes = require("./routes/projects");
+const bodyParser = require("body-parser");
 const { pool } = require("./db/pool");
 require("dotenv").config();
 
@@ -20,7 +21,7 @@ app.use(
   })
 );
 app.use(passport.session());
-app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(
   cors({
