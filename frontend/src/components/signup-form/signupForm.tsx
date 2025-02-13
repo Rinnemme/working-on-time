@@ -60,7 +60,7 @@ export default function SignupForm({
     <form onSubmit={handleSubmit(onSubmit)} noValidate>
       <div className="mt-3 text-center flex flex-col items-center sm:mt-5">
         <h3 className="text-3xl font-bold leading-6 mb-5 mt-4 text-wot-blue">
-          SignUp
+          Sign Up
         </h3>
 
         <div className="w-80 mt-6">
