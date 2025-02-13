@@ -24,7 +24,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(
   cors({
-    origin: ["http://localhost:3001", "https://working-on-time.vercel.app"],
+    origin: [
+      "http://localhost:3001",
+      "https://working-on-time.vercel.app",
+      "https://working-on-time.vercel.app/",
+    ],
     credentials: true,
   })
 );
