@@ -1,6 +1,6 @@
 module.exports = {
   env: {
-    baseURI: "http://localhost:3030",
+    baseURI: "https://working-on-time-api.vercel.app",
   },
   devIndicators: {
     buildActivity: false,
