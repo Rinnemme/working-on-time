@@ -6,6 +6,7 @@ import userReducer from "./userSlice";
 import loadingReducer from "./loadingSlice";
 import workingSessionReducer from "./workingSessionSlice";
 import toastReducer from "./toastSlice";
+import volumeReducer from "./volumeSlice";
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
     isLoading: loadingReducer,
     workingSession: workingSessionReducer,
     toast: toastReducer,
+    volume: volumeReducer,
   },
 });
 

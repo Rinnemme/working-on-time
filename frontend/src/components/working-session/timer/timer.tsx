@@ -30,6 +30,7 @@ export default function Timer({
   paused: boolean;
 }) {
   const dispatch = useDispatch();
+  const volume = useSelector((state: AppState) => state.volume);
   const reduxRemainingTime = useSelector(
     (state: AppState) => state.workingSession.timer.currentRemainingTime
   );
@@ -89,6 +90,7 @@ export default function Timer({
   const audio = new Audio(
     "https://cdn.pixabay.com/download/audio/2023/03/18/audio_9b98a3c314.mp3?filename=game-level-complete-143022.mp3"
   );
+  audio.volume = volume;
 
   return (
     <div className="w-[300px] bg-white h-fit flex flex-col gap-6 p-6 pb-28 border border-wot-light-gray justify-center relative">
