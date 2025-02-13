@@ -95,17 +95,31 @@ export default function WorkingSession({ project }: { project: Project }) {
           {(!workingDuration || !restingDuration || showTimerForm) && (
             <TimerForm closeTimer={() => setShowTimerForm(false)} />
           )}
-          {working && workingDuration && !showTimerForm && (
+
+          {!showTimerForm && (
             <div className="w-fit flex flex-col gap-5">
-              <Timer
-                toggleWorking={toggleWorking}
-                togglePaused={() => setPaused(!paused)}
-                keyParam={resets}
-                resetTimer={() => setResets((resets) => resets + 1)}
-                duration={workingDuration}
-                working={working}
-                paused={paused}
-              />
+              {working && workingDuration && (
+                <Timer
+                  toggleWorking={toggleWorking}
+                  togglePaused={() => setPaused(!paused)}
+                  keyParam={resets}
+                  resetTimer={() => setResets((resets) => resets + 1)}
+                  duration={workingDuration}
+                  working={working}
+                  paused={paused}
+                />
+              )}
+              {!working && restingDuration && (
+                <Timer
+                  toggleWorking={toggleWorking}
+                  togglePaused={() => setPaused(!paused)}
+                  keyParam={resets}
+                  resetTimer={() => setResets((resets) => resets + 1)}
+                  duration={restingDuration}
+                  working={working}
+                  paused={paused}
+                />
+              )}
               <div
                 className={
                   "self-center text-sm px-3 py-1 mb-2 text-center bg-wot-white border rounded-full hover:cursor-pointer transition " +
@@ -119,32 +133,9 @@ export default function WorkingSession({ project }: { project: Project }) {
               </div>
             </div>
           )}
-          {!working && restingDuration && !showTimerForm && (
-            <div className="w-fit flex flex-col gap-5">
-              <Timer
-                toggleWorking={toggleWorking}
-                togglePaused={() => setPaused(!paused)}
-                keyParam={resets}
-                resetTimer={() => setResets((resets) => resets + 1)}
-                duration={restingDuration}
-                working={working}
-                paused={paused}
-              />
-              <div
-                className={
-                  "self-center text-sm px-3 py-1 text-center bg-wot-white border rounded-full hover:cursor-pointer transition " +
-                  (working
-                    ? "text-wot-rose border-wot-rose hover:text-wot-yellow hover:border-wot-yellow"
-                    : "text-wot-blue border-wot-blue hover:text-wot-light-green hover:border-wot-light-green")
-                }
-                onClick={() => setShowTimerForm(true)}
-              >
-                Edit Timer
-              </div>
-            </div>
-          )}
         </div>
       </div>
+
       {modal && (
         <Modal
           closeFunc={() => setModal(false)}
