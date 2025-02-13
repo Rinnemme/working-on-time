@@ -108,11 +108,18 @@ passport.use(
   })
 );
 
-passport.serializeUser((user: any, done: any) => {
+interface User {
+  id: string;
+  username: string;
+  nickname: string;
+  password: string;
+}
+
+passport.serializeUser((user: User, done: any) => {
   done(null, user.id);
 });
 
-passport.deserializeUser(async (id: any, done: any) => {
+passport.deserializeUser(async (id: string, done: any) => {
   try {
     const { rows } = await pool.query("SELECT * FROM users WHERE id = $1", [
       id,
