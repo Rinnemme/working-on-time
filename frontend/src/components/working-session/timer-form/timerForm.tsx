@@ -81,7 +81,7 @@ export default function TimerForm({ closeTimer }: { closeTimer: () => void }) {
                       ? Math.floor(timer.workingDuration / 60)
                       : "25"
                   }
-                  className="w-12 bg-wot-off-white rounded-sm text-xl text-wot-rose border-0 px-2.5 py-1.5 shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-wot-gray focus:outline-none focus:ring-1 focus:ring-inset focus:ring-wot-light-rose"
+                  className="w-12 bg-wot-off-white rounded-sm text-xl text-wot-rose border-0 px-2.5 py-1.5 text-center shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-wot-gray focus:outline-none focus:ring-1 focus:ring-inset focus:ring-wot-light-rose"
                   {...register("workingMinutes", {
                     required: "You must enter a working duration",
                     pattern: {
@@ -104,7 +104,7 @@ export default function TimerForm({ closeTimer }: { closeTimer: () => void }) {
                   defaultValue={
                     timer.workingDuration ? timer.workingDuration % 60 : "00"
                   }
-                  className="w-12 bg-wot-off-white rounded-sm text-xl text-wot-rose border-0 px-2.5 py-1.5 shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-wot-gray focus:outline-none focus:ring-1 focus:ring-inset focus:ring-wot-light-rose"
+                  className="w-12 bg-wot-off-white rounded-sm text-xl text-wot-rose border-0 px-2.5 py-1.5 text-center shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-wot-gray focus:outline-none focus:ring-1 focus:ring-inset focus:ring-wot-light-rose"
                   {...register("workingSeconds", {
                     required: "You must enter a working duration",
                     pattern: {
@@ -139,7 +139,7 @@ export default function TimerForm({ closeTimer }: { closeTimer: () => void }) {
                       ? Math.floor(timer.restingDuration / 60)
                       : "05"
                   }
-                  className="w-12 bg-wot-off-white rounded-sm text-xl text-wot-rose border-0 px-2.5 py-1.5 shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-wot-gray focus:outline-none focus:ring-1 focus:ring-inset focus:ring-wot-light-rose"
+                  className="w-12 bg-wot-off-white rounded-sm text-xl text-wot-rose border-0 px-2.5 py-1.5 text-center shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-wot-gray focus:outline-none focus:ring-1 focus:ring-inset focus:ring-wot-light-rose"
                   {...register("restingMinutes", {
                     required: "You must enter a working duration",
                     pattern: {
@@ -162,7 +162,7 @@ export default function TimerForm({ closeTimer }: { closeTimer: () => void }) {
                   defaultValue={
                     timer.restingDuration ? timer.restingDuration % 60 : "00"
                   }
-                  className="w-12 bg-wot-off-white rounded-sm text-xl text-wot-rose border-0 px-2.5 py-1.5 shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-wot-gray focus:outline-none focus:ring-1 focus:ring-inset focus:ring-wot-light-rose"
+                  className="w-12 bg-wot-off-white rounded-sm text-xl text-wot-rose border-0 px-2.5 py-1.5 text-center shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-wot-gray focus:outline-none focus:ring-1 focus:ring-inset focus:ring-wot-light-rose"
                   {...register("restingSeconds", {
                     required: "You must enter a working duration",
                     pattern: {
