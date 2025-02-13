@@ -35,12 +35,7 @@ export default function VolumeControl() {
         step="0.1"
         min="0"
         max="1"
-        className={
-          "w-full h-4 bg-wot-light-gray rounded-lg appearance-none hover:cursor-pointer bg-transparent [&::-webkit-slider-runnable-track]:rounded-full [&::-webkit-slider-runnable-track]:bg-wot-light-gray [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:rounded-full  " +
-          (working
-            ? "[&::-webkit-slider-thumb]:bg-wot-rose"
-            : "[&::-webkit-slider-thumb]:bg-wot-blue")
-        }
+        className="w-full h-4 bg-wot-light-gray rounded-lg appearance-none hover:cursor-pointer bg-transparent [&::-webkit-slider-runnable-track]:rounded-full [&::-webkit-slider-runnable-track]:bg-wot-light-gray [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-wot-rose"
       ></input>
       <VolumeIndicator volume={volume} />
     </div>

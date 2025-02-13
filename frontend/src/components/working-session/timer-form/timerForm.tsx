@@ -20,6 +20,17 @@ export default function TimerForm({ closeTimer }: { closeTimer: () => void }) {
   const { errors } = formState;
 
   function onSubmit(data: any) {
+    if (timer.workingDuration && timer.restingDuration) {
+      if (
+        +data.workingSeconds + +data.workingMinutes * 60 ===
+          timer.workingDuration &&
+        +data.restingSeconds + +data.restingMinutes * 60 ===
+          timer.restingDuration
+      ) {
+        closeTimer();
+        return;
+      }
+    }
     if (+data.workingSeconds === 0 && +data.workingMinutes === 0) {
       setError("workingSeconds", {
         message: "Working time must exceed 0 seconds.",
