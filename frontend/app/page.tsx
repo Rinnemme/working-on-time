@@ -26,7 +26,7 @@ export default function Home() {
       </div>
 
       <div className="relative flex items-center justify-center py-28 w-full min-w-80 bg-wot-blue">
-        <div className="w-full px-5 md:px-10 lg:px-20 max-w-7xl flex-col sm:flex-rowgap-6 sm:gap-28 items-center sm:justify-between">
+        <div className="w-full px-5 md:px-10 lg:px-20 max-w-7xl flex-col sm:flex-row gap-6 sm:gap-28 items-center sm:justify-between">
           <div className="text-center flex flex-col items-center sm:items-start sm:text-left flex-1 max-w-xl">
             <h1 className="text-3xl font-extrabold text-white sm:text-5xl">
               <span>It's Your Time</span>
@@ -37,10 +37,10 @@ export default function Home() {
               customizable iterations of the widely recognized Pomodoro
               Technique.
             </p>
+            <button className="rounded-3xl mt-6 bg-wot-light-blue px-8 md:mr-10 lg:mr-14 py-2 my-4 font-light text-white shadow-sm hover:bg-wot-light-green hover:scale-105 transition-all duration-300">
+              Learn More
+            </button>
           </div>
-          <button className="rounded-3xl bg-wot-light-blue px-8 md:mr-10 lg:mr-14 py-2 my-4 font-light text-white shadow-sm hover:bg-wot-light-green hover:scale-105 transition-all duration-300">
-            Learn More
-          </button>
         </div>
       </div>
 
