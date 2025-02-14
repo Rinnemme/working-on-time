@@ -18,6 +18,10 @@ app.use(
     secret: "TimeTestedSecret",
     resave: false,
     saveUninitialized: false,
+    cookie: {
+      SameSite: "none",
+      secure: true,
+    },
   })
 );
 app.use(passport.session());
@@ -33,8 +37,7 @@ app.use(
     credentials: true,
   })
 );
-app.options("*", cors());
-
+app.enable("trust proxy");
 app.use("/tasks", taskRoutes);
 app.use("/my-projects", projectRoutes);
 
