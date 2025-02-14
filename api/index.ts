@@ -20,7 +20,7 @@ app.use(
     saveUninitialized: false,
   })
 );
-app.use(passport.authenticate("session"));
+app.use(passport.session());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(
@@ -33,6 +33,7 @@ app.use(
     credentials: true,
   })
 );
+app.options("*", cors());
 
 app.use("/tasks", taskRoutes);
 app.use("/my-projects", projectRoutes);
@@ -119,7 +120,7 @@ interface User {
 }
 
 passport.serializeUser((user: User, done: any) => {
-  done(null, user);
+  done(null, user.id);
 });
 
 passport.deserializeUser(async (id: string, done: any) => {
