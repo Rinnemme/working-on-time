@@ -29,9 +29,9 @@ export default function VolumeControl() {
         defaultValue={volume}
         onChange={(change) => {
           adjustVolume(+change.target.value);
-          //   audio.volume = +change.target.value
         }}
         onClick={() => audio.play()}
+        onTouchEnd={() => audio.play()}
         step="0.1"
         min="0"
         max="1"

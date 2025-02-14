@@ -27,21 +27,16 @@ export default function About() {
         <div className="flex-1 min-w-96 max-w-[35rem]">
           <Image
             height={420}
-            className="h- w-auto"
             alt="Project screenshot"
             src={ProjectScreen}
+            loading="eager"
           />
         </div>
       </div>
 
       <div className="min-h-96 flex flex-wrap-reverse w-full items-center justify-center max-w-6xl gap-12 text-4xl text-wot-rose">
         <div className="flex-1 min-w-96 max-w-[35rem]">
-          <Image
-            height={420}
-            className="h- w-auto"
-            alt="Project screenshot"
-            src={Timers}
-          />
+          <Image height={420} alt="Project screenshot" src={Timers} />
         </div>
         <div className="w-[30rem]">
           <h1 className="text-3xl sm:text-4xl text-wot-rose">
@@ -78,12 +73,7 @@ export default function About() {
           </p>
         </div>
         <div className="flex-1 min-w-96 max-w-[35rem]">
-          <Image
-            height={420}
-            className="h- w-auto"
-            alt="Project screenshot"
-            src={WorkingSession}
-          />
+          <Image height={420} alt="Project screenshot" src={WorkingSession} />
         </div>
       </div>
     </div>
