@@ -281,7 +281,7 @@ export default function Navbar() {
           <DisclosurePanel className="md:hidden">
             <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
               {!username && !isLoading && (
-                <div className="ms-6 flex items-center space-x-4 fade-in">
+                <div className="flex flex-col items-start fade-in">
                   <Link
                     href="/"
                     className={
