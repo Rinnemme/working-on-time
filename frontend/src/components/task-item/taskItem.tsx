@@ -62,7 +62,7 @@ export default function TaskItem({ task }: { task: Task }) {
         alt={"Draggable"}
         ref={setActivatorNodeRef}
         {...listeners}
-        className="min-h-6 min-w-6 w-6 h-6 ms-1 me-2 hover:cursor-move"
+        className="min-h-6 min-w-6 w-6 h-6 ms-1 me-2 hover:cursor-move touch-none"
       />
       <input
         type="checkbox"
