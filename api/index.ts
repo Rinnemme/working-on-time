@@ -53,7 +53,7 @@ app.post(
     failureRedirect: "/authentication-failed",
   }),
   function (req, res) {
-    res.redirect("/");
+    res.status(307).redirect("/");
   }
 );
 
