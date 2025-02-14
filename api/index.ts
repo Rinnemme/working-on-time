@@ -50,11 +50,9 @@ app.get("/authentication-failed", (req: Request, res: Response) => {
 app.post(
   "/log-in",
   passport.authenticate("local", {
+    successRedirect: "/",
     failureRedirect: "/authentication-failed",
-  }),
-  function (req, res) {
-    res.status(200).send(req.user);
-  }
+  })
 );
 
 app.post("/logout", function (req, res, next) {
