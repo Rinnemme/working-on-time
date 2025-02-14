@@ -7,6 +7,7 @@ import FooterLinkedIn from "../public/Footer-LinkedIn.svg";
 import { useState } from "react";
 import Modal from "@/src/components/modal/modal";
 import SignupForm from "@/src/components/signup-form/signupForm";
+import Link from "next/link";
 
 export default function Home() {
   const [modal, setModal] = useState<boolean>(false);
@@ -37,9 +38,12 @@ export default function Home() {
               customizable iterations of the widely recognized Pomodoro
               Technique.
             </p>
-            <button className="rounded-3xl mt-6 bg-wot-light-blue px-8 md:mr-10 lg:mr-14 py-2 my-4 font-light text-white shadow-sm hover:bg-wot-light-green hover:scale-105 transition-all duration-300">
+            <Link
+              href="/about"
+              className="rounded-3xl mt-6 bg-wot-light-blue px-8 md:mr-10 lg:mr-14 py-2 my-4 font-light text-white shadow-sm hover:bg-wot-light-green hover:scale-105 transition-all duration-300"
+            >
               Learn More
-            </button>
+            </Link>
           </div>
         </div>
       </div>
