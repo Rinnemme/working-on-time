@@ -120,17 +120,19 @@ export default function WorkingSession({ project }: { project: Project }) {
                   paused={paused}
                 />
               )}
-              <div
-                className={
-                  "self-center text-sm px-3 py-1 mb-2 text-center bg-wot-white border rounded-full hover:cursor-pointer transition " +
-                  (working
-                    ? "text-wot-rose border-wot-rose hover:text-wot-yellow hover:border-wot-yellow"
-                    : "text-wot-blue border-wot-blue hover:text-wot-light-green hover:border-wot-light-green")
-                }
-                onClick={() => setShowTimerForm(true)}
-              >
-                Edit Timer
-              </div>
+              {restingDuration && workingDuration && (
+                <div
+                  className={
+                    "self-center text-sm px-3 py-1 mb-2 text-center bg-wot-white border rounded-full hover:cursor-pointer transition " +
+                    (working
+                      ? "text-wot-rose border-wot-rose hover:text-wot-yellow hover:border-wot-yellow"
+                      : "text-wot-blue border-wot-blue hover:text-wot-light-green hover:border-wot-light-green")
+                  }
+                  onClick={() => setShowTimerForm(true)}
+                >
+                  Edit Timer
+                </div>
+              )}
             </div>
           )}
         </div>
