@@ -2,7 +2,7 @@ import { Project, Task } from "@/src/store/types";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
-import { setProjectTasks } from "@/src/store/projectSlice";
+import { moveTask, setProjectTasks } from "@/src/store/projectSlice";
 import { DndContext, DragEndEvent } from "@dnd-kit/core";
 import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 import TaskItem from "../task-item/taskItem";
@@ -17,6 +17,7 @@ export default function TaskList({ projectid }: { projectid: number }) {
     state.projects.find((project) => project.id === projectid)
   ) as Project;
   const tasks = project.tasks;
+  const incompleteTasks = project.tasks.filter((task) => !task.complete);
   const completedTasks = +project.completedTasks;
 
   const handleDragEnd = (event: DragEndEvent) => {
@@ -24,9 +25,10 @@ export default function TaskList({ projectid }: { projectid: number }) {
     if (!over) {
       return;
     }
-    const activeIndex = tasks.findIndex((task) => task.id === active.id);
-    const overIndex = tasks.findIndex((task) => task.id === over.id);
-    const newtasks = arrayMove(tasks, activeIndex, overIndex);
+    const oldPosition =
+      tasks[tasks.findIndex((task) => task.id === active.id)].position;
+    const newPosition =
+      tasks[tasks.findIndex((task) => task.id === over.id)].position;
     axios({
       method: "POST",
       data: {
@@ -35,7 +37,13 @@ export default function TaskList({ projectid }: { projectid: number }) {
       withCredentials: true,
       url: `${process.env.baseURI}/tasks/${active.id}/move`,
     });
-    dispatch(setProjectTasks(newtasks));
+    dispatch(
+      moveTask({
+        projectid: project.id,
+        oldPosition,
+        newPosition,
+      })
+    );
   };
 
   return (
@@ -54,10 +62,10 @@ export default function TaskList({ projectid }: { projectid: number }) {
         <AllTasksDone projectid={project.id} />
       )}
       <DndContext onDragEnd={handleDragEnd}>
-        <SortableContext items={tasks}>
+        <SortableContext items={showComplete ? tasks : incompleteTasks}>
           {!showComplete &&
-            tasks.map((task) => {
-              if (!task.complete) return <TaskItem task={task} key={task.id} />;
+            incompleteTasks.map((task) => {
+              return <TaskItem task={task} key={task.id} />;
             })}
           {showComplete &&
             tasks.map((task) => {

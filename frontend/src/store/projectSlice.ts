@@ -32,6 +32,35 @@ export const projectSlice = createSlice({
       state[projectIndex].tasks[taskIndex] = action.payload;
       return state;
     },
+    moveTask: (state, action) => {
+      const index = indexOfProject(action.payload.projectid, state);
+      const oldPosition: number = action.payload.oldPosition;
+      const newPosition: number = action.payload.newPosition;
+      const updatedTasks = state[index].tasks.map((task: Task) => {
+        if (task.position === oldPosition)
+          return { ...task, position: newPosition } as Task;
+        if (
+          oldPosition < newPosition &&
+          task.position > oldPosition &&
+          task.position <= newPosition
+        ) {
+          return { ...task, position: task.position - 1 } as Task;
+        }
+        if (
+          oldPosition > newPosition &&
+          task.position < oldPosition &&
+          task.position >= newPosition
+        ) {
+          return { ...task, position: task.position + 1 } as Task;
+        }
+        return task;
+      });
+      updatedTasks.sort((a: Task, b: Task) => {
+        return a.position < b.position ? -1 : +1;
+      });
+      state[index].tasks = updatedTasks;
+      return state;
+    },
     toggleTaskCompletion: (state, action) => {
       const projectIndex = indexOfProject(action.payload.projectid, state);
       const taskIndex = indexOfTask(action.payload.id, state[projectIndex]);
@@ -86,6 +115,7 @@ export const {
   setProjects,
   setProjectTasks,
   updateTask,
+  moveTask,
   toggleTaskCompletion,
   deleteTask,
   addTask,
