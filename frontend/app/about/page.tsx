@@ -1,5 +1,5 @@
 import Image from "next/image";
-import ProjectScreen from "../../public/screenshots.svg";
+import ProjectScreen from "../../public/screenshots.png";
 import Timers from "../../public/timers.svg";
 import WorkingSession from "../../public/working-session.svg";
 
@@ -24,7 +24,7 @@ export default function About() {
             drag-and-drop.
           </p>
         </div>
-        <div className="flex-1 min-w-96 max-w-[35rem]">
+        <div className="flex-1 min-w-80 max-w-[35rem]">
           <Image
             height={420}
             alt="Project screenshot"
@@ -35,7 +35,7 @@ export default function About() {
       </div>
 
       <div className="min-h-96 flex flex-wrap-reverse w-full items-center justify-center max-w-6xl gap-12 text-4xl text-wot-rose">
-        <div className="flex-1 min-w-96 max-w-[35rem]">
+        <div className="flex-1 min-w-80 max-w-[35rem]">
           <Image height={420} alt="Project screenshot" src={Timers} />
         </div>
         <div className="w-[30rem]">
@@ -72,7 +72,7 @@ export default function About() {
             without losing your timer's settings.
           </p>
         </div>
-        <div className="flex-1 min-w-96 max-w-[35rem]">
+        <div className="flex-1 min-w-80 max-w-[35rem]">
           <Image height={420} alt="Project screenshot" src={WorkingSession} />
         </div>
       </div>
