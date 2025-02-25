@@ -47,27 +47,6 @@ export default function Navbar() {
 
   const [projectDropdown, setProjectDropdown] = useState<boolean>(false);
 
-  const getAndSetUser = () => {
-    axios({
-      method: "GET",
-      withCredentials: true,
-      url: process.env.baseURI,
-    })
-      .then((res) => {
-        dispatch(setUser(res.data));
-        getAndSetProjects();
-      })
-      .catch((err) => {
-        if (path !== "/" && path !== "/about") {
-          router.push("/");
-          dispatch(
-            setToast({ error: true, message: "You are not logged in." })
-          );
-        }
-        dispatch(setIsLoading(false));
-      });
-  };
-
   const getAndSetProjects = () => {
     axios({
       method: "GET",
@@ -123,19 +102,42 @@ export default function Navbar() {
     }
   };
 
+  const getAndSetUser = () => {
+    axios({
+      method: "GET",
+      withCredentials: true,
+      url: process.env.baseURI,
+    })
+      .then((res) => {
+        dispatch(setUser(res.data));
+        getAndSetWorkingProjectId();
+        getAndSetWorkingTimer();
+        getAndSetWorkingState();
+        getAndSetProjects();
+      })
+      .catch((err) => {
+        localStorage.removeItem("workingid");
+        localStorage.removeItem("remainingTime");
+        localStorage.removeItem("workingDuration");
+        localStorage.removeItem("restingDuration");
+        localStorage.removeItem("working");
+        if (path !== "/" && path !== "/about") {
+          router.push("/");
+          dispatch(
+            setToast({ error: true, message: "You are not logged in." })
+          );
+        }
+        dispatch(setIsLoading(false));
+      });
+  };
+
   useEffect(() => {
-    getAndSetWorkingProjectId();
-    getAndSetWorkingTimer();
-    getAndSetWorkingState();
     getAndSetUser();
   }, []);
 
   const loginSuccess = () => {
     dispatch(setIsLoading(true));
     router.push("/projects");
-    getAndSetWorkingProjectId();
-    getAndSetWorkingTimer();
-    getAndSetWorkingState();
     getAndSetProjects();
     setModal(null);
   };
