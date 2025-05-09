@@ -47,11 +47,6 @@ export default function ProjectTools({ project }: { project: Project }) {
           >
             Delete project
           </div>
-          {path !== `/projects/${project.id}` && (
-            <div className="text-nowrap text-end text-wot-black hover:cursor-pointer hover:text-wot-rose">
-              Working Session
-            </div>
-          )}
         </div>
       )}
       {modal === "Edit" && (

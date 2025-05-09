@@ -45,6 +45,7 @@ export default function Project() {
                   className="self-center text-sm px-3 py-1 mb-2 mt-2 text-center bg-wot-white border rounded-full hover:cursor-pointer transition text-wot-rose border-wot-rose hover:text-wot-yellow hover:border-wot-yellow"
                   onClick={() => {
                     dispatch(setWorkingProject(project.id));
+                    localStorage.setItem("workingid", project.id.toString());
                     router.push("/working-session");
                   }}
                 >
