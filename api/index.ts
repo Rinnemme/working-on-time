@@ -1,6 +1,7 @@
 import { Application, Request, Response } from "express";
 const express = require("express");
 const session = require("express-session");
+const MemoryStore = require("memorystore")(session);
 const passport = require("passport");
 const cors = require("cors");
 const LocalStrategy = require("passport-local");
@@ -22,6 +23,9 @@ app.use(
       sameSite: "none",
       secure: true,
     },
+    store: new MemoryStore({
+      checkPeriod: 86400000,
+    }),
   })
 );
 app.use(passport.session());
