@@ -18,7 +18,7 @@
     "axios": "^1.7.9",
     "debug": "^4.4.0",
     "dotenv": "^16.4.7",
-    "next": "15.1.4",
+    "next": "15.1.11",
     "react": "^19.0.0",
     "react-countdown-circle-timer": "^3.2.1",
     "react-dom": "^19.0.0",
