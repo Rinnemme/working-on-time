@@ -25,7 +25,7 @@ export default function LoginForm({
         password: data.password,
       },
       withCredentials: true,
-      url: `${process.env.baseURI}/log-in`,
+      url: `${process.env.NEXT_PUBLIC_BASE_URI}/log-in`,
     })
       .then((res) => {
         if (res.status === 200) {
@@ -34,7 +34,7 @@ export default function LoginForm({
               id: res.data.id,
               username: res.data.username,
               nickname: res.data.nickname,
-            })
+            }),
           );
           dispatch(setToast({ error: false, message: "Login successful!" }));
           successFunc();

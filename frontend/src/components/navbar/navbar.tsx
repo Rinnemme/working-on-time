@@ -51,7 +51,7 @@ export default function Navbar() {
     axios({
       method: "GET",
       withCredentials: true,
-      url: `${process.env.baseURI}/my-projects`,
+      url: `${process.env.NEXT_PUBLIC_BASE_URI}/my-projects`,
     })
       .then((res) => {
         if (res.status === 200) {
@@ -60,7 +60,7 @@ export default function Navbar() {
       })
       .catch((err) => {
         dispatch(
-          setToast({ error: true, message: "Unable to find your projects." })
+          setToast({ error: true, message: "Unable to find your projects." }),
         );
         return;
       })
@@ -86,7 +86,7 @@ export default function Navbar() {
         setSessionTimer({
           workingDuration: +workingDuration,
           restingDuration: +restingDuration,
-        })
+        }),
       );
     }
     if (typeof timeRemaining === "string") {
@@ -106,7 +106,7 @@ export default function Navbar() {
     axios({
       method: "GET",
       withCredentials: true,
-      url: process.env.baseURI,
+      url: process.env.NEXT_PUBLIC_BASE_URI,
     })
       .then((res) => {
         dispatch(setUser(res.data));
@@ -124,7 +124,7 @@ export default function Navbar() {
         if (path !== "/" && path !== "/about") {
           router.push("/");
           dispatch(
-            setToast({ error: true, message: "You are not logged in." })
+            setToast({ error: true, message: "You are not logged in." }),
           );
         }
         dispatch(setIsLoading(false));

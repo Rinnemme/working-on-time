@@ -49,7 +49,7 @@ app.use("/my-projects", projectRoutes);
 app.get("/", (req: Request, res: Response) => {
   if (req.isAuthenticated()) {
     res.status(200).json(req.user);
-  } else res.status(400).send({ message: "Log in first!" });
+  } else res.status(401).send({ message: "Log in first!" });
 });
 
 app.get("/authentication-failed", (req: Request, res: Response) => {
