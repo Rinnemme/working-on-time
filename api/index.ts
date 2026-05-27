@@ -14,6 +14,8 @@ require("dotenv").config();
 
 const app: Application = express();
 
+app.enable("trust proxy");
+
 app.use(
   session({
     secret: "TimeTestedSecret",
@@ -26,22 +28,21 @@ app.use(
     store: new MemoryStore({
       checkPeriod: 86400000,
     }),
-  })
+  }),
 );
+app.use(passport.initialize());
 app.use(passport.session());
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
+
 app.use(
   cors({
-    origin: [
-      "http://localhost:3001",
-      "https://working-on-time.vercel.app",
-      "https://working-on-time.vercel.app/",
-    ],
+    origin: ["http://localhost:3001", "https://working-on-time.vercel.app"],
     credentials: true,
-  })
+  }),
 );
-app.enable("trust proxy");
+
 app.use("/tasks", taskRoutes);
 app.use("/my-projects", projectRoutes);
 
@@ -60,7 +61,7 @@ app.post(
   passport.authenticate("local", {
     successRedirect: "/",
     failureRedirect: "/authentication-failed",
-  })
+  }),
 );
 
 app.post("/logout", function (req, res, next) {
@@ -81,13 +82,13 @@ app.post("/sign-up", async (req, res, next) => {
         try {
           await pool.query(
             "INSERT INTO users (username, nickname, password) VALUES ($1, $2, $3)",
-            [req.body.username, req.body.nickname, hashedPassword]
+            [req.body.username, req.body.nickname, hashedPassword],
           );
           res.status(200).send({ message: "Success!" });
         } catch (err) {
           res.status(400).send(err);
         }
-      }
+      },
     );
   } catch (err) {
     return next(err);
@@ -99,7 +100,7 @@ passport.use(
     try {
       const { rows } = await pool.query(
         "SELECT * FROM users WHERE username = $1",
-        [username]
+        [username],
       );
       const user = rows[0];
 
@@ -116,7 +117,7 @@ passport.use(
     } catch (err) {
       return done(err);
     }
-  })
+  }),
 );
 
 interface User {
