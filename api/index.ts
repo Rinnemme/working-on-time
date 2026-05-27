@@ -1,3 +1,4 @@
+require("dotenv").config();
 import { Application, Request, Response } from "express";
 const express = require("express");
 const session = require("express-session");
@@ -10,11 +11,20 @@ const taskRoutes = require("./routes/tasks");
 const projectRoutes = require("./routes/projects");
 const bodyParser = require("body-parser");
 const { pool } = require("./db/pool");
-require("dotenv").config();
 
 const app: Application = express();
 
 app.enable("trust proxy");
+
+app.use(
+  cors({
+    origin: "http://localhost:3001",
+    credentials: true,
+  }),
+);
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
 
 app.use(
   session({
@@ -22,26 +32,18 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      sameSite: "none",
-      secure: true,
+      sameSite: "lax",
+      secure: false,
+      httpOnly: true,
     },
     store: new MemoryStore({
       checkPeriod: 86400000,
     }),
   }),
 );
+
 app.use(passport.initialize());
 app.use(passport.session());
-
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.json());
-
-app.use(
-  cors({
-    origin: ["http://localhost:3001", "https://working-on-time.vercel.app"],
-    credentials: true,
-  }),
-);
 
 app.use("/tasks", taskRoutes);
 app.use("/my-projects", projectRoutes);
@@ -56,13 +58,34 @@ app.get("/authentication-failed", (req: Request, res: Response) => {
   res.status(401).send({ message: "Username or password is incorrect." });
 });
 
-app.post(
-  "/log-in",
-  passport.authenticate("local", {
-    successRedirect: "/",
-    failureRedirect: "/authentication-failed",
-  }),
-);
+app.post("/log-in", (req, res, next) => {
+  passport.authenticate(
+    "local",
+    (err: any, user: User | false, info: { message?: string }) => {
+      if (err) {
+        return next(err);
+      }
+
+      if (!user) {
+        return res.status(401).json({
+          message: info?.message || "Authentication failed",
+        });
+      }
+
+      req.logIn(user, (err) => {
+        if (err) {
+          return next(err);
+        }
+
+        return res.status(200).json({
+          id: user.id,
+          username: user.username,
+          nickname: user.nickname,
+        });
+      });
+    },
+  )(req, res, next);
+});
 
 app.post("/logout", function (req, res, next) {
   req.logout(function (err) {
