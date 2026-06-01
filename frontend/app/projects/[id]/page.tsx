@@ -3,10 +3,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { useParams, useRouter } from "next/navigation";
-import type { AppState } from "@../../../src/store/store";
-import type { Project } from "@../../../src/store/types";
-import Throbber from "@../../../src/components/throbber/throbber";
-import TaskList from "@../../../src/components/task-list/taskList";
+import type { AppState } from "@/src/store/store";
+import type { Project } from "@/src/store/types";
+import Throbber from "@/src/components/throbber/throbber";
+import TaskList from "@/src/components/task-list/taskList";
 import Modal from "@/src/components/modal/modal";
 import AddTaskForm from "@/src/components/add-task-button/add-task-form/addTaskForm";
 import AddTaskButton from "@/src/components/add-task-button/addTaskButton";
