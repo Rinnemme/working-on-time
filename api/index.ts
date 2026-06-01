@@ -1,34 +1,68 @@
-require("dotenv").config();
-import { Application, Request, Response } from "express";
-const express = require("express");
-const session = require("express-session");
-const MemoryStore = require("memorystore")(session);
-const passport = require("passport");
-const cors = require("cors");
-const LocalStrategy = require("passport-local");
-const bcrypt = require("bcryptjs");
-const taskRoutes = require("./routes/tasks");
-const projectRoutes = require("./routes/projects");
-const bodyParser = require("body-parser");
-const { pool } = require("./db/pool");
+import dotenv from "dotenv";
+dotenv.config();
+
+import express, { Application, Request, Response, NextFunction } from "express";
+import session from "express-session";
+import connectPgSimple from "connect-pg-simple";
+import passport from "passport";
+import cors from "cors";
+import { Strategy as LocalStrategy } from "passport-local";
+import bcrypt from "bcryptjs";
+import { Pool } from "pg";
+
+import taskRoutes from "./routes/tasks";
+import projectRoutes from "./routes/projects";
+
+interface User {
+  id: string;
+  username: string;
+  nickname: string;
+  password: string;
+}
+
+declare global {
+  namespace Express {
+    interface User {
+      id: string;
+      username: string;
+      nickname: string;
+      password: string;
+    }
+  }
+}
 
 const app: Application = express();
+
+const pool = new Pool({
+  connectionString: process.env.CONNECTION_STRING,
+  ssl: {
+    rejectUnauthorized: false,
+  },
+});
+
+const PgSession = connectPgSimple(session);
+
+const sanitizeUser = (user: User) => ({
+  id: user.id,
+  username: user.username,
+  nickname: user.nickname,
+});
 
 app.enable("trust proxy");
 
 app.use(
   cors({
-    origin: "http://localhost:3001",
+    origin: process.env.CLIENT_URL || "http://localhost:3001",
     credentials: true,
   }),
 );
 
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use(
   session({
-    secret: "TimeTestedSecret",
+    secret: process.env.SESSION_SECRET || "dev-secret",
     resave: false,
     saveUninitialized: false,
     cookie: {
@@ -36,8 +70,10 @@ app.use(
       secure: false,
       httpOnly: true,
     },
-    store: new MemoryStore({
-      checkPeriod: 86400000,
+    store: new PgSession({
+      pool,
+      tableName: "user_sessions",
+      createTableIfMissing: true,
     }),
   }),
 );
@@ -50,7 +86,7 @@ app.use("/my-projects", projectRoutes);
 
 app.get("/", (req: Request, res: Response) => {
   if (req.isAuthenticated()) {
-    res.status(200).json(req.user);
+    res.status(200).json(sanitizeUser(req.user));
   } else res.status(401).send({ message: "Log in first!" });
 });
 
@@ -77,11 +113,7 @@ app.post("/log-in", (req, res, next) => {
           return next(err);
         }
 
-        return res.status(200).json({
-          id: user.id,
-          username: user.username,
-          nickname: user.nickname,
-        });
+        return res.status(200).json(sanitizeUser(user));
       });
     },
   )(req, res, next);
@@ -98,28 +130,21 @@ app.post("/logout", function (req, res, next) {
 
 app.post("/sign-up", async (req, res, next) => {
   try {
-    bcrypt.hash(
-      req.body.password,
-      10,
-      async (err: Error, hashedPassword: String) => {
-        try {
-          await pool.query(
-            "INSERT INTO users (username, nickname, password) VALUES ($1, $2, $3)",
-            [req.body.username, req.body.nickname, hashedPassword],
-          );
-          res.status(200).send({ message: "Success!" });
-        } catch (err) {
-          res.status(400).send(err);
-        }
-      },
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+
+    await pool.query(
+      "INSERT INTO users (username, nickname, password) VALUES ($1, $2, $3)",
+      [req.body.username, req.body.nickname, hashedPassword],
     );
+
+    res.status(201).json({ message: "Success!" });
   } catch (err) {
-    return next(err);
+    next(err);
   }
 });
 
 passport.use(
-  new LocalStrategy(async (username: String, password: String, done: any) => {
+  new LocalStrategy(async (username: string, password: string, done: any) => {
     try {
       const { rows } = await pool.query(
         "SELECT * FROM users WHERE username = $1",
@@ -143,18 +168,11 @@ passport.use(
   }),
 );
 
-interface User {
-  id: string;
-  username: string;
-  nickname: string;
-  password: string;
-}
-
-passport.serializeUser((user: User, done: any) => {
+passport.serializeUser((user, done) => {
   done(null, user.id);
 });
 
-passport.deserializeUser(async (id: string, done: any) => {
+passport.deserializeUser(async (id: string, done) => {
   try {
     const { rows } = await pool.query("SELECT * FROM users WHERE id = $1", [
       id,

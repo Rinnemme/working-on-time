@@ -8,4 +8,4 @@ router.post("/:id/toggle", taskController.toggleTaskComplete);
 router.delete("/:id/delete", taskController.deleteTask);
 router.post("/:id/move", taskController.moveTask);
 
-module.exports = router;
+export default router;

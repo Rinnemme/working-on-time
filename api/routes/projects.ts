@@ -8,4 +8,4 @@ router.get("/:id", projectController.getProjectDetails);
 router.post("/:id/edit", projectController.editProject);
 router.delete("/:id/delete", projectController.deleteProject);
 
-module.exports = router;
+export default router;
