@@ -60,7 +60,9 @@ app.use(
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-const isProduction = process.env.NODE_ENV === "production";
+const isProduction =
+  process.env.VERCEL_ENV === "production" ||
+  process.env.APP_ENV === "production";
 
 app.use(
   session({
