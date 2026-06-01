@@ -60,14 +60,17 @@ app.use(
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+const isProduction = process.env.NODE_ENV === "production";
+
 app.use(
   session({
     secret: process.env.SESSION_SECRET || "dev-secret",
     resave: false,
     saveUninitialized: false,
+    proxy: true,
     cookie: {
-      sameSite: "lax",
-      secure: false,
+      sameSite: isProduction ? "none" : "lax",
+      secure: isProduction,
       httpOnly: true,
     },
     store: new PgSession({
