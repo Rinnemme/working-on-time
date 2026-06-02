@@ -18,7 +18,7 @@ export default function SignupForm({
       setError(
         "passwordConfirm",
         { message: "Passwords must match" },
-        { shouldFocus: true }
+        { shouldFocus: true },
       );
       return;
     }
@@ -29,12 +29,12 @@ export default function SignupForm({
         nickname: data.nickname,
         password: data.password,
       },
-      url: `${process.env.baseURI}/sign-up`,
+      url: `${process.env.baseURI}/auth/sign-up`,
     })
       .then((res) => {
         if (res.status === 200) {
           dispatch(
-            setToast({ error: false, message: "Signed up successfully!" })
+            setToast({ error: false, message: "Signed up successfully!" }),
           );
           successFunc();
         }
@@ -49,7 +49,7 @@ export default function SignupForm({
             {
               message: `The username ${data.username} is taken.`,
             },
-            { shouldFocus: true }
+            { shouldFocus: true },
           );
         } else
           dispatch(setToast({ error: true, message: "Something went wrong." }));

@@ -25,7 +25,7 @@ export default function LoginForm({
         password: data.password,
       },
       withCredentials: true,
-      url: `${process.env.NEXT_PUBLIC_BASE_URI}/log-in`,
+      url: `${process.env.NEXT_PUBLIC_BASE_URI}/auth/log-in`,
     })
       .then((res) => {
         if (res.status === 200) {

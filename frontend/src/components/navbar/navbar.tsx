@@ -106,7 +106,7 @@ export default function Navbar() {
     axios({
       method: "GET",
       withCredentials: true,
-      url: process.env.NEXT_PUBLIC_BASE_URI,
+      url: `${process.env.NEXT_PUBLIC_BASE_URI}/auth/me`,
     })
       .then((res) => {
         dispatch(setUser(res.data));

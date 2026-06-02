@@ -32,7 +32,7 @@ export default function LogoutConfirmation({
     axios({
       method: "POST",
       withCredentials: true,
-      url: `${process.env.baseURI}/logout`,
+      url: `${process.env.baseURI}/auth/logout`,
     })
       .then((res) => {
         if (res.status === 200) {
