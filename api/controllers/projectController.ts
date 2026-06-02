@@ -1,106 +1,146 @@
-const db = require("../db/queries");
-import { Request, Response } from "express";
+import type { RequestHandler } from "express";
 
-exports.getProjectsForUser = async (req: Request, res: Response) => {
+import * as db from "../db/queries";
+
+export const getProjectsForUser: RequestHandler = async (req, res, next) => {
   if (!req.user) {
-    res.status(400).json({ message: "Please log in." });
-  } else
-    try {
-      const user = req.user as any;
-      const projects = await db.getUserProjectsBulk(user.id);
-      const projectsWithTasks: any[] = [];
-      for (let project of projects) {
-        let taskList = await db.getProjectTasks(project.id);
-        projectsWithTasks.push({ ...project, tasks: taskList });
-      }
-      res.status(200).json({ projects: projectsWithTasks });
-    } catch (err) {
-      res.status(500).json({ error: err });
-    }
+    res.status(401).json({ message: "Please log in." });
+    return;
+  }
+
+  try {
+    const projects = await db.getUserProjectsBulk(req.user.id);
+
+    const projectsWithTasks = await Promise.all(
+      projects.map(async (project: any) => {
+        const taskList = await db.getProjectTasks(project.id);
+        return {
+          ...project,
+          tasks: taskList,
+        };
+      }),
+    );
+
+    res.status(200).json({ projects: projectsWithTasks });
+  } catch (err) {
+    next(err);
+  }
 };
 
-exports.getProjectDetails = async (req: Request, res: Response) => {
+export const getProjectDetails: RequestHandler = async (req, res, next) => {
   if (!req.user) {
-    res.status(400).json({ message: "Please log in." });
-  } else
-    try {
-      const user = req.user as any;
-      const details = await db.getUserProject(req.params.id);
-      const tasks = await db.getProjectTasks(req.params.id);
-      if (user.id === details[0].userid) {
-        res.status(200).json({ details: details[0], tasks: tasks });
-      } else {
-        res.status(400).json({
-          message: "This project is not associated with your account.",
-        });
-      }
-    } catch (err) {
-      res.status(500).json({ error: err });
+    res.status(401).json({ message: "Please log in." });
+    return;
+  }
+
+  try {
+    const details = await db.getUserProject(req.params.id);
+    const project = details[0];
+
+    if (!project) {
+      res.status(404).json({ message: "Project not found." });
+      return;
     }
+
+    if (req.user.id !== project.userid) {
+      res.status(403).json({
+        message: "This project is not associated with your account.",
+      });
+      return;
+    }
+
+    const tasks = await db.getProjectTasks(req.params.id);
+
+    res.status(200).json({
+      details: project,
+      tasks,
+    });
+  } catch (err) {
+    next(err);
+  }
 };
 
-exports.addNewProject = async (req: Request, res: Response) => {
+export const addNewProject: RequestHandler = async (req, res, next) => {
   if (!req.user) {
-    res.status(400).json({ message: "Please log in before adding a project." });
-  } else
-    try {
-      const { name, priority, description, due } = req.body;
-      const user = req.user as any;
-      const userid = user.id;
-      const newProject = await db.addNewProject(
-        name,
-        userid,
-        priority,
-        description,
-        due
-      );
-      res.status(200).json(newProject);
-    } catch (err) {
-      res.status(500).json({ error: err });
-    }
+    res.status(401).json({
+      message: "Please log in before adding a project.",
+    });
+    return;
+  }
+
+  try {
+    const { name, priority, description, due } = req.body;
+
+    const newProject = await db.addNewProject(
+      name,
+      req.user.id,
+      priority,
+      description,
+      due,
+    );
+
+    res.status(201).json(newProject);
+  } catch (err) {
+    next(err);
+  }
 };
 
-exports.editProject = async (req: Request, res: Response) => {
+export const editProject: RequestHandler = async (req, res, next) => {
   if (!req.user) {
-    res
-      .status(400)
-      .json({ message: "Please log in before editing a project." });
-  } else
-    try {
-      const { name, priority, description, due } = req.body;
-      const user = req.user as any;
-      const userOwnsProject = db.verifyProjectOwnership(req.params.id, user.id);
-      if (userOwnsProject) {
-        await db.updateProject(name, priority, description, due, req.params.id);
-        res.status(200).json({ edit: "success" });
-      } else {
-        res
-          .status(400)
-          .json({ message: "You do not have permission to edit this project" });
-      }
-    } catch (err) {
-      res.status(500).json({ error: err });
+    res.status(401).json({
+      message: "Please log in before editing a project.",
+    });
+    return;
+  }
+
+  try {
+    const { name, priority, description, due } = req.body;
+
+    const userOwnsProject = await db.verifyProjectOwnership(
+      req.params.id,
+      req.user.id,
+    );
+
+    if (!userOwnsProject) {
+      res.status(403).json({
+        message: "You do not have permission to edit this project",
+      });
+      return;
     }
+
+    await db.updateProject(name, priority, description, due, req.params.id);
+
+    res.status(200).json({ edit: "success" });
+  } catch (err) {
+    next(err);
+  }
 };
 
-exports.deleteProject = async (req: Request, res: Response) => {
+export const deleteProject: RequestHandler = async (req, res, next) => {
   if (!req.user) {
-    res
-      .status(400)
-      .json({ message: "Please log in before editing a project." });
-  } else
-    try {
-      const user = req.user as any;
-      const userOwnsProject = db.verifyProjectOwnership(req.params.id, user.id);
-      if (userOwnsProject) {
-        await db.deleteProject(req.params.id);
-        res.status(200).json({ deletion: "success" });
-      } else {
-        res.status(400).json({
-          message: "You do not have permission to delete this project",
-        });
-      }
-    } catch (err) {
-      res.status(500).json({ error: err });
+    res.status(401).json({
+      message: "Please log in before deleting a project.",
+    });
+    return;
+  }
+
+  try {
+    const userOwnsProject = await db.verifyProjectOwnership(
+      req.params.id,
+      req.user.id,
+    );
+
+    if (!userOwnsProject) {
+      res.status(403).json({
+        message: "You do not have permission to delete this project",
+      });
+      return;
     }
+
+    await db.deleteProject(req.params.id);
+
+    res.status(200).json({ deletion: "success" });
+  } catch (err) {
+    next(err);
+  }
 };
