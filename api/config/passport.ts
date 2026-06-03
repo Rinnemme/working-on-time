@@ -2,6 +2,7 @@ import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
 import bcrypt from "bcryptjs";
 import { pool } from "../db/pool";
+import type { User } from "../types/user";
 
 passport.use(
   new LocalStrategy(async (username, password, done) => {
@@ -33,7 +34,7 @@ passport.use(
 );
 
 passport.serializeUser((user, done) => {
-  done(null, user.id);
+  done(null, (user as User).id);
 });
 
 passport.deserializeUser(async (id: string, done) => {

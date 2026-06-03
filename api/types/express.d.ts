@@ -1,12 +1,9 @@
-import type { User } from "./user";
+import type { User as AppUser } from "./user";
 
 declare global {
   namespace Express {
-    interface User {
-      id: string;
-      username: string;
-      nickname: string;
-      password: string;
-    }
+    interface User extends AppUser {}
   }
 }
+
+export {};

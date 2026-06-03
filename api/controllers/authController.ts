@@ -4,18 +4,19 @@ import bcrypt from "bcryptjs";
 
 import { pool } from "../db/pool";
 import { sanitizeUser } from "../utils/sanitizeUser";
-
 import type { User } from "../types/user";
 
 export const getCurrentUser: RequestHandler = (req, res) => {
-  if (!req.isAuthenticated()) {
+  if (!req.isAuthenticated() || !req.user) {
     res.status(401).json({
       message: "Log in first!",
     });
     return;
   }
 
-  res.status(200).json(sanitizeUser(req.user));
+  const user = req.user as User;
+
+  res.status(200).json(sanitizeUser(user));
 };
 
 export const logIn: RequestHandler = (req, res, next) => {

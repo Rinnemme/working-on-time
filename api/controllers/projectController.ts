@@ -1,4 +1,5 @@
 import type { RequestHandler } from "express";
+import type { User } from "../types/user";
 
 import * as db from "../db/queries";
 
@@ -8,12 +9,15 @@ export const getProjectsForUser: RequestHandler = async (req, res, next) => {
     return;
   }
 
+  const user = req.user as User;
+
   try {
-    const projects = await db.getUserProjectsBulk(req.user.id);
+    const projects = await db.getUserProjectsBulk(user.id);
 
     const projectsWithTasks = await Promise.all(
       projects.map(async (project: any) => {
         const taskList = await db.getProjectTasks(project.id);
+
         return {
           ...project,
           tasks: taskList,
@@ -33,6 +37,8 @@ export const getProjectDetails: RequestHandler = async (req, res, next) => {
     return;
   }
 
+  const user = req.user as User;
+
   try {
     const details = await db.getUserProject(req.params.id);
     const project = details[0];
@@ -42,7 +48,7 @@ export const getProjectDetails: RequestHandler = async (req, res, next) => {
       return;
     }
 
-    if (req.user.id !== project.userid) {
+    if (user.id !== project.userid) {
       res.status(403).json({
         message: "This project is not associated with your account.",
       });
@@ -68,12 +74,14 @@ export const addNewProject: RequestHandler = async (req, res, next) => {
     return;
   }
 
+  const user = req.user as User;
+
   try {
     const { name, priority, description, due } = req.body;
 
     const newProject = await db.addNewProject(
       name,
-      req.user.id,
+      user.id,
       priority,
       description,
       due,
@@ -93,12 +101,14 @@ export const editProject: RequestHandler = async (req, res, next) => {
     return;
   }
 
+  const user = req.user as User;
+
   try {
     const { name, priority, description, due } = req.body;
 
     const userOwnsProject = await db.verifyProjectOwnership(
       req.params.id,
-      req.user.id,
+      user.id,
     );
 
     if (!userOwnsProject) {
@@ -124,10 +134,12 @@ export const deleteProject: RequestHandler = async (req, res, next) => {
     return;
   }
 
+  const user = req.user as User;
+
   try {
     const userOwnsProject = await db.verifyProjectOwnership(
       req.params.id,
-      req.user.id,
+      user.id,
     );
 
     if (!userOwnsProject) {

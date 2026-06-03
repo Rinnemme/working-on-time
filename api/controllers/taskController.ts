@@ -1,4 +1,5 @@
 import type { RequestHandler } from "express";
+import type { User } from "../types/user";
 
 import * as db from "../db/queries";
 
@@ -10,13 +11,12 @@ export const addNewTask: RequestHandler = async (req, res, next) => {
     return;
   }
 
+  const user = req.user as User;
+
   try {
     const { name, description, projectid } = req.body;
 
-    const userOwnsProject = await db.verifyProjectOwnership(
-      projectid,
-      req.user.id,
-    );
+    const userOwnsProject = await db.verifyProjectOwnership(projectid, user.id);
 
     if (!userOwnsProject) {
       res.status(403).json({
@@ -32,7 +32,7 @@ export const addNewTask: RequestHandler = async (req, res, next) => {
       description,
       false,
       projectid,
-      req.user.id,
+      user.id,
       position,
     );
 
@@ -50,13 +50,12 @@ export const editTask: RequestHandler = async (req, res, next) => {
     return;
   }
 
+  const user = req.user as User;
+
   try {
     const { name, description } = req.body;
 
-    const userOwnsTask = await db.verifyTaskOwnership(
-      req.params.id,
-      req.user.id,
-    );
+    const userOwnsTask = await db.verifyTaskOwnership(req.params.id, user.id);
 
     if (!userOwnsTask) {
       res.status(403).json({
@@ -81,11 +80,10 @@ export const toggleTaskComplete: RequestHandler = async (req, res, next) => {
     return;
   }
 
+  const user = req.user as User;
+
   try {
-    const userOwnsTask = await db.verifyTaskOwnership(
-      req.params.id,
-      req.user.id,
-    );
+    const userOwnsTask = await db.verifyTaskOwnership(req.params.id, user.id);
 
     if (!userOwnsTask) {
       res.status(403).json({
@@ -110,11 +108,10 @@ export const deleteTask: RequestHandler = async (req, res, next) => {
     return;
   }
 
+  const user = req.user as User;
+
   try {
-    const userOwnsTask = await db.verifyTaskOwnership(
-      req.params.id,
-      req.user.id,
-    );
+    const userOwnsTask = await db.verifyTaskOwnership(req.params.id, user.id);
 
     if (!userOwnsTask) {
       res.status(403).json({
@@ -147,13 +144,12 @@ export const moveTask: RequestHandler = async (req, res, next) => {
     return;
   }
 
+  const user = req.user as User;
+
   try {
     const { swapToId }: { swapToId: number } = req.body;
 
-    const userOwnsTask = await db.verifyTaskOwnership(
-      req.params.id,
-      req.user.id,
-    );
+    const userOwnsTask = await db.verifyTaskOwnership(req.params.id, user.id);
 
     if (!userOwnsTask) {
       res.status(403).json({
