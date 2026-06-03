@@ -7,14 +7,13 @@ import {
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Logo from "../../../public/Logo.svg";
 import Modal from "../modal/modal";
 import LoginForm from "../login-form/loginForm";
 
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { setUser } from "../../../src/store/userSlice";
 import { setProjects } from "@/src/store/projectSlice";
 import { setIsLoading } from "@/src/store/loadingSlice";
 import { useRouter } from "next/navigation";
@@ -22,16 +21,9 @@ import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 import type { AppState } from "@/src/store/store";
 import ProjectDropdown from "./project-dropdown/projectDropdown";
-import {
-  setRemainingTime,
-  setSessionTimer,
-  setWorking,
-  setWorkingProject,
-} from "@/src/store/workingSessionSlice";
 import SignupForm from "../signup-form/signupForm";
 import Toast from "../toast/toast";
 import UserTools from "../user-tools/userTools";
-import { setToast } from "@/src/store/toastSlice";
 
 type ModalTypes = "Login" | "SignUp" | null;
 
@@ -58,82 +50,8 @@ export default function Navbar() {
           dispatch(setProjects(res.data.projects));
         }
       })
-      .catch((err) => {
-        dispatch(
-          setToast({ error: true, message: "Unable to find your projects." }),
-        );
-        return;
-      })
       .finally(() => dispatch(setIsLoading(false)));
   };
-
-  const getAndSetWorkingProjectId = () => {
-    const storedId = localStorage.getItem("workingid");
-    if (typeof storedId === "string") {
-      dispatch(setWorkingProject(+storedId));
-    }
-  };
-
-  const getAndSetWorkingTimer = () => {
-    const workingDuration = localStorage.getItem("workingDuration");
-    const restingDuration = localStorage.getItem("restingDuration");
-    const timeRemaining = localStorage.getItem("remainingTime");
-    if (
-      typeof workingDuration === "string" &&
-      typeof restingDuration === "string"
-    ) {
-      dispatch(
-        setSessionTimer({
-          workingDuration: +workingDuration,
-          restingDuration: +restingDuration,
-        }),
-      );
-    }
-    if (typeof timeRemaining === "string") {
-      dispatch(setRemainingTime(+timeRemaining));
-    }
-  };
-
-  const getAndSetWorkingState = () => {
-    const working = localStorage.getItem("working");
-    if (typeof working === "string") {
-      const workingBoolean = +working ? true : false;
-      dispatch(setWorking(workingBoolean));
-    }
-  };
-
-  const getAndSetUser = () => {
-    axios({
-      method: "GET",
-      withCredentials: true,
-      url: `${process.env.NEXT_PUBLIC_BASE_URI}/auth/me`,
-    })
-      .then((res) => {
-        dispatch(setUser(res.data));
-        getAndSetWorkingProjectId();
-        getAndSetWorkingTimer();
-        getAndSetWorkingState();
-        getAndSetProjects();
-      })
-      .catch((err) => {
-        localStorage.removeItem("workingid");
-        localStorage.removeItem("remainingTime");
-        localStorage.removeItem("workingDuration");
-        localStorage.removeItem("restingDuration");
-        localStorage.removeItem("working");
-        if (path !== "/" && path !== "/about") {
-          router.push("/");
-          dispatch(
-            setToast({ error: true, message: "You are not logged in." }),
-          );
-        }
-        dispatch(setIsLoading(false));
-      });
-  };
-
-  useEffect(() => {
-    getAndSetUser();
-  }, []);
 
   const loginSuccess = () => {
     dispatch(setIsLoading(true));

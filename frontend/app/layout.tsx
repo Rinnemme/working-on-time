@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Navbar from "../src/components/navbar/navbar";
+import AppInitializer from "../src/components/app-initializer/appInitializer";
 import { Mulish } from "next/font/google";
 import "./globals.css";
 import { ProjectProvider } from "../src/store/provider";
@@ -20,6 +21,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={mulish.className}>
         <ProjectProvider>
+          <AppInitializer />
           <Navbar />
           {children}
         </ProjectProvider>
