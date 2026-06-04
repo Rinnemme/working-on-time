@@ -28,7 +28,7 @@ export default function TaskEditForm({
         description: data.description,
       },
       withCredentials: true,
-      url: `${process.env.baseURI}/tasks/${task.id}/edit`,
+      url: `${process.env.NEXT_PUBLIC_BASE_URI}/tasks/${task.id}/edit`,
     })
       .then((res) => {
         if (res.status === 200) {
@@ -37,7 +37,7 @@ export default function TaskEditForm({
               ...task,
               name: data.taskName,
               description: data.description,
-            })
+            }),
           );
           dispatch(setToast({ error: false, message: "Changes saved!" }));
           closeFunc();

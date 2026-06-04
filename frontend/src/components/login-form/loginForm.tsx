@@ -53,75 +53,72 @@ export default function LoginForm({
 
   return (
     <form
-      className="flex flex-col items-center"
+      className="flex flex-col items-center px-2"
       onSubmit={handleSubmit(onSubmit)}
       noValidate
     >
       <div className="mt-3 text-center flex flex-col items-center sm:mt-5">
-        <h3 className="text-3xl font-bold leading-6 mb-5 mt-4 text-wot-rose">
+        <h3 className="text-3xl font-black tracking-tight mb-5 mt-4 text-wot-rose">
           Log In
         </h3>
 
-        <div className="w-80 mt-6">
+        <div className="w-80 mt-4">
           <label
             htmlFor="name"
-            className="block font-normal leading-6 text-wot-black"
+            className="block text-sm font-medium leading-6 text-wot-black mb-1.5"
           >
             Username
           </label>
-          <div className="mt-2 flex justify-center">
-            <input
-              type="text"
-              id="name"
-              className="block w-50 bg-wot-off-white rounded-2xl border-0 px-2.5 py-1.5 text-wot-black shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-wot-gray focus:outline-none focus:ring-1 focus:ring-inset focus:ring-wot-light-rose sm:text-sm sm:leading-6"
-              placeholder=""
-              {...register("username", {
-                required: "Username is required",
-              })}
-            />
-          </div>
-          <p className="mt-1 text-sm h-2 text-wot-rose">
+          <input
+            type="text"
+            id="name"
+            className="block w-full bg-wot-off-white rounded-xl border-0 px-3 py-2 text-wot-black shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-wot-gray focus:outline-none focus:ring-2 focus:ring-inset focus:ring-wot-rose text-sm"
+            placeholder=""
+            {...register("username", {
+              required: "Username is required",
+            })}
+          />
+          <p className="mt-1.5 text-xs h-4 text-wot-rose font-medium">
             {errors.username?.message as ReactNode}
           </p>
         </div>
 
-        <div className="w-72 mt-6">
+        <div className="w-80 mt-3">
           <label
             htmlFor="password"
-            className="block font-normal leading-4 text-wot-black"
+            className="block text-sm font-medium leading-6 text-wot-black mb-1.5"
           >
             Password
           </label>
-          <div className="mt-2 flex justify-center">
-            <input
-              type="password"
-              id="password"
-              className="block w-50 bg-wot-off-white rounded-2xl border-0 px-2.5 py-1.5 text-wot-black shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-wot-gray focus:outline-none focus:ring-1 focus:ring-inset focus:ring-wot-light-rose sm:text-sm sm:leading-6"
-              placeholder=""
-              {...register("password", {
-                required: "Password is required",
-              })}
-            />
-          </div>
-          <p className="mt-1 text-sm h-2 text-wot-rose">
+          <input
+            type="password"
+            id="password"
+            className="block w-full bg-wot-off-white rounded-xl border-0 px-3 py-2 text-wot-black shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-wot-gray focus:outline-none focus:ring-2 focus:ring-inset focus:ring-wot-rose text-sm"
+            placeholder=""
+            {...register("password", {
+              required: "Password is required",
+            })}
+          />
+          <p className="mt-1.5 text-xs h-4 text-wot-rose font-medium">
             {errors.password?.message as ReactNode}
           </p>
         </div>
       </div>
-      <div className="mt-5 sm:mt-6 w-full flex justify-center">
+      <div className="mt-4 w-full flex justify-center">
         <button
           type="submit"
-          className="inline-flex w-auto justify-center rounded-3xl bg-wot-rose px-5 py-2 my-4 font-light text-white shadow-sm hover:bg-wot-yellow hover:scale-105 transition-all duration-300"
+          className="rounded-full bg-wot-rose px-8 py-2.5 font-semibold text-sm text-white shadow-md hover:shadow-lg hover:bg-wot-light-rose transition-all duration-300"
         >
           Log In
         </button>
       </div>
-      <div
+      <button
+        type="button"
         onClick={signUpFunc}
-        className="w-fit text-sm px-3 py-1 mb-6 mt-2 text-center bg-wot-white border rounded-full hover:cursor-pointer transition text-wot-rose border-wot-rose hover:text-wot-yellow hover:border-wot-yellow"
+        className="text-sm mt-4 mb-6 text-wot-rose underline underline-offset-2 hover:cursor-pointer hover:text-wot-light-rose transition"
       >
         No account? Sign up!
-      </div>
+      </button>
     </form>
   );
 }

@@ -55,37 +55,17 @@ export default function Timer({
     toggleWorking();
   }
 
-  const renderTime = ({ remainingTime }: { remainingTime: number }) => {
-    return (
-      <div className={"absolute top-full mt-4 text-center"}>
-        <div className="text-md mb-2 font-semibold">Time Remaining</div>
-        <div className="flex items-center gap-2 justify-center">
-          <Image
-            alt="Restart Timer"
-            onClick={reset}
-            className="h-7 hover:cursor-pointer active:scale-95"
-            src={working ? WorkingReplay : RestingReplay}
-          />
-          <div
-            className={
-              "text-2xl border text-center px-2 py-1 " +
-              (working
-                ? "border-wot-rose text-wot-rose"
-                : "border-wot-blue text-wot-blue")
-            }
-          >
-            {timeString(remainingTime)}
-          </div>
-          <Image
-            alt="Skip"
-            onClick={skip}
-            className="h-8 ml-1 hover:cursor-pointer active:scale-95"
-            src={working ? WorkingSkip : RestingSkip}
-          />
-        </div>
-      </div>
-    );
-  };
+  // Renders the remaining time inside the circle center.
+  const renderTime = ({ remainingTime }: { remainingTime: number }) => (
+    <span
+      className={
+        "text-3xl font-black tabular-nums tracking-tight " +
+        (working ? "text-wot-rose" : "text-wot-blue")
+      }
+    >
+      {timeString(remainingTime)}
+    </span>
+  );
 
   const audio = new Audio(
     "https://cdn.pixabay.com/download/audio/2023/03/18/audio_9b98a3c314.mp3?filename=game-level-complete-143022.mp3"
@@ -93,8 +73,9 @@ export default function Timer({
   audio.volume = volume;
 
   return (
-    <div className="w-[300px] bg-white h-fit flex flex-col gap-6 p-6 pb-28 border border-wot-light-gray justify-center relative">
-      <div className="w-fit h-fit flex justify-center relative fade-in">
+    <div className="w-[300px] bg-white h-fit flex flex-col items-center gap-6 p-6 border border-wot-light-gray rounded-2xl shadow-md">
+      {/* Circle with time inside */}
+      <div className="fade-in">
         <CountdownCircleTimer
           isPlaying={!paused}
           duration={duration}
@@ -117,9 +98,30 @@ export default function Timer({
         >
           {renderTime}
         </CountdownCircleTimer>
-        <div className="absolute self-center w-fit" onClick={togglePaused}>
+      </div>
+
+      {/* Controls: reset — play/pause — skip */}
+      <div className="flex items-center gap-4">
+        <button
+          onClick={reset}
+          className="w-10 h-10 rounded-full bg-wot-lighter-gray flex items-center justify-center shadow-sm hover:shadow-md hover:cursor-pointer active:scale-95 transition"
+        >
           <Image
-            className={"hover:cursor-pointer w-36 active:scale-95"}
+            alt="Restart Timer"
+            className="h-5"
+            src={working ? WorkingReplay : RestingReplay}
+          />
+        </button>
+
+        <button
+          onClick={togglePaused}
+          className={
+            "w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl hover:cursor-pointer active:scale-95 transition " +
+            (working ? "bg-wot-rose" : "bg-wot-blue")
+          }
+        >
+          <Image
+            className="w-6 brightness-0 invert"
             alt={paused ? "Resume" : "Pause"}
             src={
               working && paused
@@ -131,7 +133,18 @@ export default function Timer({
                 : RestingPause
             }
           />
-        </div>
+        </button>
+
+        <button
+          onClick={skip}
+          className="w-10 h-10 rounded-full bg-wot-lighter-gray flex items-center justify-center shadow-sm hover:shadow-md hover:cursor-pointer active:scale-95 transition"
+        >
+          <Image
+            alt="Skip"
+            className="h-5"
+            src={working ? WorkingSkip : RestingSkip}
+          />
+        </button>
       </div>
     </div>
   );

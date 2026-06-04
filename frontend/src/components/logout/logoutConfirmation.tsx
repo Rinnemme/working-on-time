@@ -32,7 +32,7 @@ export default function LogoutConfirmation({
     axios({
       method: "POST",
       withCredentials: true,
-      url: `${process.env.baseURI}/auth/logout`,
+      url: `${process.env.NEXT_PUBLIC_BASE_URI}/auth/logout`,
     })
       .then((res) => {
         if (res.status === 200) {
@@ -52,17 +52,19 @@ export default function LogoutConfirmation({
   }
 
   return (
-    <div className="text-center flex flex-col items-center">
-      <div className="w-56 mt-8 px-2.5 py-1.5 text-balance text-wot-black">
+    <div className="text-center flex flex-col items-center px-2">
+      <h3 className="text-2xl font-black tracking-tight mt-6 mb-2 text-wot-rose">
+        Log Out
+      </h3>
+      <p className="w-56 mt-2 px-2 text-sm text-wot-black leading-relaxed text-balance">
         Are you sure you wish to log out?
-      </div>
-
-      <div className="w-full mb-2 flex justify-center">
+      </p>
+      <div className="w-full mt-4 mb-6 flex justify-center">
         <button
           onClick={confirmFunc}
-          className="inline-flex w-auto justify-center rounded-3xl bg-wot-rose px-4 py-2 my-4 font-light text-white shadow-sm hover:bg-wot-yellow hover:scale-105 transition-all duration-300"
+          className="rounded-full bg-wot-rose px-8 py-2.5 font-semibold text-sm text-white shadow-md hover:shadow-lg hover:bg-wot-light-rose transition-all duration-300"
         >
-          Log out
+          Log Out
         </button>
       </div>
     </div>

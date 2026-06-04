@@ -23,23 +23,23 @@ export default function TaskTools({ task }: { task: Task }) {
       ></Image>
       {dropdown && (
         <div
-          className="absolute fade-in top-6 right-0 bg-wot-off-white border border-wot-light-gray shadow z-10 w-fit py-2 px-3"
+          className="absolute fade-in top-6 right-0 bg-white border border-wot-light-gray shadow-xl rounded-xl z-10 w-fit py-2 px-2"
           onMouseLeave={() => setDropdown(false)}
         >
           <div
-            className="text-nowrap text-end hover:cursor-pointer hover:text-wot-rose"
+            className="text-nowrap text-sm rounded-lg px-3 py-1.5 text-wot-black hover:cursor-pointer hover:bg-wot-lighter-gray hover:text-wot-rose transition"
             onClick={() => setModal("Details")}
           >
             View Details
           </div>
           <div
-            className="text-nowrap text-end hover:cursor-pointer hover:text-wot-rose"
+            className="text-nowrap text-sm rounded-lg px-3 py-1.5 text-wot-black hover:cursor-pointer hover:bg-wot-lighter-gray hover:text-wot-rose transition"
             onClick={() => setModal("Edit")}
           >
             Edit Task
           </div>
           <div
-            className="text-nowrap text-end hover:cursor-pointer hover:text-wot-rose"
+            className="text-nowrap text-sm rounded-lg px-3 py-1.5 text-wot-black hover:cursor-pointer hover:bg-wot-lighter-gray hover:text-wot-rose transition"
             onClick={() => setModal("Delete")}
           >
             Delete Task

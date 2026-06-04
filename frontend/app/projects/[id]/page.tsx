@@ -36,13 +36,13 @@ export default function Project() {
         {!isLoading && project && (
           <>
             <div className="text-center flex items-center w-full flex-col px-2">
-              <h1 className="text-wot-rose flex items-center gap-3 max-w-lg text-2xl font-bold sm:text-3xl fade">
+              <h1 className="text-wot-rose flex items-center gap-3 max-w-lg text-2xl font-black tracking-tight sm:text-3xl fade">
                 {project.name} <ProjectTools project={project} />
               </h1>
               <div className="mt-10 flex flex-col gap-4 w-full items-center max-w-lg px-3">
                 <ProjectDescription project={project} />
                 <div
-                  className="self-center text-sm px-3 py-1 mb-2 mt-2 text-center bg-wot-white border rounded-full hover:cursor-pointer transition text-wot-rose border-wot-rose hover:text-wot-yellow hover:border-wot-yellow"
+                  className="self-center text-sm px-4 py-2 mb-2 mt-2 text-center bg-wot-rose text-white rounded-full shadow-md hover:shadow-lg hover:cursor-pointer transition font-semibold"
                   onClick={() => {
                     dispatch(setWorkingProject(project.id));
                     localStorage.setItem("workingid", project.id.toString());
@@ -51,7 +51,7 @@ export default function Project() {
                 >
                   Start a Working Session
                 </div>
-                <h1 className="text-wot-rose text-2xl mt-5 font-bold sm:text-3xl fade flex items-center gap-2 justify-center">
+                <h1 className="text-wot-rose text-2xl mt-5 font-black tracking-tight sm:text-3xl fade flex items-center gap-2 justify-center">
                   Tasks
                   <AddTaskButton projectid={project.id} />
                 </h1>

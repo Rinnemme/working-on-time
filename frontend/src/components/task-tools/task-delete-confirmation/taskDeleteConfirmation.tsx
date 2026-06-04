@@ -14,7 +14,7 @@ export default function TaskDeleteConfirmation({
     axios({
       method: "DELETE",
       withCredentials: true,
-      url: `${process.env.baseURI}/tasks/${task.id}/delete`,
+      url: `${process.env.NEXT_PUBLIC_BASE_URI}/tasks/${task.id}/delete`,
     })
       .then((res) => {
         if (res.status === 200) {

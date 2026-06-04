@@ -25,27 +25,27 @@ export default function ProjectTools({ project }: { project: Project }) {
       ></Image>
       {dropdown && (
         <div
-          className="absolute font-normal top-6 right-0 bg-wot-off-white border border-wot-light-gray shadow z-10 w-fit py-2 px-3"
+          className="absolute font-normal top-6 right-0 bg-white border border-wot-light-gray shadow-xl rounded-xl z-10 w-fit py-2 px-2"
           onMouseLeave={() => setDropdown(false)}
         >
           {path !== `/projects/${project.id}` && (
             <Link href={`/projects/${project.id}`}>
-              <div className="text-nowrap text-end text-wot-black hover:cursor-pointer hover:text-wot-rose">
+              <div className="text-nowrap text-sm rounded-lg px-3 py-1.5 text-wot-black hover:cursor-pointer hover:bg-wot-lighter-gray hover:text-wot-rose transition">
                 Go To Project
               </div>
             </Link>
           )}
           <div
-            className="text-nowrap text-end text-wot-black hover:cursor-pointer hover:text-wot-rose"
+            className="text-nowrap text-sm rounded-lg px-3 py-1.5 text-wot-black hover:cursor-pointer hover:bg-wot-lighter-gray hover:text-wot-rose transition"
             onClick={() => setModal("Edit")}
           >
             Edit Project
           </div>
           <div
-            className="text-nowrap text-end text-wot-black hover:cursor-pointer hover:text-wot-rose"
+            className="text-nowrap text-sm rounded-lg px-3 py-1.5 text-wot-black hover:cursor-pointer hover:bg-wot-lighter-gray hover:text-wot-rose transition"
             onClick={() => setModal("Delete")}
           >
-            Delete project
+            Delete Project
           </div>
         </div>
       )}

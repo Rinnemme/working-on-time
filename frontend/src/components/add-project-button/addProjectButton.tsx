@@ -1,19 +1,17 @@
-import Image from "next/image";
 import { useState } from "react";
 import Modal from "../modal/modal";
 import AddProjectForm from "./add-project-form/addProjectForm";
-import Add from "../../../public/add.svg";
 
 export default function AddProjectButton() {
   const [modal, setModal] = useState<boolean>(false);
   return (
     <>
-      <Image
-        className="bg-wot-light-gray hover:bg-wot-light-green hover:scale-105 transition hover:cursor-pointer rounded-full h-[18px] w-[18px] flex items-center justify-center"
+      <button
         onClick={() => setModal(true)}
-        src={Add}
-        alt="Add a task"
-      />
+        className="flex items-center gap-1.5 bg-wot-rose text-white text-sm font-semibold px-4 py-2 rounded-full shadow-md hover:shadow-lg hover:bg-wot-light-rose transition hover:cursor-pointer"
+      >
+        + New Project
+      </button>
       {modal && (
         <Modal
           closeFunc={() => setModal(false)}

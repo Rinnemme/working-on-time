@@ -34,7 +34,7 @@ export default function ProjectEditForm({
         due: data.due,
       },
       withCredentials: true,
-      url: `${process.env.baseURI}/my-projects/${project.id}/edit`,
+      url: `${process.env.NEXT_PUBLIC_BASE_URI}/my-projects/${project.id}/edit`,
     })
       .then(async (res) => {
         if (res.status === 200) {
@@ -45,7 +45,7 @@ export default function ProjectEditForm({
               priority: +data.priority,
               description: data.description,
               due: data.due,
-            })
+            }),
           );
           dispatch(setToast({ error: false, message: "Changes saved!" }));
           closeFunc();

@@ -29,7 +29,7 @@ export default function SignupForm({
         nickname: data.nickname,
         password: data.password,
       },
-      url: `${process.env.baseURI}/auth/sign-up`,
+      url: `${process.env.NEXT_PUBLIC_BASE_URI}/auth/sign-up`,
     })
       .then((res) => {
         if (res.status === 200) {
@@ -56,143 +56,127 @@ export default function SignupForm({
       });
   }
 
+  const inputClass =
+    "block w-full bg-wot-off-white rounded-xl border-0 px-3 py-2 text-wot-black shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-wot-gray focus:outline-none focus:ring-2 focus:ring-inset focus:ring-wot-blue text-sm";
+  const labelClass =
+    "block text-sm font-medium leading-6 text-wot-black mb-1.5";
+  const errorClass = "mt-1.5 text-xs h-4 text-wot-blue font-medium";
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)} noValidate>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      noValidate
+      className="flex flex-col items-center px-2"
+    >
       <div className="mt-3 text-center flex flex-col items-center sm:mt-5">
-        <h3 className="text-3xl font-bold leading-6 mb-5 mt-4 text-wot-blue">
+        <h3 className="text-3xl font-black tracking-tight mb-5 mt-4 text-wot-blue">
           Sign Up
         </h3>
 
-        <div className="w-80 mt-6">
-          <label
-            htmlFor="username"
-            className="block font-normal leading-6 text-wot-black"
-          >
+        <div className="w-80 mt-4">
+          <label htmlFor="username" className={labelClass}>
             Username
           </label>
-          <div className="mt-2 flex justify-center">
-            <input
-              type="text"
-              id="username"
-              className="block w-50 bg-wot-off-white rounded-2xl border-0 px-2.5 py-1.5 text-wot-black shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-wot-gray focus:outline-none focus:ring-1 focus:ring-inset focus:ring-wot-blue sm:text-sm sm:leading-6"
-              placeholder=""
-              {...register("username", {
-                required: "Username is required",
-                maxLength: {
-                  value: 20,
-                  message: "Must be no longer than 20 characters.",
-                },
-                minLength: {
-                  value: 4,
-                  message: "Must be at least 4 characters.",
-                },
-                pattern: {
-                  value: /^[a-zA-Z0-9]*$/,
-                  message: "Must only contain alphanumeric characters",
-                },
-              })}
-            />
-          </div>
-          <p className="mt-1 text-sm h-2 text-wot-blue">
-            {errors.username?.message as ReactNode}
-          </p>
+          <input
+            type="text"
+            id="username"
+            className={inputClass}
+            placeholder=""
+            {...register("username", {
+              required: "Username is required",
+              maxLength: {
+                value: 20,
+                message: "Must be no longer than 20 characters.",
+              },
+              minLength: {
+                value: 4,
+                message: "Must be at least 4 characters.",
+              },
+              pattern: {
+                value: /^[a-zA-Z0-9]*$/,
+                message: "Must only contain alphanumeric characters",
+              },
+            })}
+          />
+          <p className={errorClass}>{errors.username?.message as ReactNode}</p>
         </div>
 
-        <div className="w-80 mt-6">
-          <label
-            htmlFor="nickname"
-            className="block font-normal leading-6 text-wot-black"
-          >
+        <div className="w-80 mt-3">
+          <label htmlFor="nickname" className={labelClass}>
             Nickname
           </label>
-          <div className="mt-2 flex justify-center">
-            <input
-              type="text"
-              id="nickname"
-              className="block w-50 bg-wot-off-white rounded-2xl border-0 px-2.5 py-1.5 text-wot-black shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-wot-gray focus:outline-none focus:ring-1 focus:ring-inset focus:ring-wot-blue sm:text-sm sm:leading-6"
-              placeholder=""
-              {...register("nickname", {
-                required: "Nickname is required",
-                maxLength: {
-                  value: 20,
-                  message: "Must be no longer than 20 characters.",
-                },
-                pattern: {
-                  value: /^[a-zA-Z0-9]*$/,
-                  message: "Must only contain alphanumeric characters",
-                },
-              })}
-            />
-          </div>
-          <p className="mt-1 text-sm h-2 text-wot-blue">
-            {errors.nickname?.message as ReactNode}
-          </p>
+          <input
+            type="text"
+            id="nickname"
+            className={inputClass}
+            placeholder=""
+            {...register("nickname", {
+              required: "Nickname is required",
+              maxLength: {
+                value: 20,
+                message: "Must be no longer than 20 characters.",
+              },
+              pattern: {
+                value: /^[a-zA-Z0-9]*$/,
+                message: "Must only contain alphanumeric characters",
+              },
+            })}
+          />
+          <p className={errorClass}>{errors.nickname?.message as ReactNode}</p>
         </div>
 
-        <div className="w-72 mt-6">
-          <label
-            htmlFor="password"
-            className="block font-normal leading-4 text-wot-black"
-          >
+        <div className="w-80 mt-3">
+          <label htmlFor="password" className={labelClass}>
             Password
           </label>
-          <div className="mt-2 flex justify-center">
-            <input
-              type="password"
-              id="password"
-              className="block w-50 bg-wot-off-white rounded-2xl border-0 px-2.5 py-1.5 text-wot-black shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-wot-gray focus:outline-none focus:ring-1 focus:ring-inset focus:ring-wot-blue sm:text-sm sm:leading-6"
-              placeholder=""
-              {...register("password", {
-                required: "Password is required",
-                maxLength: {
-                  value: 30,
-                  message: "Must be no longer than 30 characters.",
-                },
-                minLength: {
-                  value: 12,
-                  message: "Must be at least 12 characters.",
-                },
-                pattern: {
-                  value: /^[^<>{}>\s\/\\]*$/,
-                  message: "Must not contain spaces or: <, >, {, }, \\, /",
-                },
-              })}
-            />
-          </div>
-          <p className="mt-1 text-sm h-2 text-wot-blue">
-            {errors.password?.message as ReactNode}
-          </p>
+          <input
+            type="password"
+            id="password"
+            className={inputClass}
+            placeholder=""
+            {...register("password", {
+              required: "Password is required",
+              maxLength: {
+                value: 30,
+                message: "Must be no longer than 30 characters.",
+              },
+              minLength: {
+                value: 12,
+                message: "Must be at least 12 characters.",
+              },
+              pattern: {
+                value: /^[^<>{}>\s\/\\]*$/,
+                message: "Must not contain spaces or: <, >, {, }, \\, /",
+              },
+            })}
+          />
+          <p className={errorClass}>{errors.password?.message as ReactNode}</p>
         </div>
 
-        <div className="w-72 mt-6">
-          <label
-            htmlFor="password-confirm"
-            className="block font-normal leading-4 text-wot-black"
-          >
+        <div className="w-80 mt-3">
+          <label htmlFor="password-confirm" className={labelClass}>
             Confirm Password
           </label>
-          <div className="mt-2 flex justify-center">
-            <input
-              type="password"
-              id="password-confirm"
-              className="block w-50 bg-wot-off-white rounded-2xl border-0 px-2.5 py-1.5 text-wot-black shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-wot-gray focus:outline-none focus:ring-1 focus:ring-inset focus:ring-wot-blue sm:text-sm sm:leading-6"
-              placeholder=""
-              {...register("passwordConfirm", {
-                required: "Password must match",
-              })}
-            />
-          </div>
-          <p className="mt-1 text-sm h-2 text-wot-blue">
+          <input
+            type="password"
+            id="password-confirm"
+            className={inputClass}
+            placeholder=""
+            {...register("passwordConfirm", {
+              required: "Password must match",
+            })}
+          />
+          <p className={errorClass}>
             {errors.passwordConfirm?.message as ReactNode}
           </p>
         </div>
       </div>
-      <div className="mt-5 sm:mt-6 w-full mb-6 flex justify-center">
+      <div className="mt-4 w-full mb-6 flex justify-center">
         <button
           type="submit"
-          className="inline-flex w-auto justify-center rounded-3xl bg-wot-blue px-5 py-2 my-4 font-light text-white shadow-sm hover:bg-wot-green hover:scale-105 transition-all duration-300"
+          className="rounded-full bg-wot-blue px-8 py-2.5 font-semibold text-sm text-white shadow-md hover:shadow-lg hover:bg-wot-light-blue transition-all duration-300"
         >
-          SignUp
+          Sign Up
         </button>
       </div>
     </form>

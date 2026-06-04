@@ -17,7 +17,7 @@ export default function UserTools() {
         <div className="flex-shrink-0">
           <button
             type="button"
-            className="rounded-md px-3 py-2 hover:cursor-pointer transition-all duration-200 hover:bg-slate-100 hover:text-wot-rose"
+            className="rounded-lg px-3 py-2 text-sm font-medium hover:cursor-pointer transition hover:text-wot-rose"
             onClick={() => setDropdown(!dropdown)}
           >
             {`Welcome, ${nickname}!`}
@@ -26,7 +26,7 @@ export default function UserTools() {
       </div>
       {dropdown && (
         <div
-          className="absolute top-16 right-7 bg-white border border-wot-light-gray shadow z-10 w-fit py-2 px-3"
+          className="absolute top-16 right-7 bg-white border border-wot-light-gray shadow-xl rounded-xl z-10 w-fit py-2 px-3"
           onMouseLeave={() => setDropdown(false)}
         >
           <div

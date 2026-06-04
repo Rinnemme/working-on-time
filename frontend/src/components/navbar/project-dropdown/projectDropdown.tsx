@@ -13,7 +13,7 @@ export default function ProjectDropdown({
   return (
     <div
       onMouseLeave={onLeave}
-      className="absolute top-14 gap-1 p-3 shadow-lg bg-white border border-wot-light-gray rounded-sm flex flex-col fade-in w-fit max-w-64"
+      className="absolute top-14 left-0 gap-1 p-3 shadow-xl bg-white border border-wot-light-gray rounded-xl flex flex-col fade-in w-fit max-w-64"
     >
       <Link
         href="/projects"

@@ -66,7 +66,7 @@ export default function Navbar() {
 
   return (
     <>
-      <Disclosure as="nav" className="bg-white z-10 shadow-md sticky top-0">
+      <Disclosure as="nav" className="bg-white z-10 shadow-sm sticky top-0 border-b border-wot-lighter-gray">
         <>
           <div className="mx-auto  px-4">
             <div className="flex h-14 justify-between">
@@ -108,7 +108,7 @@ export default function Navbar() {
                     <Link
                       href="/"
                       className={
-                        "rounded-md px-3 py-2 hover:cursor-pointer " +
+                        "rounded-md px-3 py-2 text-sm font-medium hover:cursor-pointer " +
                         (path === "/"
                           ? "text-wot-rose"
                           : "text-wot-black hover:text-wot-yellow hover:bg-slate-100")
@@ -119,7 +119,7 @@ export default function Navbar() {
                     <Link
                       href="/about"
                       className={
-                        "rounded-md px-3 py-2 hover:cursor-pointer " +
+                        "rounded-md px-3 py-2 text-sm font-medium hover:cursor-pointer " +
                         (path === "/about"
                           ? "text-wot-rose"
                           : "text-wot-black hover:text-wot-yellow transition-all duration-200  hover:bg-slate-100")
@@ -135,7 +135,7 @@ export default function Navbar() {
                     <button
                       onClick={() => setProjectDropdown(!projectDropdown)}
                       className={
-                        "rounded-md relative px-3 flex items-center gap-1 py-2 hover:cursor-pointer " +
+                        "rounded-md relative px-3 flex items-center gap-1 py-2 text-sm font-medium hover:cursor-pointer " +
                         (path.includes("/projects")
                           ? "text-wot-rose"
                           : "text-wot-black hover:text-wot-yellow hover:bg-slate-100")
@@ -167,7 +167,7 @@ export default function Navbar() {
                     <Link
                       href="/working-session"
                       className={
-                        "rounded-md px-3 py-2 hover:cursor-pointer " +
+                        "rounded-md px-3 py-2 text-sm font-medium hover:cursor-pointer " +
                         (path === "/working-session"
                           ? "text-wot-rose"
                           : "text-wot-black hover:text-wot-yellow transition-all duration-200  hover:bg-slate-100")
@@ -180,16 +180,21 @@ export default function Navbar() {
               </div>
 
               {!isLoading && !username && (
-                <div className="flex items-center hover:cursor-pointer">
-                  <div className="flex-shrink-0">
-                    <button
-                      type="button"
-                      className="rounded-md px-3 py-2 hover:cursor-pointer transition-all duration-200 hover:bg-slate-100 hover:text-wot-rose"
-                      onClick={() => setModal("Login")}
-                    >
-                      Log In
-                    </button>
-                  </div>
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    className="rounded-lg px-3 py-2 text-sm font-medium hover:cursor-pointer transition hover:text-wot-rose"
+                    onClick={() => setModal("Login")}
+                  >
+                    Log In
+                  </button>
+                  <button
+                    type="button"
+                    className="text-sm font-semibold bg-wot-rose text-white px-4 py-1.5 rounded-full shadow-sm hover:shadow-md transition hover:cursor-pointer"
+                    onClick={() => setModal("SignUp")}
+                  >
+                    Sign Up
+                  </button>
                 </div>
               )}
 
@@ -205,7 +210,7 @@ export default function Navbar() {
                   <Link
                     href="/"
                     className={
-                      "rounded-md px-3 py-2 hover:cursor-pointer " +
+                      "rounded-md px-3 py-2 text-sm font-medium hover:cursor-pointer " +
                       (path === "/"
                         ? "text-wot-rose"
                         : "text-wot-black hover:text-wot-yellow hover:bg-slate-100")
@@ -216,7 +221,7 @@ export default function Navbar() {
                   <Link
                     href="/about"
                     className={
-                      "rounded-md px-3 py-2 hover:cursor-pointer " +
+                      "rounded-md px-3 py-2 text-sm font-medium hover:cursor-pointer " +
                       (path === "/about"
                         ? "text-wot-rose"
                         : "text-wot-black hover:text-wot-yellow transition-all duration-200  hover:bg-slate-100")
@@ -232,7 +237,7 @@ export default function Navbar() {
                   <Link
                     href="/working-session"
                     className={
-                      "rounded-md px-3 py-2 hover:cursor-pointer " +
+                      "rounded-md px-3 py-2 text-sm font-medium hover:cursor-pointer " +
                       (path === "/working-session"
                         ? "text-wot-rose"
                         : "text-wot-black hover:text-wot-yellow transition-all duration-200  hover:bg-slate-100")

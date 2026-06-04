@@ -17,11 +17,13 @@ export default function Projects() {
           {isLoading && <Throbber />}
           {!isLoading && (
             <>
-              <h1 className="text-2xl flex items-center gap-2 font-bold text-wot-rose sm:text-3xl">
-                Your Projects
+              <div className="flex items-center justify-between w-full max-w-lg px-3">
+                <h1 className="text-3xl font-black tracking-tight text-wot-black">
+                  Your Projects
+                </h1>
                 <AddProjectButton />
-              </h1>
-              <div className="mt-10 flex flex-col items-center gap-4 w-full max-w-lg px-3">
+              </div>
+              <div className="mt-6 flex flex-col items-center gap-4 w-full max-w-lg px-3">
                 {projects.length === 0 && <NoProjects />}
                 {projects.length > 0 &&
                   projects.map((project) => {

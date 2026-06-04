@@ -10,7 +10,7 @@ export default function SessionSelectList({
   selectFunction: (projectid: number) => void;
 }) {
   return (
-    <div className="mt-10 flex flex-col gap-4 max-w-lg px-3">
+    <div className="mt-4 flex flex-col gap-4 w-full">
       {projects.length === 0 && <NoProjects />}
       {projects.length > 0 &&
         projects.map((project) => {

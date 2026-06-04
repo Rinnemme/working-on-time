@@ -15,22 +15,22 @@ export default function EmptySession() {
         <div className="text-center flex items-center w-full flex-col px-2">
           {isLoading && <Throbber />}
           {!isLoading && (
-            <>
-              <h1 className="text-3xl font-bold text-wot-rose sm:text-3xl">
-                New Working Session
-              </h1>
-              <h2 className="font-bold text-3xl mt-2 mb-3 text-wot-yellow">
-                Select a Project
-              </h2>
-            </>
-          )}
-          {!isLoading && (
-            <SessionSelectList
-              projects={projects}
-              selectFunction={(projectid: number) =>
-                dispatch(setWorkingProject(projectid))
-              }
-            />
+            <div className="flex flex-col items-center w-full max-w-lg px-3">
+              <div className="flex items-center justify-between w-full mb-2">
+                <h1 className="text-3xl font-black tracking-tight text-wot-black">
+                  New Working Session
+                </h1>
+                <span className="text-xs font-semibold uppercase tracking-widest px-3 py-1.5 rounded-full bg-wot-yellow text-white">
+                  Select a Project
+                </span>
+              </div>
+              <SessionSelectList
+                projects={projects}
+                selectFunction={(projectid: number) =>
+                  dispatch(setWorkingProject(projectid))
+                }
+              />
+            </div>
           )}
         </div>
       </div>

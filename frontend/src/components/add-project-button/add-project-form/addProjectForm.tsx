@@ -24,7 +24,7 @@ export default function AddProjectForm({
         due: data.due,
       },
       withCredentials: true,
-      url: `${process.env.baseURI}/my-projects/add`,
+      url: `${process.env.NEXT_PUBLIC_BASE_URI}/my-projects/add`,
     })
       .then(async (res) => {
         if (res.status === 200) {
@@ -34,7 +34,7 @@ export default function AddProjectForm({
               totalTasks: "0",
               completedTasks: "0",
               tasks: [],
-            })
+            }),
           );
           dispatch(setToast({ error: false, message: "Project added!" }));
           closeFunc();

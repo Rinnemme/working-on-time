@@ -15,13 +15,14 @@ export default function Toast() {
   }, []);
 
   return (
-    <div className="fixed flex gap-2 z-50 top-[4.5rem] right-4 shadow-lg text-sm pe-4 ps-3 py-2 border border-wot-light-gray bg-white rounded-md slide opacity-0">
+    <div className="fixed flex items-center gap-3 z-50 top-[4.5rem] right-4 shadow-xl text-sm px-4 py-3 border border-wot-light-gray bg-white rounded-2xl slide opacity-0 max-w-xs">
       <Image
         alt="success"
         src={toastProps.error ? Failure : Success}
         height={18}
+        className="shrink-0"
       />
-      {toastProps.message}
+      <span className="font-medium">{toastProps.message}</span>
     </div>
   );
 }

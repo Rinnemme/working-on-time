@@ -8,12 +8,12 @@ export default function NoProjects() {
     <>
       <div
         onClick={() => setModal(true)}
-        className="border w-64 border-wot-light-gray rounded-lg border-dashed relative flex flex-col py-4 px-2 justify-center items-center hover:cursor-pointer hover:scale-105 duration-300 active:scale-100 hover:bg-white hover:shadow-sm"
+        className="border w-64 border-wot-light-gray rounded-2xl border-dashed relative flex flex-col py-6 px-4 justify-center items-center hover:cursor-pointer hover:scale-105 duration-300 active:scale-100 hover:bg-white hover:shadow-md transition"
       >
-        <div className="font-semibold text-wot-rose text-lg hover:cursor-pointer">
+        <div className="font-bold text-wot-rose text-lg hover:cursor-pointer">
           No Projects Yet
         </div>
-        <div className="font-regular hover:cursor-pointer">
+        <div className="text-sm text-wot-gray mt-1 hover:cursor-pointer">
           Click to add a project
         </div>
       </div>

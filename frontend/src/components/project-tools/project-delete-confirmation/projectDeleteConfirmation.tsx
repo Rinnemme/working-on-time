@@ -17,7 +17,7 @@ export default function ProjectDeleteConfirmation({
     axios({
       method: "DELETE",
       withCredentials: true,
-      url: `${process.env.baseURI}/my-projects/${project.id}/delete`,
+      url: `${process.env.NEXT_PUBLIC_BASE_URI}/my-projects/${project.id}/delete`,
     })
       .then((res) => {
         if (res.status === 200) {

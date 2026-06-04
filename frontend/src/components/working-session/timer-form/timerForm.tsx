@@ -9,14 +9,27 @@ import { ReactNode } from "react";
 import { setToast } from "@/src/store/toastSlice";
 import VolumeControl from "../volume-control/volumeControl";
 
+// Zero-pads on blur and then hands off to react-hook-form's own onBlur.
+function makePadBlur(
+  rhfOnBlur: React.FocusEventHandler<HTMLInputElement>,
+) {
+  return (e: React.FocusEvent<HTMLInputElement>) => {
+    const raw = e.target.value.trim();
+    const n = parseInt(raw, 10);
+    e.target.value =
+      raw === "" || isNaN(n) || n < 0
+        ? "00"
+        : String(Math.min(n, 60)).padStart(2, "0");
+    rhfOnBlur(e);
+  };
+}
+
 export default function TimerForm({ closeTimer }: { closeTimer: () => void }) {
   const timer = useSelector((state: AppState) => state.workingSession.timer);
   const dispatch = useDispatch();
-  const { register, handleSubmit, formState, trigger, setError } = useForm<any>(
-    {
-      mode: "onChange",
-    }
-  );
+  const { register, handleSubmit, formState, setError } = useForm<any>({
+    mode: "onBlur",
+  });
   const { errors } = formState;
 
   function onSubmit(data: any) {
@@ -41,171 +54,162 @@ export default function TimerForm({ closeTimer }: { closeTimer: () => void }) {
         message: "Resting time must exceed 0 seconds.",
       });
       return;
-    } else {
-      const workingDuration = +data.workingMinutes * 60 + +data.workingSeconds;
-      const restingDuration = +data.restingMinutes * 60 + +data.restingSeconds;
-      dispatch(setRemainingTime(null));
-      localStorage.removeItem("remainingTime");
-      dispatch(
-        setSessionTimer({
-          workingDuration,
-          restingDuration,
-        })
-      );
-      localStorage.setItem("workingDuration", workingDuration.toString());
-      localStorage.setItem("restingDuration", restingDuration.toString());
-      dispatch(setToast({ error: false, message: "Changes saved!" }));
-      closeTimer();
     }
+    const workingDuration = +data.workingMinutes * 60 + +data.workingSeconds;
+    const restingDuration = +data.restingMinutes * 60 + +data.restingSeconds;
+    dispatch(setRemainingTime(null));
+    localStorage.removeItem("remainingTime");
+    dispatch(setSessionTimer({ workingDuration, restingDuration }));
+    localStorage.setItem("workingDuration", workingDuration.toString());
+    localStorage.setItem("restingDuration", restingDuration.toString());
+    dispatch(setToast({ error: false, message: "Changes saved!" }));
+    closeTimer();
   }
 
+  const inputClass =
+    "w-14 bg-wot-off-white rounded-xl border-0 px-2 py-2 text-center text-wot-rose font-semibold text-xl tabular-nums shadow-sm ring-1 ring-inset ring-wot-light-gray focus:outline-none focus:ring-2 focus:ring-inset focus:ring-wot-rose";
+
+  const validate = (v: string) => {
+    const n = parseInt(v, 10);
+    return (!isNaN(n) && n >= 0 && n <= 60) || "Enter a number from 0 to 60";
+  };
+
+  // Destructure so we can intercept onBlur while keeping RHF's handler.
+  const { ref: wMinRef, onBlur: wMinBlur, ...wMinRest } = register("workingMinutes", { validate });
+  const { ref: wSecRef, onBlur: wSecBlur, ...wSecRest } = register("workingSeconds", { validate });
+  const { ref: rMinRef, onBlur: rMinBlur, ...rMinRest } = register("restingMinutes", { validate });
+  const { ref: rSecRef, onBlur: rSecBlur, ...rSecRest } = register("restingSeconds", { validate });
+
+  const isEdit = !!(timer.restingDuration && timer.workingDuration);
+
   return (
-    <div className="w-[300px] bg-white h-fit flex flex-col items-center gap-6 p-6 border border-wot-light-gray justify-center relative">
-      <div className="w-fit h-fit flex justify-center relative fade-in">
-        <form onSubmit={handleSubmit(onSubmit)} noValidate>
-          <div className="mt-3 text-center flex flex-col items-center sm:mt-5">
-            <h3 className="text-xl font-bold mb-5 text-wot-rose">
-              {timer.restingDuration && timer.workingDuration
-                ? "Edit Your Timer"
-                : "Set Your Timer"}
-            </h3>
+    <div className="w-[300px] bg-white h-fit flex flex-col items-center gap-4 p-6 border border-wot-light-gray rounded-2xl shadow-md justify-center relative">
+      <form onSubmit={handleSubmit(onSubmit)} noValidate className="w-full">
+        <div className="text-center flex flex-col items-center">
+          <h3 className="text-xl font-black tracking-tight mb-5 text-wot-rose">
+            {isEdit ? "Edit Your Timer" : "Set Your Timer"}
+          </h3>
 
-            <div className="font-semibold text-lg">Working Time</div>
-            <div className="w-full gap-2 flex items-center justify-center">
-              <div className="mt-2 flex justify-center">
-                <input
-                  type="text"
-                  id="workingMinutes"
-                  defaultValue={
-                    timer.workingDuration
-                      ? Math.floor(timer.workingDuration / 60)
-                      : "25"
-                  }
-                  className="w-12 bg-wot-off-white rounded-sm text-xl text-wot-rose border-0 px-2.5 py-1.5 text-center shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-wot-gray focus:outline-none focus:ring-1 focus:ring-inset focus:ring-wot-light-rose"
-                  {...register("workingMinutes", {
-                    required: "You must enter a working duration",
-                    pattern: {
-                      value: /^([0]?[0-9]|[1-5][0-9]|[6]?[0])$/,
-                      message: "Please enter a # of minutes from 0-60",
-                    },
-                  })}
-                />
-              </div>
-              <label
-                htmlFor="workingMinutes"
-                className="block font-normal pt-2 text-xl"
-              >
-                M
+          {/* Working Time */}
+          <div className="w-full mb-1">
+            <div className="text-xs font-semibold uppercase tracking-wider text-wot-gray mb-2">
+              Working Time
+            </div>
+            {/* Input row — colon lives here so it aligns with inputs only */}
+            <div className="flex items-center justify-center gap-2">
+              <input
+                type="text"
+                inputMode="numeric"
+                id="workingMinutes"
+                defaultValue={
+                  timer.workingDuration
+                    ? String(Math.floor(timer.workingDuration / 60)).padStart(2, "0")
+                    : "25"
+                }
+                className={inputClass}
+                {...wMinRest}
+                ref={wMinRef}
+                onBlur={makePadBlur(wMinBlur)}
+              />
+              <span className="text-wot-rose font-bold text-xl">:</span>
+              <input
+                type="text"
+                inputMode="numeric"
+                id="workingSeconds"
+                defaultValue={
+                  timer.workingDuration
+                    ? String(timer.workingDuration % 60).padStart(2, "0")
+                    : "00"
+                }
+                className={inputClass}
+                {...wSecRest}
+                ref={wSecRef}
+                onBlur={makePadBlur(wSecBlur)}
+              />
+            </div>
+            {/* Label row — separate so colon doesn't fight the label height */}
+            <div className="flex items-center justify-center gap-2 mt-1">
+              <label htmlFor="workingMinutes" className="w-14 text-center text-xs text-wot-gray font-medium">
+                min
               </label>
-              <div className="mt-2 flex justify-center">
-                <input
-                  type="text"
-                  id="workingSeconds"
-                  defaultValue={
-                    timer.workingDuration ? timer.workingDuration % 60 : "00"
-                  }
-                  className="w-12 bg-wot-off-white rounded-sm text-xl text-wot-rose border-0 px-2.5 py-1.5 text-center shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-wot-gray focus:outline-none focus:ring-1 focus:ring-inset focus:ring-wot-light-rose"
-                  {...register("workingSeconds", {
-                    required: "You must enter a working duration",
-                    pattern: {
-                      value: /^([0]?[0-9]|[1-5][0-9]|[6]?[0])$/,
-                      message: "Please enter a # of seconds from 0-60",
-                    },
-                  })}
-                />
-              </div>
-              <label
-                htmlFor="workingSeconds"
-                className="block font-normal pt-2 text-xl"
-              >
-                S
+              <span className="w-[1ch]" />
+              <label htmlFor="workingSeconds" className="w-14 text-center text-xs text-wot-gray font-medium">
+                sec
               </label>
             </div>
-            <p className="mt-1 text-sm h-2 text-wot-rose">
-              {
-                (errors.workingMinutes?.message ||
-                  errors.workingSeconds?.message) as ReactNode
-              }
+            <p className="mt-1.5 text-xs h-4 text-wot-rose font-medium text-center">
+              {(errors.workingMinutes?.message || errors.workingSeconds?.message) as ReactNode}
             </p>
-
-            <div className="mt-5 font-semibold text-lg">Resting Time</div>
-            <div className="w-full gap-2 flex items-center justify-center">
-              <div className="mt-2 flex justify-center">
-                <input
-                  type="text"
-                  id="restingMinutes"
-                  defaultValue={
-                    timer.restingDuration
-                      ? Math.floor(timer.restingDuration / 60)
-                      : "05"
-                  }
-                  className="w-12 bg-wot-off-white rounded-sm text-xl text-wot-rose border-0 px-2.5 py-1.5 text-center shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-wot-gray focus:outline-none focus:ring-1 focus:ring-inset focus:ring-wot-light-rose"
-                  {...register("restingMinutes", {
-                    required: "You must enter a working duration",
-                    pattern: {
-                      value: /^([0]?[0-9]|[1-5][0-9]|[6]?[0])$/,
-                      message: "Please enter a # of minutes from 0-60",
-                    },
-                  })}
-                />
-              </div>
-              <label
-                htmlFor="restingMinutes"
-                className="block font-normal pt-2 text-xl"
-              >
-                M
-              </label>
-              <div className="mt-2 flex justify-center">
-                <input
-                  type="text"
-                  id="restingSeconds"
-                  defaultValue={
-                    timer.restingDuration ? timer.restingDuration % 60 : "00"
-                  }
-                  className="w-12 bg-wot-off-white rounded-sm text-xl text-wot-rose border-0 px-2.5 py-1.5 text-center shadow-sm ring-1 ring-inset ring-wot-light-gray placeholder:text-wot-gray focus:outline-none focus:ring-1 focus:ring-inset focus:ring-wot-light-rose"
-                  {...register("restingSeconds", {
-                    required: "You must enter a working duration",
-                    pattern: {
-                      value: /^([0]?[0-9]|[1-5][0-9]|[6]?[0])$/,
-                      message: "Please enter a # of seconds from 0-60",
-                    },
-                  })}
-                />
-              </div>
-              <label
-                htmlFor="restingSeconds"
-                className="block font-normal pt-2 text-xl"
-              >
-                S
-              </label>
-            </div>
-            <p className="mt-1 text-sm h-2 text-wot-rose">
-              {
-                (errors.restingMinutes?.message ||
-                  errors.restingSeconds?.message) as ReactNode
-              }
-            </p>
-
-            <div className="mt-4 w-full flex flex-col justify-center">
-              <div className="mb-3 font-semibold text-lg">
-                Transition Cue Volume
-              </div>
-              <VolumeControl />
-            </div>
-
-            <div className="mt-4 w-full flex justify-center">
-              <button
-                type="submit"
-                className="inline-flex w-auto justify-center rounded-3xl bg-wot-rose px-5 py-2 my-4 font-light text-white shadow-sm hover:bg-wot-yellow hover:scale-105 transition-all duration-300"
-              >
-                {timer.restingDuration && timer.workingDuration
-                  ? "Save"
-                  : "Set Timer"}
-              </button>
-            </div>
           </div>
-        </form>
-      </div>
+
+          {/* Resting Time */}
+          <div className="w-full mb-1 mt-4">
+            <div className="text-xs font-semibold uppercase tracking-wider text-wot-gray mb-2">
+              Resting Time
+            </div>
+            <div className="flex items-center justify-center gap-2">
+              <input
+                type="text"
+                inputMode="numeric"
+                id="restingMinutes"
+                defaultValue={
+                  timer.restingDuration
+                    ? String(Math.floor(timer.restingDuration / 60)).padStart(2, "0")
+                    : "05"
+                }
+                className={inputClass}
+                {...rMinRest}
+                ref={rMinRef}
+                onBlur={makePadBlur(rMinBlur)}
+              />
+              <span className="text-wot-rose font-bold text-xl">:</span>
+              <input
+                type="text"
+                inputMode="numeric"
+                id="restingSeconds"
+                defaultValue={
+                  timer.restingDuration
+                    ? String(timer.restingDuration % 60).padStart(2, "0")
+                    : "00"
+                }
+                className={inputClass}
+                {...rSecRest}
+                ref={rSecRef}
+                onBlur={makePadBlur(rSecBlur)}
+              />
+            </div>
+            <div className="flex items-center justify-center gap-2 mt-1">
+              <label htmlFor="restingMinutes" className="w-14 text-center text-xs text-wot-gray font-medium">
+                min
+              </label>
+              <span className="w-[1ch]" />
+              <label htmlFor="restingSeconds" className="w-14 text-center text-xs text-wot-gray font-medium">
+                sec
+              </label>
+            </div>
+            <p className="mt-1.5 text-xs h-4 text-wot-rose font-medium text-center">
+              {(errors.restingMinutes?.message || errors.restingSeconds?.message) as ReactNode}
+            </p>
+          </div>
+
+          {/* Volume */}
+          <div className="mt-4 w-full flex flex-col items-center">
+            <div className="text-xs font-semibold uppercase tracking-wider text-wot-gray mb-3">
+              Transition Cue Volume
+            </div>
+            <VolumeControl />
+          </div>
+
+          <div className="mt-5 w-full flex justify-center">
+            <button
+              type="submit"
+              className="rounded-full bg-wot-rose px-8 py-2.5 font-semibold text-sm text-white shadow-md hover:shadow-lg hover:bg-wot-light-rose transition-all duration-300"
+            >
+              {isEdit ? "Save" : "Set Timer"}
+            </button>
+          </div>
+        </div>
+      </form>
     </div>
   );
 }

@@ -20,13 +20,13 @@ export default function WorkingSession({ project }: { project: Project }) {
   const isLoading = useSelector((state: AppState) => state.isLoading);
   const allProjects = useSelector((state: AppState) => state.projects);
   const workingDuration = useSelector(
-    (state: AppState) => state.workingSession.timer.workingDuration
+    (state: AppState) => state.workingSession.timer.workingDuration,
   );
   const restingDuration = useSelector(
-    (state: AppState) => state.workingSession.timer.restingDuration
+    (state: AppState) => state.workingSession.timer.restingDuration,
   );
   const working = useSelector(
-    (state: AppState) => state.workingSession.working
+    (state: AppState) => state.workingSession.working,
   );
   const [showTimerForm, setShowTimerForm] = useState<boolean>(false);
   const [paused, setPaused] = useState<boolean>(true);
@@ -57,34 +57,32 @@ export default function WorkingSession({ project }: { project: Project }) {
         <div className="text-center flex items-center w-full flex-col px-2">
           <h1
             className={
-              "text-3xl font-bold " +
+              "text-3xl font-black tracking-tight " +
               (working ? "text-wot-rose" : "text-wot-blue")
             }
           >
             {project.name}
           </h1>
-          <h2
+          <span
             className={
-              "font-bold text-3xl mt-1 mb-2 " +
-              (working ? "text-wot-yellow" : "text-wot-light-green")
+              "inline-block mt-2 text-xs font-semibold uppercase tracking-widest px-3 py-1 rounded-full text-white " +
+              (working ? "bg-wot-rose" : "bg-wot-blue")
             }
           >
             {working ? "Working" : "Break"}
-          </h2>
-          <div
+          </span>
+          <button
             className={
-              "self-center mt-2 text-sm px-3 py-1 text-center bg-wot-white border rounded-full hover:cursor-pointer transition " +
-              (working
-                ? "text-wot-rose border-wot-rose hover:text-wot-yellow hover:border-wot-yellow"
-                : "text-wot-blue border-wot-blue hover:text-wot-light-green hover:border-wot-light-green")
+              "mt-3 text-xs font-medium text-wot-gray underline underline-offset-2 hover:cursor-pointer transition " +
+              (working ? "hover:text-wot-rose" : "hover:text-wot-blue")
             }
             onClick={() => setModal(true)}
           >
             Change Project
-          </div>
+          </button>
         </div>
         <div className="w-full flex justify-center items-end gap-4 px-4 mt-8 flex-wrap-reverse">
-          <div className="max-w-md w-full h-fit p-4 bg-white border-wot-light-gray border overflow-visible">
+          <div className="max-w-md w-full h-fit p-5 bg-white border-wot-light-gray border rounded-2xl shadow-md overflow-visible">
             <div className="w-full bg-white flex items-center justify-center gap-2 sticky mb-2 mt-2 text-lg">
               <div className="font-bold">Task List</div>{" "}
               <AddTaskButton projectid={project.id} />
@@ -121,17 +119,15 @@ export default function WorkingSession({ project }: { project: Project }) {
                 />
               )}
               {restingDuration && workingDuration && (
-                <div
+                <button
                   className={
-                    "self-center text-sm px-3 py-1 mb-2 text-center bg-wot-white border rounded-full hover:cursor-pointer transition " +
-                    (working
-                      ? "text-wot-rose border-wot-rose hover:text-wot-yellow hover:border-wot-yellow"
-                      : "text-wot-blue border-wot-blue hover:text-wot-light-green hover:border-wot-light-green")
+                    "self-center text-xs font-medium text-wot-gray underline underline-offset-2 hover:cursor-pointer transition mb-2 " +
+                    (working ? "hover:text-wot-rose" : "hover:text-wot-blue")
                   }
                   onClick={() => setShowTimerForm(true)}
                 >
                   Edit Timer
-                </div>
+                </button>
               )}
             </div>
           )}
@@ -143,8 +139,8 @@ export default function WorkingSession({ project }: { project: Project }) {
           closeFunc={() => setModal(false)}
           backgroundColor="wot-light-gray"
         >
-          <div className="mt-6 mb-6">
-            <h2 className="font-bold text-2xl mb-[-10px] text-wot-rose">
+          <div className="px-2 pt-2 pb-4">
+            <h2 className="font-black tracking-tight text-2xl mb-6 text-wot-rose">
               Select Another Project
             </h2>
             <SessionSelectList

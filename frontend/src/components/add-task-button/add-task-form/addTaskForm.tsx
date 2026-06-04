@@ -24,7 +24,7 @@ export default function AddTaskForm({
         projectid: projectid,
       },
       withCredentials: true,
-      url: `${process.env.baseURI}/tasks/add`,
+      url: `${process.env.NEXT_PUBLIC_BASE_URI}/tasks/add`,
     })
       .then((res) => {
         if (res.status === 200) {

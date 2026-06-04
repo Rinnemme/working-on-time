@@ -14,7 +14,7 @@ export default function TaskList({ projectid }: { projectid: number }) {
   const [showComplete, setShowComplete] = useState<boolean>(false);
   const dispatch = useDispatch();
   const project = useSelector((state: AppState) =>
-    state.projects.find((project) => project.id === projectid)
+    state.projects.find((project) => project.id === projectid),
   ) as Project;
   const tasks = project.tasks;
   const incompleteTasks = project.tasks.filter((task) => !task.complete);
@@ -35,14 +35,14 @@ export default function TaskList({ projectid }: { projectid: number }) {
         swapToId: over.id,
       },
       withCredentials: true,
-      url: `${process.env.baseURI}/tasks/${active.id}/move`,
+      url: `${process.env.NEXT_PUBLIC_BASE_URI}/tasks/${active.id}/move`,
     });
     dispatch(
       moveTask({
         projectid: project.id,
         oldPosition,
         newPosition,
-      })
+      }),
     );
   };
 

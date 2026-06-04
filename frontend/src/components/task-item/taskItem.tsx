@@ -16,7 +16,7 @@ export default function TaskItem({ task }: { task: Task }) {
     axios({
       method: "POST",
       withCredentials: true,
-      url: `${process.env.baseURI}/tasks/${task.id}/toggle`,
+      url: `${process.env.NEXT_PUBLIC_BASE_URI}/tasks/${task.id}/toggle`,
     })
       .then((res) => {
         if (res.status === 200) {
@@ -51,7 +51,7 @@ export default function TaskItem({ task }: { task: Task }) {
       {...attributes}
       style={style}
       className={
-        "border border-wot-light-gray w-full rounded-sm relative flex py-4 px-1 items-center " +
+        "border border-wot-light-gray w-full rounded-lg shadow-sm relative flex py-3.5 px-1 items-center " +
         (task.complete
           ? "bg-wot-lighter-gray text-wot-gray line-through"
           : " bg-white")
