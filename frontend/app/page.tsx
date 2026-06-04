@@ -17,7 +17,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-to-t from-black opacity-20 pointer-events-none" />
         <div className="relative z-10 max-w-xl">
           <div className="text-center flex flex-col px-2">
-            <span className="inline-block mx-auto mb-4 text-xs font-semibold uppercase tracking-widest bg-white text-wot-rose px-3 py-1 rounded-full shadow-sm">
+            <span className="inline-block mx-auto mb-6 text-xs font-semibold uppercase tracking-widest bg-white text-wot-rose px-3 py-1 rounded-full shadow-sm">
               Pomodoro-based project management
             </span>
             <h1 className="text-4xl font-black tracking-tight leading-tight text-white sm:text-6xl">

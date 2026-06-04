@@ -73,7 +73,7 @@ export default function SignupForm({
           Sign Up
         </h3>
 
-        <div className="w-80 mt-4">
+        <div className="w-64 mt-4">
           <label htmlFor="username" className={labelClass}>
             Username
           </label>
@@ -101,7 +101,7 @@ export default function SignupForm({
           <p className={errorClass}>{errors.username?.message as ReactNode}</p>
         </div>
 
-        <div className="w-80 mt-3">
+        <div className="w-64 mt-3">
           <label htmlFor="nickname" className={labelClass}>
             Nickname
           </label>
@@ -125,7 +125,7 @@ export default function SignupForm({
           <p className={errorClass}>{errors.nickname?.message as ReactNode}</p>
         </div>
 
-        <div className="w-80 mt-3">
+        <div className="w-64 mt-3">
           <label htmlFor="password" className={labelClass}>
             Password
           </label>
@@ -153,7 +153,7 @@ export default function SignupForm({
           <p className={errorClass}>{errors.password?.message as ReactNode}</p>
         </div>
 
-        <div className="w-80 mt-3">
+        <div className="w-64 mt-3">
           <label htmlFor="password-confirm" className={labelClass}>
             Confirm Password
           </label>

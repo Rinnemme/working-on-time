@@ -62,7 +62,7 @@ export default function LoginForm({
           Log In
         </h3>
 
-        <div className="w-80 mt-4">
+        <div className="w-64 mt-4">
           <label
             htmlFor="name"
             className="block text-sm font-medium leading-6 text-wot-black mb-1.5"
@@ -83,7 +83,7 @@ export default function LoginForm({
           </p>
         </div>
 
-        <div className="w-80 mt-3">
+        <div className="w-64 mt-3">
           <label
             htmlFor="password"
             className="block text-sm font-medium leading-6 text-wot-black mb-1.5"
