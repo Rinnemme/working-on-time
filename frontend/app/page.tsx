@@ -93,21 +93,21 @@ export default function Home() {
       <div className="relative flex items-center justify-center h-fit py-28 min-h-72 w-full min-w-80 bg-wot-black">
         <div className="w-full max-w-7xl px-5 md:px-10 lg:px-20">
           <div className="flex flex-col sm:flex-row gap-6 items-center sm:items-stretch sm:justify-between px-2 w-full">
-            <div className="text-center flex flex-col justify-center items-center flex-1 bg-white bg-opacity-5 border border-white border-opacity-10 rounded-2xl p-8">
+            <div className="text-center flex w-full flex-col justify-center items-center flex-1 bg-white bg-opacity-5 border border-white border-opacity-10 rounded-2xl p-8">
               <Image
                 className="w-14 mb-4 hover:cursor-pointer"
                 src={FooterLogo}
                 alt="A person working at a computer"
               ></Image>
-              <h1 className="text-base font-semibold text-nowrap text-white">
+              <h1 className="text-base font-semibold text-wrap text-white">
                 <span>Created by Emmett Herrick</span>
               </h1>
-              <p className="mt-3 text-sm w-full text-wot-gray font-light leading-relaxed">
+              <p className="mt-3 text-sm text-wot-gray font-light leading-relaxed">
                 A simple portfolio app that is also legitimately useful!
               </p>
             </div>
 
-            <div className="text-center flex flex-col justify-center items-center flex-1 bg-white bg-opacity-5 border border-white border-opacity-10 rounded-2xl p-8">
+            <div className="text-center flex w-full flex-col justify-center items-center flex-1 bg-white bg-opacity-5 border border-white border-opacity-10 rounded-2xl p-8">
               <Image
                 className="w-14 mb-4 hover:cursor-pointer"
                 src={FooterGitHub}
@@ -123,7 +123,7 @@ export default function Home() {
               </button>
             </div>
 
-            <div className="text-center flex flex-col justify-center items-center flex-1 bg-white bg-opacity-5 border border-white border-opacity-10 rounded-2xl p-8">
+            <div className="text-center flex w-full flex-col justify-center items-center flex-1 bg-white bg-opacity-5 border border-white border-opacity-10 rounded-2xl p-8">
               <Image
                 className="w-14 mb-4 hover:cursor-pointer"
                 src={FooterLinkedIn}
