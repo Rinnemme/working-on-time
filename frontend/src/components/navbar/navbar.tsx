@@ -66,7 +66,10 @@ export default function Navbar() {
 
   return (
     <>
-      <Disclosure as="nav" className="bg-white z-10 shadow-sm sticky top-0 border-b border-wot-lighter-gray">
+      <Disclosure
+        as="nav"
+        className="bg-white z-10 shadow-sm sticky top-0 border-b border-wot-lighter-gray"
+      >
         <>
           <div className="mx-auto  px-4">
             <div className="flex h-14 justify-between">
@@ -237,7 +240,7 @@ export default function Navbar() {
                   <Link
                     href="/working-session"
                     className={
-                      "rounded-md px-3 py-2 text-sm font-medium hover:cursor-pointer " +
+                      "rounded-md px-3 py-2 font-medium hover:cursor-pointer " +
                       (path === "/working-session"
                         ? "text-wot-rose"
                         : "text-wot-black hover:text-wot-yellow transition-all duration-200  hover:bg-slate-100")
