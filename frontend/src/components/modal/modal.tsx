@@ -22,13 +22,13 @@ export default function Modal({
         <div className="flex min-h-full min-w-96 content-center justify-center p-4 text-center items-center sm:p-0">
           <DialogPanel
             transition
-            className="flex flex-col relative content-center rounded-2xl bg-white px-5 py-4 max-w-xl max-h-[90dvh] overflow-auto my-12"
+            className="flex flex-col relative rounded-2xl bg-white max-w-xl max-h-[90dvh] overflow-hidden my-12 w-full"
           >
-            <div className="sticky top-0">
+            <div className="flex-shrink-0 relative h-10 bg-white z-20">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
-                className="absolute top-0 right-0 size-6 fill-slate-300 transition-all duration-300 hover:cursor-pointer hover:fill-wot-rose"
+                className="absolute top-2 right-3 size-6 fill-slate-300 transition-all duration-300 hover:cursor-pointer hover:fill-wot-rose"
                 onClick={closeFunc}
               >
                 <path
@@ -39,7 +39,10 @@ export default function Modal({
                 />
               </svg>
             </div>
-            {children}
+
+            <div className="absolute top-10 left-0 right-0 h-6 bg-gradient-to-b from-white to-transparent z-10 pointer-events-none" />
+
+            <div className="overflow-y-auto flex-1 px-5 pb-5">{children}</div>
           </DialogPanel>
         </div>
       </div>
