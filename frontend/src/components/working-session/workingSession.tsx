@@ -105,6 +105,7 @@ export default function WorkingSession({ project }: { project: Project }) {
                   duration={workingDuration}
                   working={working}
                   paused={paused}
+                  onEditTimer={() => setShowTimerForm(true)}
                 />
               )}
               {!working && restingDuration && (
@@ -116,18 +117,8 @@ export default function WorkingSession({ project }: { project: Project }) {
                   duration={restingDuration}
                   working={working}
                   paused={paused}
+                  onEditTimer={() => setShowTimerForm(true)}
                 />
-              )}
-              {restingDuration && workingDuration && (
-                <button
-                  className={
-                    "self-center text-xs font-medium text-wot-gray underline underline-offset-2 hover:cursor-pointer transition mb-2 " +
-                    (working ? "hover:text-wot-rose" : "hover:text-wot-blue")
-                  }
-                  onClick={() => setShowTimerForm(true)}
-                >
-                  Edit Timer
-                </button>
               )}
             </div>
           )}
