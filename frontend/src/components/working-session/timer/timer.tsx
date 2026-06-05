@@ -20,6 +20,7 @@ export default function Timer({
   duration,
   working,
   paused,
+  onEditTimer,
 }: {
   toggleWorking: () => void;
   togglePaused: () => void;
@@ -28,6 +29,7 @@ export default function Timer({
   duration: number;
   working: boolean;
   paused: boolean;
+  onEditTimer: () => void;
 }) {
   const dispatch = useDispatch();
   const volume = useSelector((state: AppState) => state.volume);
@@ -101,7 +103,7 @@ export default function Timer({
       </div>
 
       {/* Controls: reset — play/pause — skip */}
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-4 mb-1">
         <button
           onClick={reset}
           className="w-10 h-10 rounded-full bg-wot-lighter-gray flex items-center justify-center shadow-sm hover:shadow-md hover:cursor-pointer active:scale-95 transition"
@@ -146,6 +148,15 @@ export default function Timer({
           />
         </button>
       </div>
+      <button
+        onClick={onEditTimer}
+        className={
+          "text-xs font-medium text-wot-gray underline underline-offset-2 transition " +
+          (working ? "hover:text-wot-rose" : "hover:text-wot-blue")
+        }
+      >
+        Edit Timer
+      </button>
     </div>
   );
 }

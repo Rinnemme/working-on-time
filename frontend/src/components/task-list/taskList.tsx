@@ -47,16 +47,7 @@ export default function TaskList({ projectid }: { projectid: number }) {
   };
 
   return (
-    <div className="w-full flex flex-col gap-6 items-center max-w-xl">
-      {+project.completedTasks > 0 && (
-        <div
-          className="italic hover:text-wot-rose text-center hover:cursor-pointer"
-          onClick={() => setShowComplete(!showComplete)}
-        >
-          {showComplete ? "Hide completed tasks" : "Show completed tasks"}
-        </div>
-      )}
-      {completedTasks === 0 && <div></div>} {/* spacer  */}
+    <div className="w-full flex flex-col gap-3 items-center max-w-xl">
       {tasks.length === 0 && <NoTasks projectid={project.id} />}
       {completedTasks === +project.totalTasks && +project.totalTasks > 0 && (
         <AllTasksDone projectid={project.id} />
@@ -64,15 +55,23 @@ export default function TaskList({ projectid }: { projectid: number }) {
       <DndContext onDragEnd={handleDragEnd}>
         <SortableContext items={showComplete ? tasks : incompleteTasks}>
           {!showComplete &&
-            incompleteTasks.map((task) => {
-              return <TaskItem task={task} key={task.id} />;
-            })}
+            incompleteTasks.map((task) => (
+              <TaskItem task={task} key={task.id} />
+            ))}
           {showComplete &&
-            tasks.map((task) => {
-              return <TaskItem task={task} key={task.id} />;
-            })}
+            tasks.map((task) => (
+              <TaskItem task={task} key={task.id} />
+            ))}
         </SortableContext>
       </DndContext>
+      {+project.completedTasks > 0 && (
+        <button
+          className="mt-1 text-xs font-medium text-wot-gray underline underline-offset-2 transition hover:text-wot-rose"
+          onClick={() => setShowComplete(!showComplete)}
+        >
+          {showComplete ? "Hide completed tasks" : "Show completed tasks"}
+        </button>
+      )}
     </div>
   );
 }
