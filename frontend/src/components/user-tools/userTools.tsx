@@ -30,7 +30,7 @@ export default function UserTools() {
           onMouseLeave={() => setDropdown(false)}
         >
           <div
-            className="text-nowrap text-end text-wot-black hover:cursor-pointer hover:text-wot-rose"
+            className="text-nowrap text-end text-sm text-wot-black hover:cursor-pointer hover:text-wot-rose"
             onClick={() => setModal("Logout")}
           >
             Log out
