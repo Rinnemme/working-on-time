@@ -1,5 +1,5 @@
 import Image from "next/image";
-import ProjectScreen from "../../public/screenshots.png";
+import ProjectScreen from "../../public/screenshots.svg";
 import Timers from "../../public/timers.svg";
 import WorkingSession from "../../public/working-session.svg";
 
