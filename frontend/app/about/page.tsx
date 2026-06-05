@@ -1,11 +1,19 @@
+"use client";
+import { useState } from "react";
 import Image from "next/image";
 import ProjectScreen from "../../public/screenshots.svg";
 import Timers from "../../public/timers.svg";
 import WorkingSession from "../../public/working-session.svg";
 
 export default function About() {
+  const [loaded, setLoaded] = useState(false);
+
   return (
-    <div className="w-full flex items-center gap-0 flex-col">
+    <div
+      className={`w-full flex items-center gap-0 flex-col transition-opacity duration-700 ${
+        loaded ? "opacity-100" : "opacity-0"
+      }`}
+    >
       <div className="min-h-96 flex flex-wrap items-center justify-center w-full gap-12 max-w-6xl text-4xl text-wot-rose px-8 sm:px-16 py-20">
         <div className="w-[30rem]">
           <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-wot-rose">
@@ -29,14 +37,16 @@ export default function About() {
             height={420}
             alt="Project screenshot"
             src={ProjectScreen}
-            loading="eager"
+            priority
+            onLoad={() => setLoaded(true)}
+            onError={() => setLoaded(true)}
           />
         </div>
       </div>
 
       <div className="min-h-96 flex flex-wrap-reverse w-full items-center justify-center max-w-6xl gap-12 bg-wot-off-white px-8 sm:px-16 py-20">
         <div className="flex-1 min-w-80 max-w-[35rem]">
-          <Image height={420} alt="Project screenshot" src={Timers} />
+          <Image height={420} alt="Project screenshot" src={Timers} loading="eager" />
         </div>
         <div className="w-[30rem]">
           <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-wot-rose">
@@ -73,7 +83,7 @@ export default function About() {
           </p>
         </div>
         <div className="flex-1 min-w-80 max-w-[35rem]">
-          <Image height={420} alt="Project screenshot" src={WorkingSession} />
+          <Image height={420} alt="Project screenshot" src={WorkingSession} loading="eager" />
         </div>
       </div>
     </div>
