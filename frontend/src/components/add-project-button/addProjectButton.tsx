@@ -15,7 +15,7 @@ export default function AddProjectButton() {
       {modal && (
         <Modal
           closeFunc={() => setModal(false)}
-          backgroundColor="wot-light-yellow"
+          backgroundColor="bg-wot-light-yellow"
         >
           <AddProjectForm closeFunc={() => setModal(false)} />
         </Modal>

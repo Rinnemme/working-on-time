@@ -9,14 +9,14 @@ type ModalProps = {
 
 export default function Modal({
   children,
-  backgroundColor = "wot-rose",
+  backgroundColor = "bg-wot-rose",
   closeFunc,
 }: ModalProps) {
   return (
     <Dialog className="relative z-10" open={true} onClose={closeFunc}>
       <DialogBackdrop
         transition
-        className={`fixed inset-0 bg-opacity-75 bg-${backgroundColor}`}
+        className={`fixed inset-0 bg-opacity-75 ${backgroundColor}`}
       />
       <div className="fixed inset-0 z-10 w-screen max-h-dvh flex justify-center">
         <div className="flex min-h-full min-w-96 content-center justify-center p-4 text-center items-center sm:p-0">

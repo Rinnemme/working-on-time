@@ -128,7 +128,7 @@ export default function WorkingSession({ project }: { project: Project }) {
       {modal && (
         <Modal
           closeFunc={() => setModal(false)}
-          backgroundColor="wot-light-gray"
+          backgroundColor="bg-wot-light-gray"
         >
           <div className="px-2 pt-2 pb-4">
             <h2 className="font-black tracking-tight text-2xl mb-6 text-wot-rose">

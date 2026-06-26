@@ -298,7 +298,7 @@ export default function Navbar() {
       {modal && (
         <Modal
           closeFunc={() => setModal(null)}
-          backgroundColor={modal === "SignUp" ? "wot-blue" : "wot-rose"}
+          backgroundColor={modal === "SignUp" ? "bg-wot-blue" : "bg-wot-rose"}
         >
           {modal === "Login" && (
             <LoginForm

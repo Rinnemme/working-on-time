@@ -20,7 +20,7 @@ export default function NoTasks({ projectid }: { projectid: number }) {
       {modal && (
         <Modal
           closeFunc={() => setModal(false)}
-          backgroundColor="wot-light-yellow"
+          backgroundColor="bg-wot-light-yellow"
         >
           <AddTaskForm
             projectid={projectid}

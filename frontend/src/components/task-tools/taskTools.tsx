@@ -47,7 +47,7 @@ export default function TaskTools({ task }: { task: Task }) {
         </div>
       )}
       {modal === "Edit" && (
-        <Modal closeFunc={() => setModal(null)} backgroundColor="wot-blue">
+        <Modal closeFunc={() => setModal(null)} backgroundColor="bg-wot-blue">
           <TaskEditForm closeFunc={() => setModal(null)} task={task} />
         </Modal>
       )}
@@ -62,7 +62,7 @@ export default function TaskTools({ task }: { task: Task }) {
       {modal === "Details" && (
         <Modal
           closeFunc={() => setModal(null)}
-          backgroundColor="wot-light-gray"
+          backgroundColor="bg-wot-light-gray"
         >
           <TaskDetails task={task} />
         </Modal>
