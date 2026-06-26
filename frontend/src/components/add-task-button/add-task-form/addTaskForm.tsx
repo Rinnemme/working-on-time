@@ -27,11 +27,9 @@ export default function AddTaskForm({
       url: `${process.env.NEXT_PUBLIC_BASE_URI}/tasks/add`,
     })
       .then((res) => {
-        if (res.status === 200) {
-          dispatch(addTask(res.data[0]));
-          dispatch(setToast({ error: false, message: "Task added!" }));
-          closeFunc();
-        }
+        dispatch(addTask(res.data[0]));
+        dispatch(setToast({ error: false, message: "Task added!" }));
+        closeFunc();
       })
       .catch((err) => {
         dispatch(setToast({ error: true, message: "Something went wrong." }));

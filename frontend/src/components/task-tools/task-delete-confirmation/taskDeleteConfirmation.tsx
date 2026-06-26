@@ -16,12 +16,10 @@ export default function TaskDeleteConfirmation({
       withCredentials: true,
       url: `${process.env.NEXT_PUBLIC_BASE_URI}/tasks/${task.id}/delete`,
     })
-      .then((res) => {
-        if (res.status === 200) {
-          dispatch(deleteTask(task));
-          dispatch(setToast({ error: false, message: "Task deleted!" }));
-          closeFunc();
-        }
+      .then(() => {
+        dispatch(deleteTask(task));
+        dispatch(setToast({ error: false, message: "Task deleted!" }));
+        closeFunc();
       })
       .catch((err) => {
         dispatch(setToast({ error: true, message: "Something went wrong." }));

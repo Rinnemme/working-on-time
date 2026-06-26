@@ -28,17 +28,15 @@ export default function LoginForm({
       url: `${process.env.NEXT_PUBLIC_BASE_URI}/auth/log-in`,
     })
       .then((res) => {
-        if (res.status === 200) {
-          dispatch(
-            setUser({
-              id: res.data.id,
-              username: res.data.username,
-              nickname: res.data.nickname,
-            }),
-          );
-          dispatch(setToast({ error: false, message: "Login successful!" }));
-          successFunc();
-        }
+        dispatch(
+          setUser({
+            id: res.data.id,
+            username: res.data.username,
+            nickname: res.data.nickname,
+          }),
+        );
+        dispatch(setToast({ error: false, message: "Login successful!" }));
+        successFunc();
       })
       .catch((err) => {
         if (err.status === 401) {

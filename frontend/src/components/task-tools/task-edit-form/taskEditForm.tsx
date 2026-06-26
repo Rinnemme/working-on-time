@@ -31,17 +31,15 @@ export default function TaskEditForm({
       url: `${process.env.NEXT_PUBLIC_BASE_URI}/tasks/${task.id}/edit`,
     })
       .then((res) => {
-        if (res.status === 200) {
-          dispatch(
-            updateTask({
-              ...task,
-              name: data.taskName,
-              description: data.description,
-            }),
-          );
-          dispatch(setToast({ error: false, message: "Changes saved!" }));
-          closeFunc();
-        }
+        dispatch(
+          updateTask({
+            ...task,
+            name: data.taskName,
+            description: data.description,
+          }),
+        );
+        dispatch(setToast({ error: false, message: "Changes saved!" }));
+        closeFunc();
       })
       .catch((err) => {
         dispatch(setToast({ error: true, message: "Something went wrong." }));

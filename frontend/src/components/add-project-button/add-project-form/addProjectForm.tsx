@@ -26,19 +26,17 @@ export default function AddProjectForm({
       withCredentials: true,
       url: `${process.env.NEXT_PUBLIC_BASE_URI}/my-projects/add`,
     })
-      .then(async (res) => {
-        if (res.status === 200) {
-          await dispatch(
-            addProject({
-              ...res.data[0],
-              totalTasks: "0",
-              completedTasks: "0",
-              tasks: [],
-            }),
-          );
-          dispatch(setToast({ error: false, message: "Project added!" }));
-          closeFunc();
-        }
+      .then((res) => {
+        dispatch(
+          addProject({
+            ...res.data[0],
+            totalTasks: "0",
+            completedTasks: "0",
+            tasks: [],
+          }),
+        );
+        dispatch(setToast({ error: false, message: "Project added!" }));
+        closeFunc();
       })
       .catch((err) => {
         dispatch(setToast({ error: true, message: "Something went wrong." }));

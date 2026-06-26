@@ -19,15 +19,13 @@ export default function ProjectDeleteConfirmation({
       withCredentials: true,
       url: `${process.env.NEXT_PUBLIC_BASE_URI}/my-projects/${project.id}/delete`,
     })
-      .then((res) => {
-        if (res.status === 200) {
-          dispatch(deleteProject(project));
-          dispatch(setToast({ error: false, message: "Project deleted!" }));
-          if (path.includes(`projects/${project.id}`)) {
-            router.push("/projects");
-          }
-          closeFunc();
+      .then(() => {
+        dispatch(deleteProject(project));
+        dispatch(setToast({ error: false, message: "Project deleted!" }));
+        if (path.includes(`projects/${project.id}`)) {
+          router.push("/projects");
         }
+        closeFunc();
       })
       .catch((err) => {
         dispatch(setToast({ error: true, message: "Something went wrong." }));

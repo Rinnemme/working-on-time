@@ -19,12 +19,10 @@ export default function TaskItem({ task }: { task: Task }) {
       url: `${process.env.NEXT_PUBLIC_BASE_URI}/tasks/${task.id}/toggle`,
     })
       .then((res) => {
-        if (res.status === 200) {
-          if (!task.complete) {
-            dispatch(setToast({ error: false, message: "Task completed!" }));
-          }
-          dispatch(toggleTaskCompletion(task));
+        if (!task.complete) {
+          dispatch(setToast({ error: false, message: "Task completed!" }));
         }
+        dispatch(toggleTaskCompletion(task));
       })
       .catch((err) => {
         dispatch(setToast({ error: true, message: "Something went wrong." }));

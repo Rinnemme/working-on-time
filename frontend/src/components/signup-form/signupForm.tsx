@@ -31,13 +31,11 @@ export default function SignupForm({
       },
       url: `${process.env.NEXT_PUBLIC_BASE_URI}/auth/sign-up`,
     })
-      .then((res) => {
-        if (res.status === 200) {
-          dispatch(
-            setToast({ error: false, message: "Signed up successfully!" }),
-          );
-          successFunc();
-        }
+      .then(() => {
+        dispatch(
+          setToast({ error: false, message: "Signed up successfully!" }),
+        );
+        successFunc();
       })
       .catch((err) => {
         if (

@@ -35,13 +35,11 @@ export default function LogoutConfirmation({
       url: `${process.env.NEXT_PUBLIC_BASE_URI}/auth/logout`,
     })
       .then((res) => {
-        if (res.status === 200) {
-          router.push("/");
-          resetLocalStorage();
-          dispatch(setToast({ error: false, message: "You have logged out" }));
-          closeFunc();
-          resetStore();
-        }
+        router.push("/");
+        resetLocalStorage();
+        dispatch(setToast({ error: false, message: "You have logged out" }));
+        closeFunc();
+        resetStore();
       })
       .catch((err) => {
         dispatch(setToast({ error: true, message: "Something went wrong." }));

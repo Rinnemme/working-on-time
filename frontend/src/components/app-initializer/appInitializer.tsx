@@ -28,9 +28,7 @@ export default function AppInitializer() {
       url: `${process.env.NEXT_PUBLIC_BASE_URI}/my-projects`,
     })
       .then((res) => {
-        if (res.status === 200) {
-          dispatch(setProjects(res.data.projects));
-        }
+        dispatch(setProjects(res.data.projects));
       })
       .catch(() => {
         dispatch(
